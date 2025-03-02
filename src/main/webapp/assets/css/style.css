@@ -1,0 +1,132 @@
+/* Định dạng chung */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-size: 62.5%;
+  font-family: "Abel", serif;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar (Thanh điều hướng ngang) */
+#sidebar {
+  background: #000;
+  color: white;
+  padding: 10px 20px;
+  width: 100vw;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo img {
+  margin-left: 50px;
+  width: 100px;
+  height: 70px;
+}
+
+/* Menu chính */
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin-left: auto;
+}
+
+.nav-links li {
+  padding: 0 15px;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.9rem;
+  margin: 10px;
+  transition: 0.3s;
+  font-family: "Abel", serif;
+}
+
+.nav-links li a:hover {
+  color: red;
+}
+
+/* Nút menu (3 gạch) */
+.menu-icon {
+  position: relative;
+}
+
+.menu-icon button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2.2rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-left: 50px;
+}
+
+/* Dropdown menu */
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: #222;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  min-width: 120px;
+  z-index: 100;
+}
+
+.menu-dropdown a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  font-size: 1.8rem;
+  padding: 5px 10px;
+}
+
+.menu-dropdown a:hover {
+  background: red;
+}
+
+/* Hiển thị dropdown khi click */
+.menu-icon.active .menu-dropdown {
+  display: block;
+}
+
+/* Nội dung chính */
+.content-frame {
+  width: 100vw;
+  height: calc(100vh - 60px);
+  margin-top: 60px;
+  border: none;
+}
+@media (max-width: 768px) {
+  .nav-links li {
+    padding: 0px 5px;
+  }
+  .nav-links li a {
+    font-size: 1.6rem;
+    margin: 0px;
+  }
+
+  .menu-icon button {
+    margin: 5px;
+  }
+  .logo img {
+    margin-left: -10px;
+  }
+}

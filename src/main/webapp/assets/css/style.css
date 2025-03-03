@@ -1,132 +1,103 @@
-/* Định dạng chung */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*{
+    margin: 0;
+    padding: 0;
 
-html,
+}
+.meta{
+    
+    width: 100vw;
+    height: 40vh;
+    background-color:#004B40;
+    padding: 40px;
+    display:  flex;
+    justify-content: space-between; 
+    gap: 20px;
+    
+}
+.one{
+    width: 20vw;
+    height: 60vh;
+    background-image: url(https://i.ex-cdn.com/vntravellive.com/files/f1/uploaded/images/photo_news/800x800/news_20160313082455/cuonbongruouHaNoi.JPG_0.JPG );
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.two{
+    width: 20vw;
+    height: 60vh;
+    background-image: url(https://gofoodmarket.vn/wp-content/uploads/2023/12/vit-quay-bac-kinh.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+}
+.three{
+    width: 20vw;
+    height: 60vh;
+    background-image: url(https://statics.vincom.com.vn/xu-huong/cac-mon-an-nha-hang-5-sao/mon-thit-ca.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.four{
+    width: 20vw;
+    height: 60vh;
+    background-image: url(https://haisantuoisonghanoi.vn/wp-content/uploads/2020/01/tom-hum-alaska-hai-san-tuoi-song-ha-noi-9.jpg);
+    background-size: contain;
+    background-repeat:  no-repeat;
+
+
+}
 body {
-  font-size: 62.5%;
-  font-family: "Abel", serif;
-  height: 100vh;
-  width: 100vw;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
+
+    font-family: Arial;
+    
+    color: white;
 }
 
-/* Sidebar (Thanh điều hướng ngang) */
-#sidebar {
-  background: #000;
-  color: white;
-  padding: 10px 20px;
-  width: 100vw;
-  height: 70px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.contact-section {
+    background-color: #111;
+    padding: 40px;
+    text-align: center;
+    width: 100vw;
+    height: 60vh;
 }
 
-/* Logo */
-.logo img {
-  margin-left: 50px;
-  width: 100px;
-  height: 70px;
+.title {
+    color: red;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
-/* Menu chính */
-.nav-links {
-  list-style: none;
-  display: flex;
-  margin-left: auto;
+.contact-title {
+    font-size: 28px;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
 }
 
-.nav-links li {
-  padding: 0 15px;
+
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
-.nav-links li a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.9rem;
-  margin: 10px;
-  transition: 0.3s;
-  font-family: "Abel", serif;
+.info {
+    width: 30%;
+    min-width: 200px;
+    padding: 20px;
+    text-align: center;
 }
 
-.nav-links li a:hover {
-  color: red;
+h3 {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
-/* Nút menu (3 gạch) */
-.menu-icon {
-  position: relative;
-}
-
-.menu-icon button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 2.2rem;
-  cursor: pointer;
-  padding: 5px 10px;
-  margin-left: 50px;
-}
-
-/* Dropdown menu */
-.menu-dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  background: #222;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  min-width: 120px;
-  z-index: 100;
-}
-
-.menu-dropdown a {
-  display: block;
-  text-decoration: none;
-  color: white;
-  font-size: 1.8rem;
-  padding: 5px 10px;
-}
-
-.menu-dropdown a:hover {
-  background: red;
-}
-
-/* Hiển thị dropdown khi click */
-.menu-icon.active .menu-dropdown {
-  display: block;
-}
-
-/* Nội dung chính */
-.content-frame {
-  width: 100vw;
-  height: calc(100vh - 60px);
-  margin-top: 60px;
-  border: none;
-}
-@media (max-width: 768px) {
-  .nav-links li {
-    padding: 0px 5px;
-  }
-  .nav-links li a {
-    font-size: 1.6rem;
-    margin: 0px;
-  }
-
-  .menu-icon button {
-    margin: 5px;
-  }
-  .logo img {
-    margin-left: -10px;
-  }
-}
+.hotline {
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+}  

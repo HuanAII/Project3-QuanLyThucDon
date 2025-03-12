@@ -1,61 +1,101 @@
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../assets/css/reset.css" />
-    <link rel="stylesheet" href="../assets/css/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Abel&family=Roboto:ital,wght@0,100..900;1,100..900&family=Sofia+Sans+Semi+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap"
-      rel="stylesheet"
-    />
-    <title>Quản lý thực đơn</title>
-  </head>
-  <body>
-    <nav id="sidebar">
-      <div class="logo">
-        <a href="#" onclick="loadPage('home')" title="Trang chủ">
-          <img src="../assets/images/logo.png" alt="Logo" />
-        </a>
-      </div>
-      <ul class="nav-links">
-        <li>
-          <a href="#" onclick="loadPage('home')" title="Trang chủ">Trang chủ</a>
-        </li>
-        <li>
-          <a href="#" onclick="loadPage('about')" title="Giới thiệu"
-            >Giới thiệu</a
-          >
-        </li>
-        <li>
-          <a href="#" onclick="loadPage('menu')" title="Thực đơn">Thực đơn</a>
-        </li>
-        <li>
-          <a href="#" onclick="loadPage('order')" title="Đặt bàn">Đặt bàn</a>
-        </li>
-        <li>
-          <a href="#" onclick="loadPage('contact')" title="Liên hệ">Liên hệ</a>
-        </li>
-      </ul>
-
-      <div class="menu-icon">
-        <button id="menuBtn" aria-label="Mở menu">☰</button>
-        <div class="menu-dropdown">
-          <a href="#" onclick="loadPage('login')" title="Đăng nhập"
-            >Đăng nhập</a
-          >
-          <a href="#" onclick="loadPage('register')" title="Đăng ký">Đăng ký</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ant Bistro - Nhà hàng Ant Bistro</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="../assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
+            <div class="logo-text">ANT BISTRO</div>
         </div>
-      </div>
+        <div class="notification-icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+    <nav class="horizontal-nav">
+        <div class="nav-item">TRANG CHỦ</div>
+        <div class="nav-item">GIỚI THIỆU</div>
+        <div class="nav-item expandable">SẢN PHẨM</div>
+        <div class="nav-item">LIÊN HỆ</div>
+        <div class="nav-item">HỆ THỐNG CỬA HÀNG</div>
+        <div class="nav-item">ĐẶT BÀN</div>
+        <div class="nav-item">SẢN PHẨM YÊU THÍCH (0)</div>
     </nav>
-
-    <iframe
-      class="content-frame"
-      id="contentFrame"
-      src="./home.html"
-      title="Nội dung chính"
-    ></iframe>
-
-    <script src="../assets/js/index.js" defer></script>
-  </body>
+    
+    <main class="main-content">
+        <div class="slider-container">
+            <div class="slide active">
+                <img src="../assets/img/bg-1.jpeg" alt="Sushi Dish" class="hero-image">
+            </div>
+            <div class="slide">
+                <img src="../assets/img/bg-2.jpg" alt="Japanese Cuisine" class="hero-image">
+            </div>
+            <div class="slide">
+                <img src="../assets/img/bg-3.jpeg" alt="Chef Special" class="hero-image">
+            </div>
+            <div class="slide">
+                <img src="../assets/img/bg-4.jpg" alt="Restaurant Interior" class="hero-image">
+            </div>
+            
+            <!-- Slide Navigation -->
+            <div class="slide-arrow prev">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="slide-arrow next">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            
+            <div class="slide-nav">
+                <div class="slide-dot active" data-index="0"></div>
+                <div class="slide-dot" data-index="1"></div>
+                <div class="slide-dot" data-index="2"></div>
+                <div class="slide-dot" data-index="3"></div>
+            </div>
+            
+            <div class="overlay">
+                <div class="overlay-logo">
+                    <i class="fas fa-utensils" style="font-size: 28px; color: #ff1236;"></i>
+                </div>
+                <div class="overlay-title">ANT BISTRO</div>
+                <h1 class="restaurant-name">Nhà hàng Ant Bistro</h1>
+                <button class="about-btn">VỀ CHÚNG TÔI</button>
+                
+                <!-- Footer -->
+                <div class="footer">
+                    © Bản quyền thuộc về Kiến Vàng | Cung cấp bởi Sapo
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-icon">
+            <i class="fab fa-facebook-messenger"></i>
+        </div>
+    </main>
+    
+    <!-- Bottom Navigation -->
+    <!-- <nav class="bottom-navbar">
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-user"></i></div>
+            <div>Tài khoản</div>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-search"></i></div>
+            <div>Tìm kiếm</div>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-shopping-cart"></i></div>
+            <div>Giỏ hàng</div>
+        </a>
+    </nav> -->
+    <script src="../assets/js/main.js">
+    </script>
+</body>
 </html>

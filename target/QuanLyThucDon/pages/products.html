@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tất Cả Sản Phẩm - Ant Bistro</title>
+    <link rel="stylesheet" href="../assets/css/products.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="../assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
+            <div class="logo-text">ANT BISTRO</div>
+        </div>
+        <div class="notification-icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+    
+    <nav class="horizontal-nav">
+        <div class="nav-item">TRANG CHỦ</div>
+        <div class="nav-item">GIỚI THIỆU</div>
+        <div class="nav-item expandable active">SẢN PHẨM</div>
+        <!-- <div class="nav-item">TIN TỨC</div> -->
+        <div class="nav-item">LIÊN HỆ</div>
+        <!-- <div class="nav-item">HỆ THỐNG CỬA HÀNG</div> -->
+        <div class="nav-item">THỰC ĐƠN</div>
+        <div class="nav-item">ĐẶT BÀN</div>
+        <!-- <div class="nav-item">HƯỚNG DẪN SỬ DỤNG</div> -->
+        <div class="nav-item">SẢN PHẨM YÊU THÍCH (0)</div>
+    </nav>
+    
+    <main>
+        <div class="breadcrumb">
+            <a href="index.html">Trang chủ</a> <span>/</span> Tất cả sản phẩm
+        </div>
+        
+        <!-- Page Title -->
+        <h1 class="page-title">TẤT CẢ SẢN PHẨM</h1>
+        <div class="filter-section">
+            <div class="filter-section">
+                <div class="sort-buttons">
+                    <button class="sort-button active" data-sort="default">Mặc định</button>
+                    <button class="sort-button" data-sort="name-asc">Tên A-Z</button>
+                    <button class="sort-button" data-sort="name-desc">Tên Z-A</button>
+                    <button class="sort-button" data-sort="newest">Hàng mới</button>
+                    <button class="sort-button" data-sort="price-asc">Giá thấp đến cao</button>
+                    <button class="sort-button" data-sort="price-desc">Giá cao xuống thấp</button>
+                </div>
+                
+                <div class="filter-wrapper">
+                    <div class="dropdown-filter" id="filter-toggle">
+                        Lọc <i class="fas fa-filter"></i>
+                    </div>
+                    
+                    <div class="filter-dropdown" id="filter-dropdown">
+                        <!-- Thương hiệu -->
+                        <div class="filter-section">
+                            <div class="filter-header">
+                                <div class="filter-title">Thương hiệu</div>
+                                <div class="filter-toggle">
+                                    <i class="fas fa-minus"></i>
+                                </div>
+                            </div>
+                            <div class="filter-content">
+                                <div class="filter-option">
+                                    <input type="checkbox" id="brand-ant" class="filter-checkbox">
+                                    <label for="brand-ant" class="filter-label">Ant Bistro</label>
+                                    <span class="filter-option-count">(10)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Giá sản phẩm -->
+                        <div class="filter-section">
+                            <div class="filter-header">
+                                <div class="filter-title">Giá sản phẩm</div>
+                                <div class="filter-toggle">
+                                    <i class="fas fa-minus"></i>
+                                </div>
+                            </div>
+                            <div class="filter-content">
+                                <div class="filter-option">
+                                    <input type="checkbox" id="price-1" class="filter-checkbox">
+                                    <label for="price-1" class="filter-label">Giá dưới 100.000đ</label>
+                                    <span class="filter-option-count">(5)</span>
+                                </div>
+                                <div class="filter-option">
+                                    <input type="checkbox" id="price-2" class="filter-checkbox">
+                                    <label for="price-2" class="filter-label">100.000đ - 200.000đ</label>
+                                    <span class="filter-option-count">(8)</span>
+                                </div>
+                                <div class="filter-option">
+                                    <input type="checkbox" id="price-3" class="filter-checkbox">
+                                    <label for="price-3" class="filter-label">200.000đ - 300.000đ</label>
+                                    <span class="filter-option-count">(12)</span>
+                                </div>
+                                <div class="filter-option">
+                                    <input type="checkbox" id="price-4" class="filter-checkbox">
+                                    <label for="price-4" class="filter-label">300.000đ - 500.000đ</label>
+                                    <span class="filter-option-count">(7)</span>
+                                </div>
+                                <div class="filter-option">
+                                    <input type="checkbox" id="price-5" class="filter-checkbox">
+                                    <label for="price-5" class="filter-label price-highlight">500.000đ - 1.000.000đ</label>
+                                    <span class="filter-option-count">(3)</span>
+                                </div>
+                                <div class="filter-option">
+                                    <input type="checkbox" id="price-6" class="filter-checkbox">
+                                    <label for="price-6" class="filter-label">Giá trên 1.000.000đ</label>
+                                    <span class="filter-option-count">(2)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Loại sản phẩm -->
+                        <div class="filter-section">
+                            <div class="filter-header">
+                                <div class="filter-title">Loại sản phẩm</div>
+                                <div class="filter-toggle">
+                                    <i class="fas fa-minus"></i>
+                                </div>
+                            </div>
+                            <div class="filter-content">
+                                <div class="filter-option">
+                                    <input type="checkbox" id="type-buffet" class="filter-checkbox">
+                                    <label for="type-buffet" class="filter-label">Buffet</label>
+                                    <span class="filter-option-count">(15)</span>
+                                </div>
+                                <div class="filter-option">
+                                    <input type="checkbox" id="type-alacarte" class="filter-checkbox">
+                                    <label for="type-alacarte" class="filter-label">À la carte</label>
+                                    <span class="filter-option-count">(8)</span>
+                                </div>
+                                <div class="filter-option">
+                                    <input type="checkbox" id="type-set" class="filter-checkbox">
+                                    <label for="type-set" class="filter-label">Set Menu</label>
+                                    <span class="filter-option-count">(6)</span>
+                                </div>
+                                <div class="filter-option">
+                                    <input type="checkbox" id="type-drink" class="filter-checkbox">
+                                    <label for="type-drink" class="filter-label">Đồ uống</label>
+                                    <span class="filter-option-count">(10)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Products Grid -->
+        <div class="products-container">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="discount-badge">5%</div>
+                <img src="./assets/img/ptr1.png" alt="Buffet Lẩu Nhật Hải Sản" class="product-image">
+                <div class="product-info">
+                    <div class="product-title">Buffet Lẩu Nhật Hải Sản, Bò Mỹ & Dimsum Với 60 Món Nhúng Và 5 Loại Nước Lẩu</div>
+                    <div class="product-price">
+                        <div class="current-price">295.000₫</div>
+                        <div class="original-price">310.000₫</div>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="action-button favorite">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="action-button add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://cdn.pixabay.com/photo/2018/02/08/15/02/meat-3139641_1280.jpg" alt="Buffet Nướng Lẩu Thượng Hạng" class="product-image">
+                <div class="product-info">
+                    <div class="product-title">Buffet Nướng Lẩu Thượng Hạng Nhật Bản Hơn 80 Món</div>
+                    <div class="product-price">
+                        <div class="current-price">299.000₫</div>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="action-button favorite">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="action-button add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="./assets/img/ptr2.jpg" alt="Buffet Trưa Hải Sản" class="product-image">
+                <div class="product-info">
+                    <div class="product-title">Buffet Trưa Hải Sản Thượng Hạng - Bao Gồm thức uống</div>
+                    <div class="product-price">
+                        <div class="current-price">69.000₫</div>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="action-button favorite">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="action-button add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="./assets/img/ptr3.jpg" alt="Buffet Ăn Vặt Tokbokki" class="product-image">
+                <div class="product-info">
+                    <div class="product-title">Buffet Ăn Vặt Tokbokki Cho Tín Đồ Mê Món Ăn Hàn Quốc</div>
+                    <div class="product-price">
+                        <div class="current-price">69.000₫</div>
+                    </div>
+                    <div class="action-buttons">
+                        <div class="action-button favorite">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="action-button add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+
+
+        <!-- mở rộng thêm sản phẩm thì ở đây -->
+        </div>
+        
+        <div class="chat-icon">
+            <i class="fab fa-facebook-messenger"></i>
+        </div>
+    </main>
+    
+    <!-- Bottom Navigation
+    <nav class="bottom-navbar">
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-user"></i></div>
+            <div>Tài khoản</div>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-search"></i></div>
+            <div>Tìm kiếm</div>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-shopping-cart"></i></div>
+            <div>Giỏ hàng</div>
+        </a>
+    </nav> -->
+    
+    <script src="./assets/js/products.js">
+    </script>
+</body>
+</html>

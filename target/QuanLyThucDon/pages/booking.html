@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/booking.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="../assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
+            <div class="logo-text">ANT BISTRO</div>
+        </div>
+        <div class="notification-icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+    <nav class="horizontal-nav">
+        <div class="nav-item">TRANG CHỦ</div>
+        <div class="nav-item">GIỚI THIỆU</div>
+        <div class="nav-item expandable">SẢN PHẨM</div>
+        <!-- <div class="nav-item">TIN TỨC</div> -->
+        <div class="nav-item">LIÊN HỆ</div>
+        <div class="nav-item">HỆ THỐNG CỬA HÀNG</div>
+        <!-- <div class="nav-item">THỰC ĐƠN</div> -->
+        <div class="nav-item active">ĐẶT BÀN</div>
+        <!-- <div class="nav-item">HƯỚNG DẪN SỬ DỤNG</div> -->
+        <div class="nav-item">SẢN PHẨM YÊU THÍCH (0)</div>
+    </nav>
+    <main>
+        <div class="breadcrumb">
+            <a href="index.html">Trang chủ</a> <span>/</span> Đặt bàn
+        </div>
+        
+        <!-- Booking Form Container -->
+        <div class="booking-container">
+            <div class="booking-form">
+                <h1 class="booking-title">ĐẶT CHỖ TRỰC TUYẾN</h1>
+                
+                <form id="booking-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Tên của bạn" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Số điện thoại" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <select class="form-control" required>
+                                <option value="" disabled selected>Số người</option>
+                                <option value="1">1 Người</option>
+                                <option value="2">2 Người</option>
+                                <option value="3">3 Người</option>
+                                <option value="4">4 Người</option>
+                                <option value="5">5 Người</option>
+                                <option value="6">6 Người</option>
+                                <option value="7">7 Người</option>
+                                <option value="8">8 Người</option>
+                                <option value="9">9 Người</option>
+                                <option value="10">10+ Người</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="date" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <input type="time" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea class="form-textarea" placeholder="Tin nhắn" rows="5"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">ĐẶT BÀN</button>
+                </form>
+            </div>
+        </div>
+        
+        
+        <div class="chat-icon">
+            <i class="fab fa-facebook-messenger"></i>
+        </div>
+    </main>
+    
+    
+    <!-- <nav class="bottom-navbar">
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-user"></i></div>
+            <div>Tài khoản</div>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-search"></i></div>
+            <div>Tìm kiếm</div>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <div class="bottom-nav-icon"><i class="fas fa-shopping-cart"></i></div>
+            <div>Giỏ hàng</div>
+        </a>
+    </nav> -->
+    <script src="./assets/js/booking.js"></script>
+</body>
+</html>

@@ -4,9 +4,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static final String URL = "jdbc:mysql://DESKTOP-NC78VN5:3306/pbl3";
-    private static final String USER = "remote_user";
-    private static final String PASSWORD = "your_password";
+    private static final String URL = "jdbc:mysql://LAPTOP-P9VC0FBF:3306/tmppbl3";
+    private static final String USER = "root";
+    private static final String PASSWORD = "123456";
 
     public static Connection getConnection() {
         Connection conn = null;

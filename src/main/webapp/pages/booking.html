@@ -44,11 +44,11 @@
                 <form id="booking-form">
                     <div class="form-grid">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Tên của bạn" required>
+                            <input type="text" class="form-control" id="nameInput" placeholder="Tên của bạn" required>
                         </div>
                         
                         <div class="form-group">
-                            <input type="tel" class="form-control" placeholder="Số điện thoại" required>
+                            <input type="tel" class="form-control" id="sdt" placeholder="Số điện thoại" required>
                         </div>
                     </div>
                     
@@ -70,13 +70,13 @@
                         </div>
                         
                         <div class="form-group">
-                            <input type="date" class="form-control" required>
+                            <input type="date" id ="date" class="form-control" required>
                         </div>
                     </div>
                     
                     <div class="form-grid">
                         <div class="form-group">
-                            <input type="time" class="form-control" required>
+                            <input type="time" id = "time" class="form-control" required>
                         </div>
                         
                         <div class="form-group">
@@ -84,10 +84,10 @@
                     </div>
                     
                     <div class="form-group">
-                        <textarea class="form-textarea" placeholder="Tin nhắn" rows="5"></textarea>
+                        <textarea class="form-textarea" id="message" placeholder="Tin nhắn" rows="5"></textarea>
                     </div>
                     
-                    <button type="submit" class="submit-btn">ĐẶT BÀN</button>
+                    <button type="submit" id="submit" class="submit-btn">ĐẶT BÀN</button>
                 </form>
             </div>
         </div>
@@ -97,22 +97,6 @@
             <i class="fab fa-facebook-messenger"></i>
         </div>
     </main>
-    
-    
-    <!-- <nav class="bottom-navbar">
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-user"></i></div>
-            <div>Tài khoản</div>
-        </a>
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-search"></i></div>
-            <div>Tìm kiếm</div>
-        </a>
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-shopping-cart"></i></div>
-            <div>Giỏ hàng</div>
-        </a>
-    </nav> -->
-    <script src="./assets/js/booking.js"></script>
+    <script src="../assets/js/booking.js"></script>
 </body>
 </html>

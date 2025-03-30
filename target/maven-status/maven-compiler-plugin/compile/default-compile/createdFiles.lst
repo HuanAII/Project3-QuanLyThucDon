@@ -1,2 +1,6 @@
-com\example\database\TestDBConnection.class
-com\example\database\DBConnection.class
+com\example\dao\reservationDAO.class
+com\example\servlets\HomeServlet.class
+com\example\servlets\reservationServlet.class
+com\example\utils\DBConnection.class
+com\example\models\reservation.class
+com\example\models\user.class

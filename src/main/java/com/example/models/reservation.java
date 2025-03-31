@@ -8,6 +8,7 @@ public class reservation {
     private String time;
     private String message;
 
+    public reservation(){}
     public reservation(String name, String phone, int guests, String date, String time, String message){
         this.name= name;
         this.phone=phone;

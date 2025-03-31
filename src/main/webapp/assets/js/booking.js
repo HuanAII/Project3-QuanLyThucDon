@@ -1,10 +1,8 @@
-document.addEventListener("DOMContentLoaded", function() {
-
-    //lay du lieu tu bookingform
+document.addEventListener("DOMContentLoaded", function () {
     const bookingForm = document.getElementById("booking-form");
 
-    bookingForm.addEventListener("submit", function(event) {
-        event.preventDefault(); //ngan trinh duyet tai lai trang
+    bookingForm.addEventListener("submit", function (event) {
+        event.preventDefault(); 
 
         const nameInput = document.getElementById("nameInput");
         const phoneInput = document.getElementById("sdt");
@@ -24,16 +22,32 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+        const formData = {
+            name: nameInput.value.trim(),
+            phone: phoneInput.value.trim(),
+            guests: guests.value,
+            date: dateInput.value,
+            time: time.value,
+            message: messageInput.value.trim()
+        };
+
+        fetch("reservation", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.text()) 
+        .then(data => {
+            console.log("Server Response:", data);
+            alert("Đặt bàn thành công!\n" + data); 
+            bookingForm.reset();
+        })
+        .catch(error => {
+            console.error("Lỗi khi gửi dữ liệu:", error);
+            alert("Có lỗi xảy ra! Vui lòng thử lại.");
+        });
+
         console.log("Đặt bàn thành công với thông tin:");
-        console.log("Tên:", nameInput.value);
-        console.log("Số điện thoại:", phoneInput.value);
-        console.log("Số người:", guests.value);
-        console.log("Ngày:", dateInput.value);
-        console.log("Giờ:", time.value);
-        console.log("Ghi chú:", messageInput.value);
-
-        alert("Dat ban thanh cong");
-
-        bookingForm.reset();
-    });
+        console.log(formData);
+    }); 
 });

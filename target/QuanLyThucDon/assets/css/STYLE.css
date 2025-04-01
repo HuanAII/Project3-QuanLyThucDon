@@ -1,0 +1,103 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+.meta{
+    
+    width: 100vw;
+    height: 40vh;
+    background-color:#004B40;
+    padding: 40px;
+    display:  flex;
+    justify-content: space-between; 
+    gap: 20px;
+    
+}
+.one{
+    width: 20vw;
+    height: 60vh;
+    background-image: url(https://i.ex-cdn.com/vntravellive.com/files/f1/uploaded/images/photo_news/800x800/news_20160313082455/cuonbongruouHaNoi.JPG_0.JPG );
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.two{
+    width: 20vw;
+    height: 60vh;
+    background-image: url(https://gofoodmarket.vn/wp-content/uploads/2023/12/vit-quay-bac-kinh.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+}
+.three{
+    width: 20vw;
+    height: 60vh;
+    background-image: url(https://statics.vincom.com.vn/xu-huong/cac-mon-an-nha-hang-5-sao/mon-thit-ca.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.four{
+    width: 20vw;
+    height: 60vh;
+    background-image: url(https://haisantuoisonghanoi.vn/wp-content/uploads/2020/01/tom-hum-alaska-hai-san-tuoi-song-ha-noi-9.jpg);
+    background-size: contain;
+    background-repeat:  no-repeat;
+
+
+}
+body {
+
+    font-family: Arial;
+    
+    color: white;
+}
+
+.contact-section {
+    background-color: #111;
+    padding: 40px;
+    text-align: center;
+    width: 100vw;
+    height: 60vh;
+}
+
+.title {
+    color: red;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.contact-title {
+    font-size: 28px;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+}
+
+
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.info {
+    width: 30%;
+    min-width: 200px;
+    padding: 20px;
+    text-align: center;
+}
+
+h3 {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.hotline {
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+}  

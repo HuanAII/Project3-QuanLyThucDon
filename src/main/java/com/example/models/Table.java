@@ -1,14 +1,14 @@
 package com.example.models;
 
 public class Table {
-    private int idTable;
+    private String idTable;
     private int tableNumber;
     private int seats;
     private String status; 
 
     public Table() {}
 
-    public Table(int idTable, int tableNumber, int seats, String status) {
+    public Table(String idTable, int tableNumber, int seats, String status) {
         this.idTable = idTable;
         this.tableNumber = tableNumber;
         this.seats = seats;
@@ -16,11 +16,11 @@ public class Table {
     }
 
     // Getter và Setter
-    public int getIdTable() {
+    public String getIdTable() {
         return idTable;
     }
 
-    public void setIdTable(int idTable) {
+    public void setIdTable(String idTable) {
         this.idTable = idTable;
     }
 
@@ -49,6 +49,6 @@ public class Table {
     }
 
     public boolean isAvailable() {
-        return "Available".equalsIgnoreCase(this.status);
+        return "available".equalsIgnoreCase(this.status);
     }
 }

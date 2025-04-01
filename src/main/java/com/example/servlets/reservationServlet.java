@@ -14,7 +14,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/reservation")
 public class reservationServlet extends HttpServlet { 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
+        throws ServletException, IOException {
+       req.getRequestDispatcher("booking.html").forward(req, resp);
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Table> reservations = reservationDAO.getAllTables(); 
         System.out.println("Số lượng bàn: " + reservations.size()); 

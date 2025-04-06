@@ -80,7 +80,7 @@ if (menuText === 'TRANG CHỦ') {
 } else if (menuText === 'THỰC ĐƠN') {
     window.location.href = 'menu.html';
 } else if (menuText === 'ĐẶT BÀN') {
-    window.location.href = "./pages/booking.html";
+    window.location.href = "booking.html";
 } else if (menuText === 'HƯỚNG DẪN SỬ DỤNG') {
     window.location.href = 'guide.html';
 } else if (menuText.includes('SẢN PHẨM YÊU THÍCH')) {

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Quản Trị</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        h1 {
+            font-size: 2em;
+            text-align: center;
+            color: #1a73e8;
+            padding: 20px;
+            background-color: #fff;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+        .menu {
+            width: 25%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .menu li {
+            margin: 10px 0;
+        }
+        .menu a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.1em;
+            display: block;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .menu a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        .content {
+            width: 70%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quản Trị Nhà Hàng</h1>
+
+    <div class="container">
+        <!-- Menu -->
+        <div class="menu">
+            <ul>
+                <li><a href="javascript:void(0)" onclick="showContent('thong_ke')">Thống kê</a></li>
+                <li><a href="javascript:void(0)" onclick="showContent('dat_ban')">Đặt bàn</a></li>
+                <li><a href="javascript:void(0)" onclick="showContent('thuc_don')">Thực đơn</a></li>
+                <li><a href="javascript:void(0)" onclick="showContent('hoa_don')">Hóa đơn</a></li>
+                <li><a href="javascript:void(0)" onclick="showContent('nhan_vien')">Nhân viên</a></li>
+                <li><a href="javascript:void(0)" onclick="showContent('khach_hang')">Khách hàng</a></li>
+                <li><a href="javascript:void(0)" onclick="showContent('he_thong')">Hệ thống</a></li>
+                <li><a href="javascript:void(0)" onclick="showContent('thiet_lap')">Thiết lập nhà hàng</a></li>
+            </ul>
+        </div>
+
+        <div class="content" id="content">
+            <h2>Thống kê</h2>
+            <p>Thông tin về hóa đơn sẽ được hiển thị tại đây.</p>
+        </div>
+    </div>
+    <script>
+        function showContent(page) {
+            var content = document.getElementById('content');
+            switch (page) {
+                case 'hoa_don':
+                    content.innerHTML = '<h2>Hóa đơn</h2><p>Thông tin về hóa đơn sẽ được hiển thị tại đây.</p>';
+                    break;
+                case 'dat_ban':
+                    content.innerHTML = '<h2>Đặt bàn</h2><p>Thông tin về đặt bàn sẽ được hiển thị tại đây.</p>';
+                    break;
+                case 'thuc_don':
+                    content.innerHTML = '<h2>Thực đơn</h2><p>Thông tin về thực đơn sẽ được hiển thị tại đây.</p>';
+                    break;
+                case 'nhan_vien':
+                    content.innerHTML = '<h2>Nhân viên</h2><p>Thông tin về nhân viên sẽ được hiển thị tại đây.</p>';
+                    break;
+                case 'khach_hang':
+                    content.innerHTML = '<h2>Khách hàng</h2><p>Thông tin về khách hàng sẽ được hiển thị tại đây.</p>';
+                    break;
+                case 'he_thong':
+                    content.innerHTML = '<h2>Hệ thống</h2><p>Thông tin về hệ thống sẽ được hiển thị tại đây.</p>';
+                    break;
+                case 'thiet_lap':
+                    content.innerHTML = '<h2>Thiết lập nhà hàng</h2><p>Thông tin về thiết lập nhà hàng sẽ được hiển thị tại đây.</p>';
+                    break;
+            }
+        }
+        window.onload = function() {
+            showContent('thong_ke');
+        }
+    </script>
+</body>
+</html>

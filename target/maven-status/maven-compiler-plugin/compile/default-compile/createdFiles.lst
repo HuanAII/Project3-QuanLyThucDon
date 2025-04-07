@@ -5,3 +5,7 @@ com\example\utils\DBConnection.class
 com\example\models\Table.class
 com\example\models\reservation.class
 com\example\models\user.class
+com\example\dao\productsDAO.class
+com\example\models\Product.class
+com\example\servlets\ProductsServlet.class
+com\example\servlets\FilterProductsServlet.class

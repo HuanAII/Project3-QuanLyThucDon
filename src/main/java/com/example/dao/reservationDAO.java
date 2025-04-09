@@ -13,20 +13,16 @@ import com.example.models.Table;
 import com.example.models.reservation;
 
 public class reservationDAO {
-
     public boolean saveReservation(reservation res) throws ClassNotFoundException {
         Connection conn = null;
         PreparedStatement stmt = null;
-        
         try {
             conn = DBConnection.getConnection();
             if (conn == null) {
-                return false;  
+                return false;
             }
-            
             String sql = "INSERT INTO reservations (name, phone, guests, date, time, message) VALUES (?, ?, ?, ?, ?, ?)";
             stmt = conn.prepareStatement(sql);
-
             stmt.setString(1, res.getName());
             stmt.setString(2, res.getPhone());
             stmt.setInt(3, res.getGuests());
@@ -35,8 +31,8 @@ public class reservationDAO {
             stmt.setString(6, res.getMessage());
 
             int rowsInserted = stmt.executeUpdate();
-            return rowsInserted > 0; 
-            
+            return rowsInserted > 0;
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -54,7 +50,8 @@ public class reservationDAO {
 
         try {
             conn = DBConnection.getConnection();
-            if (conn == null) return tables;
+            if (conn == null)
+                return tables;
 
             stmt = conn.prepareCall("{CALL GetAllTables()}");
             rs = stmt.executeQuery();
@@ -67,7 +64,7 @@ public class reservationDAO {
                 int seats = rs.getInt("so_cho_ngoi");
 
                 Table table = new Table(idTable, tableNumber, seats, status);
-                tables.add(table); 
+                tables.add(table);
             }
         } catch (Exception e) {
             System.err.println("Lỗi khi lấy danh sách bàn: " + e.getMessage());

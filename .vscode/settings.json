@@ -1,4 +1,7 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
     
+    "emmet.includeLanguages": {
+        "jsp": "html"
+    }
 }

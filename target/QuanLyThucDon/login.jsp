@@ -382,7 +382,6 @@
             // chuyển hướng đến endpoint xác thực tương ứng
             window.location.href = 'socialLogin?type=' + platform;
         }
-        
         // Tự động điền username hoặc email nếu có cookie
         window.onload = function() {
             var cookies = document.cookie.split(';');

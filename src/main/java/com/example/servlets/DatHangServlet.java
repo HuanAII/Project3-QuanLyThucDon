@@ -78,7 +78,7 @@ public class DatHangServlet extends HttpServlet {
 
             // Chuyển hướng đến trang xác nhận đặt hàng
             System.out.println("Dat don hang thanh con voi id : " + idDonHang);
-            response.sendRedirect("xacNhanDonHang.jsp");
+            response.sendRedirect("ProductsServlet");
         } else {
             // Nếu có lỗi trong quá trình thêm chi tiết đơn hàng
             request.setAttribute("error", "Đã xảy ra lỗi khi thêm chi tiết đơn hàng. Vui lòng thử lại!");

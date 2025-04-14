@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/ProductsServlet")
 public class ProductsServlet extends HttpServlet {
@@ -21,8 +22,11 @@ public class ProductsServlet extends HttpServlet {
         productsDAO dao = new productsDAO();
         List<Product> list = dao.getAllProducts();
         request.setAttribute("listP", list);
-        System.out.println("Số lượng sản phẩm: " + (list != null ? list.size() : "null"));
-        
+
+                        // HttpSession session = request.getSession();
+                        //     session.setAttribute("id_kh", "1"); 
+                        //     session.setAttribute("user", "khanghy");
+
         request.getRequestDispatcher("/pages/products.jsp").forward(request, response);
     }
 

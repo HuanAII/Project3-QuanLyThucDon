@@ -1,0 +1,136 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f6f6f6;
+}
+
+.container {
+  display: flex;
+  padding: 30px;
+  max-width: 1000px;
+  margin: auto;
+  gap: 40px;
+}
+
+.form-left,
+.form-right {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+textarea {
+  resize: none;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 10px;
+}
+
+.cart-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.item-price {
+  color: #ff6600;
+  margin-bottom: 4px;
+}
+
+.item-quantity {
+  font-size: 14px;
+  color: #555;
+}
+
+.cart-summary {
+  margin-top: 20px;
+}
+
+.cart-summary input {
+  width: calc(100% - 90px);
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.cart-summary button {
+  padding: 8px 15px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.total {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.btn-order {
+  margin-top: 20px;
+  width: 100%;
+  background: #e53935;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.payment-method {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.payment-method label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.payment-method input[type="radio"] {
+  margin-right: 10px;
+}

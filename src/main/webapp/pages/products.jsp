@@ -13,33 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo-container">
-            <img src="../assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
-            <div class="logo-text">ANT BISTRO</div>
-        </div>
-        <div class="notification-icon">
-            <i class="fas fa-bell"></i>
-        </div>
-        
-        <div class="mobile-menu-toggle">
-            <i class="fas fa-bars"></i>
-        </div>
-    </header>
-    
-    <nav class="horizontal-nav">
-        <div class="nav-item">TRANG CHỦ</div>
-        <div class="nav-item">GIỚI THIỆU</div>
-        <div class="nav-item expandable active">SẢN PHẨM</div>
-        <!-- <div class="nav-item">TIN TỨC</div> -->
-        <div class="nav-item">LIÊN HỆ</div>
-        <!-- <div class="nav-item">HỆ THỐNG CỬA HÀNG</div> -->
-        <div class="nav-item">THỰC ĐƠN</div>
-        <div class="nav-item">ĐẶT BÀN</div>
-        <!-- <div class="nav-item">HƯỚNG DẪN SỬ DỤNG</div> -->
-        <div class="nav-item">SẢN PHẨM YÊU THÍCH (0)</div>
-    </nav>
-    
+         <jsp:include page="menu.jsp" />
     <main>
         <div class="breadcrumb">
             <a href="index.html">Trang chủ</a> <span>/</span> Tất cả sản phẩm
@@ -106,7 +80,7 @@
                                     </div>
                                     <div class="filter-option">
                                         <input type="checkbox" name="type" value="drink" id="type-alacarte" class="filter-checkbox">
-                                        <label for="type-alacarte" class="filter-label">ĐỒ UỐNG</label>
+                                        <label for="type-alacarte" class="filter-label">ĐỒ UỐNGG</label>
                                     </div>
                                 </div>
                             </div>
@@ -125,21 +99,21 @@
         <div class="products-container">
             <c:forEach items="${listP}" var="o">
                 <div class="product-card">
-                    <div class="discount-badge">5%</div>
                     <img class="product-image" src="${o.hinhAnh}" alt="Ảnh từ Cloudinary">
                     <div class="product-info">
                         <div class="product-title">${o.tenMon}</div>
+                        <div class="product-description">${o.moTa}</div>
                         <div class="product-price">
-                            <div class="current-price">${o.gia}₫</div>
-                            <div class="original-price">${o.gia}₫</div>
+                            <div class="current-price">${o.gia}₫/1 ${o.donViTinh}</div>
                         </div>
                         <div class="action-buttons">
-                            <div class="action-button favorite">
-                                <i class="fas fa-link"></i>
-                            </div>
-                            <div class="action-button add-to-cart">
-                                <i class="fas fa-shopping-cart"></i>
-                            </div>
+                            <%-- NÚT THÊM VÀO GIỎ HÀNG --%>
+                               <form action="AddToCartServlet" method="post">
+                                 <input type="hidden" name="idMon" value="${o.idMon}">
+                                     <button type="submit" class="action-button add-to-cart" >
+                                         <i class="fas fa-shopping-cart"></i>
+                                     </button>
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -151,24 +125,8 @@
             <i class="fab fa-facebook-messenger"></i>
         </div>
     </main>
-    
-    <!-- Bottom Navigation -->
-    <!--
-    <nav class="bottom-navbar">
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-user"></i></div>
-            <div>Tài khoản</div>
-        </a>
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-search"></i></div>
-            <div>Tìm kiếm</div>
-        </a>
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-shopping-cart"></i></div>
-            <div>Giỏ hàng</div>
-        </a>
-    </nav>
-    -->
+
+
 
     <%-- <script src="../assets/js/products.js"></script> --%>
      <script src="${pageContext.request.contextPath}/assets/js/products.js"></script>

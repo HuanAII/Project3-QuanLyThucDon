@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const nameInput = document.getElementById("nameInput");
         const phoneInput = document.getElementById("sdt");
-        const guests = document.querySelector(".form-control");
+        const guests = document.getElementById("guestCount");
         const dateInput = document.getElementById("date");
         const time = document.getElementById("time");
         const messageInput = document.getElementById("message");
 
-        if (!nameInput.value.trim() || !phoneInput.value.trim() || !guests.value || !dateInput.value || !time.value || !messageInput.value.trim()) {
+        if (!nameInput.value.trim() ||!guests.value|| !phoneInput.value.trim() || !dateInput.value || !time.value || !messageInput.value.trim()) {
             alert("Vui lòng nhập đầy đủ thông tin!");
             return;
         }
@@ -36,10 +36,11 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData)
         })
-        .then(response => response.text()) 
+        .then(response => response.json()) 
         .then(data => {
-            console.log("Server Response:", data);
-            alert("Đặt bàn thành công!\n" + data); 
+           if (data.status ==="success"){
+            alert(data.message);
+           } else  alert("Có lỗi xảy ra: " + data.message);
             bookingForm.reset();
         })
         .catch(error => {

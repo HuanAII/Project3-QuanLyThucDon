@@ -1,31 +1,65 @@
 package com.example.servlets;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.InputStream;
 
 import com.example.dao.productDao;
 import com.example.models.Product;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 @WebServlet("/admin/thucdon/addProduct")
-public class Admin_add_thucdon  extends  HttpServlet{
-    @Override
+@MultipartConfig
+public class Admin_add_thucdon extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //lay du lieu duoc post len
         String id = req.getParameter("idMon");
         String name = req.getParameter("tenMon");
         String id_danhmuc = req.getParameter("idDanhMuc");
-        Double gia = Double.parseDouble(req.getParameter("gia"));
+        Double gia = Double.parseDouble(req.getParameter("gia").trim());
         String mota = req.getParameter("mota");
         String donVi = req.getParameter("donViTinh");
-        String img_path = req.getParameter("hinhAnh");
-        Product product = new Product(id,name , id_danhmuc, gia ,img_path, mota, donVi);
+        System.out.println("Tran Van Huan");
+
+   
+        Part filePart = req.getPart("hinhAnh");
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        File uploads = new File("C:\\Users\\ASUS\\Desktop\\Project3-QuanLyThucDon\\uploads");
+        if (!uploads.exists()) {
+            uploads.mkdir();
+        }
+        File file = new File(uploads, fileName);
+        System.out.println("Tran Van Huan");
+
+    
+        int count = 1;
+        while (file.exists()) {
+            String newFileName = fileName.replace(".", "_" + count + ".");
+            file = new File(uploads, newFileName);
+            count++;
+        }
+
+        try (InputStream input = filePart.getInputStream()) {
+            Files.copy(input, file.toPath());
+        }
+
+   
+        String img_path = file.getAbsolutePath();
+
+        // Tạo đối tượng Product
+        Product product = new Product(id, name, id_danhmuc, gia, img_path, mota, donVi);
+
 
         Boolean result = productDao.addProduct(product);
+
         if (!result) {
             req.setAttribute("error", "Thêm danh mục thất bại!");
         } else {

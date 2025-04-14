@@ -16,5 +16,6 @@ com\example\models\reservation.class
 com\example\servlets\Admin_datban_controller.class
 com\example\servlets\Admin_xoadanhmuc.class
 com\example\servlets\Admin_thongke_controller.class
+com\example\servlets\Admin_forward_add_thucdon.class
 com\example\dao\productDao.class
 com\example\servlets\AdminDispatcher.class

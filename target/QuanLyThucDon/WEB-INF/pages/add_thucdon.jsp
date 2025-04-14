@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.models.Category" %>
+<%@ page import="com.example.dao.categoryDAO" %>
+<%@ page import="java.util.List" %>
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -31,7 +35,8 @@
     input[type="text"],
     input[type="number"],
     input[type="file"],
-    textarea {
+    textarea,
+    select {
         width: 100%;
         padding: 10px 12px;
         margin-bottom: 20px;
@@ -44,7 +49,8 @@
     input[type="text"]:focus,
     input[type="number"]:focus,
     input[type="file"]:focus,
-    textarea:focus {
+    textarea:focus,
+    select:focus {
         border-color: #4CAF50;
         outline: none;
     }
@@ -72,9 +78,12 @@
         background-color: #43a047;
     }
 </style>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <h2>Thêm món ăn</h2>
+
+<% 
+    List<Category> listDanhMuc = categoryDAO.getAllCategory();
+%>
 
 <form action="${pageContext.request.contextPath}/admin/thucdon/addProduct" method="post" enctype="multipart/form-data">
     <label for="idMon">Mã món ăn</label>
@@ -83,11 +92,16 @@
     <label for="tenMon">Tên món ăn</label>
     <input type="text" id="tenMon" name="tenMon" required>
 
-    <label for="idDanhMuc">Mã danh mục</label>
-    <input type="text" id="idDanhMuc" name="idDanhMuc" required>
+    <label for="idDanhMuc">Danh mục</label>
+    <select id="idDanhMuc" name="idDanhMuc" required>
+        <option value="">-- Chọn danh mục --</option>
+        <% for (Category danhMuc : listDanhMuc) { %>
+            <option value="<%= danhMuc.getId_danhmuc() %>"><%= danhMuc.getName_danhmuc()%></option>
+        <% } %>
+    </select>
 
     <label for="gia">Giá</label>
-    <input type="number" step="0.01" id="gia" name="gia" required>
+    <input type="number" id="gia" name="gia" required>
 
     <label for="donViTinh">Đơn vị tính</label>
     <input type="text" id="donViTinh" name="donViTinh" required>
@@ -95,7 +109,7 @@
     <label for="mota">Mô tả</label>
     <textarea id="mota" name="mota" required></textarea>
 
-    <label for="hinhAnh">Ảnh món ăn (chọn ảnh)</label>
+    <label for="hinhAnh">Ảnh món ăn</label>
     <input type="file" id="hinhAnh" name="hinhAnh" accept="image/*" required>
 
     <input type="submit" value="Thêm món ăn">

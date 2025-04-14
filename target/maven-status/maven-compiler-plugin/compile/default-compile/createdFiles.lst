@@ -6,11 +6,15 @@ com\example\models\user.class
 com\example\servlets\Admin_thucdon_controller.class
 com\example\models\Product.class
 com\example\servlets\manage_reservation.class
+com\example\servlets\Admin_add_thucdon.class
 com\example\dao\categoryDAO.class
 com\example\models\Category.class
+com\example\servlets\Admin_hoadon_controller.class
 com\example\servlets\HomeServlet.class
 com\example\models\Table.class
 com\example\models\reservation.class
+com\example\servlets\Admin_datban_controller.class
 com\example\servlets\Admin_xoadanhmuc.class
+com\example\servlets\Admin_thongke_controller.class
 com\example\dao\productDao.class
 com\example\servlets\AdminDispatcher.class

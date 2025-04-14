@@ -42,7 +42,7 @@
 </style>
 <div  class="product-header">
     <h2>Danh sách thực đơn</h2>
-    <button class ="btn-add"> Thêm thực đơn mới</button>
+    <button class ="btn-add"> + Thêm thực đơn mới</button>
 </div>
 <table cellpadding="10" cellspacing="0">
     <tr>

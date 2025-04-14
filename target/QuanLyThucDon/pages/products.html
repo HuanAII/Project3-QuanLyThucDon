@@ -13,8 +13,23 @@
             <img src="../assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
             <div class="logo-text">ANT BISTRO</div>
         </div>
-        <div class="notification-icon">
-            <i class="fas fa-bell"></i>
+        
+        <div class="header-icons">
+            <!-- Icon đăng nhập thay thế cho giỏ hàng -->
+            <div class="login-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            
+            <!-- Icon thông báo -->
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            
+            <!-- Icon giỏ hàng được chuyển sang cùng hàng với các icon khác -->
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
         </div>
         
         <div class="mobile-menu-toggle">
@@ -159,7 +174,7 @@
             <!-- Product 1 -->
             <div class="product-card">
                 <div class="discount-badge">5%</div>
-                <img src="./assets/img/ptr1.png" alt="Buffet Lẩu Nhật Hải Sản" class="product-image">
+                <img src="../assets/img/ptr2.jpg" alt="Buffet Lẩu Nhật Hải Sản" class="product-image">
                 <div class="product-info">
                     <div class="product-title">Buffet Lẩu Nhật Hải Sản, Bò Mỹ & Dimsum Với 60 Món Nhúng Và 5 Loại Nước Lẩu</div>
                     <div class="product-price">
@@ -179,7 +194,7 @@
             
             <!-- Product 2 -->
             <div class="product-card">
-                <img src="https://cdn.pixabay.com/photo/2018/02/08/15/02/meat-3139641_1280.jpg" alt="Buffet Nướng Lẩu Thượng Hạng" class="product-image">
+                <img src="../assets/img/ptr2.jpg" alt="Buffet Nướng Lẩu Thượng Hạng" class="product-image">
                 <div class="product-info">
                     <div class="product-title">Buffet Nướng Lẩu Thượng Hạng Nhật Bản Hơn 80 Món</div>
                     <div class="product-price">
@@ -198,7 +213,7 @@
             
             <!-- Product 3 -->
             <div class="product-card">
-                <img src="./assets/img/ptr2.jpg" alt="Buffet Trưa Hải Sản" class="product-image">
+                <img src="../assets/img/ptr2.jpg" alt="Buffet Trưa Hải Sản" class="product-image">
                 <div class="product-info">
                     <div class="product-title">Buffet Trưa Hải Sản Thượng Hạng - Bao Gồm thức uống</div>
                     <div class="product-price">
@@ -234,33 +249,34 @@
                 </div>
             </div>
   
-
-
         <!-- mở rộng thêm sản phẩm thì ở đây -->
-        </div>
-        
+        </div>      
         <div class="chat-icon">
             <i class="fab fa-facebook-messenger"></i>
         </div>
     </main>
     
-    <!-- Bottom Navigation
-    <nav class="bottom-navbar">
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-user"></i></div>
-            <div>Tài khoản</div>
-        </a>
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-search"></i></div>
-            <div>Tìm kiếm</div>
-        </a>
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-shopping-cart"></i></div>
-            <div>Giỏ hàng</div>
-        </a>
-    </nav> -->
+    <!-- Modal giỏ hàng -->
+    <div class="cart-modal-overlay" id="cartModal">
+        <div class="cart-modal">
+            <div class="cart-modal-header">
+                <div class="cart-modal-title">GIỎ HÀNG</div>
+                <div class="cart-modal-close" id="closeCartModal">&times;</div>
+            </div>
+            <div class="cart-modal-body" id="cartItems">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-modal-footer">
+                <div class="cart-total">
+                    <span>Tổng cộng:</span>
+                    <span id="cartTotal">0₫</span>
+                </div>
+                <button class="cart-checkout-btn" id="checkoutBtn">Thanh toán</button>
+            </div>
+        </div>
+    </div>
     
-    <script src="./assets/js/products.js">
+    <script src="../assets/js/products.js">
     </script>
 </body>
 </html>

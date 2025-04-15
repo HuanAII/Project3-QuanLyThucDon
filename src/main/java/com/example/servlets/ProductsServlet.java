@@ -27,7 +27,7 @@ public class ProductsServlet extends HttpServlet {
                         //     session.setAttribute("id_kh", "1"); 
                         //     session.setAttribute("user", "khanghy");
 
-        request.getRequestDispatcher("/pages/products.jsp").forward(request, response);
+        request.getRequestDispatcher("products.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

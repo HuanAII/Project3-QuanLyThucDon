@@ -102,7 +102,7 @@
                     <img class="product-image" src="${o.hinhAnh}" alt="Ảnh từ Cloudinary">
                     <div class="product-info">
                         <div class="product-title">${o.tenMon}</div>
-                        <div class="product-description">${o.moTa}</div>
+                        <%-- <div class="product-description">${o.moTa}</div> --%>
                         <div class="product-price">
                             <div class="current-price">${o.gia}₫/1 ${o.donViTinh}</div>
                         </div>
@@ -129,6 +129,5 @@
 
 
     <%-- <script src="../assets/js/products.js"></script> --%>
-     <script src="${pageContext.request.contextPath}/assets/js/products.js"></script>
 </body>
 </html>

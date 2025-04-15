@@ -52,7 +52,7 @@ public class FilterProductsServlet extends HttpServlet {
         request.setAttribute("listP", list);
         System.out.println("Số lượng sản phẩm: " + (list != null ? list.size() : "null"));
         // Forward kết quả tới trang JSP
-        request.getRequestDispatcher("/pages/products.jsp").forward(request, response);
+        request.getRequestDispatcher("products.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -57,7 +57,7 @@ public class CartServlet extends HttpServlet {
         System.out.println(">> Tong tien: " + tongTien);
 
         // Chuyển tới trang giỏ hàng JSP
-        request.getRequestDispatcher("/pages/cart.jsp").forward(request, response);
+        request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

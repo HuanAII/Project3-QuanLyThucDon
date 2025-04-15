@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -7,13 +8,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tất Cả Sản Phẩm - Ant Bistro</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/products.css">
-    <!-- ${pageContext.request.contextPath} -->
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-         <jsp:include page="menu.jsp" />
+    <header class="header">
+        <div class="logo-container">
+            <img src="./assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
+            <div class="logo-text">ANT BISTRO</div>
+        </div>
+        <div class="notification-icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+    <nav class="horizontal-nav">
+        <a href="/QuanLyThucDon/user?page=trangchu" class="nav-item">TRANG CHỦ</a>
+        <a href="/QuanLyThucDon/user?page=about" class="nav-item">GIỚI THIỆU</a>
+        <a href="/QuanLyThucDon/user?page=products" class="nav-item expandable">SẢN PHẨM</a>
+        <a href="/QuanLyThucDon/user?page=contact" class="nav-item">LIÊN HỆ</a>
+        <a href="/QuanLyThucDon/user?page=stores" class="nav-item">HỆ THỐNG CỬA HÀNG</a>
+        <a href="/QuanLyThucDon/user?page=booking" class="nav-item">ĐẶT BÀN</a>
+        <a href="/QuanLyThucDon/user?page=favorites" class="nav-item">SẢN PHẨM YÊU THÍCH (0)</a>
+    </nav>
+
+
     <main>
         <div class="breadcrumb">
             <a href="index.html">Trang chủ</a> <span>/</span> Tất cả sản phẩm

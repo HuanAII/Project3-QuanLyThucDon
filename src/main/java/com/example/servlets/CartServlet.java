@@ -6,8 +6,6 @@ import java.util.List;
 
 import com.example.dao.productsDAO;
 import com.example.models.CartItem;
-import com.example.models.Product;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

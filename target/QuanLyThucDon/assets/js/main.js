@@ -70,7 +70,7 @@ if (menuText === 'TRANG CHỦ') {
 } else if (menuText === 'GIỚI THIỆU') {
     window.location.href = 'about.html';
 } else if (menuText === 'SẢN PHẨM' || menuText.includes('SẢN PHẨM')) {
-    window.location.href = 'products.html';
+    window.location.href = 'products.jsp';
 } else if (menuText === 'LIÊN HỆ') {
     window.location.href = 'contact.html';
 } else if (menuText === 'TIN TỨC') {

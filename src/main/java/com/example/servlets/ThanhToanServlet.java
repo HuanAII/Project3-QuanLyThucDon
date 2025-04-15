@@ -1,10 +1,8 @@
 package com.example.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.example.dao.productsDAO;
 import com.example.models.CartItem;
 
 import jakarta.servlet.ServletException;

@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.example.models.Product" %>
+<%@ page import="com.example.dao.productDao" %>
+<%@ page import="java.util.List" %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -8,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tất Cả Sản Phẩm - Ant Bistro</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/products.css">
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -23,6 +28,7 @@
             <i class="fas fa-bars"></i>
         </div>
     </header>
+
     <nav class="horizontal-nav">
         <a href="/QuanLyThucDon/user?page=trangchu" class="nav-item">TRANG CHỦ</a>
         <a href="/QuanLyThucDon/user?page=about" class="nav-item">GIỚI THIỆU</a>
@@ -32,7 +38,6 @@
         <a href="/QuanLyThucDon/user?page=booking" class="nav-item">ĐẶT BÀN</a>
         <a href="/QuanLyThucDon/user?page=favorites" class="nav-item">SẢN PHẨM YÊU THÍCH (0)</a>
     </nav>
-
 
     <main>
         <div class="breadcrumb">
@@ -116,13 +121,14 @@
         </div>
  
         <!-- Products Grid -->
+
+
         <div class="products-container">
             <c:forEach items="${listP}" var="o">
                 <div class="product-card">
-                    <img class="product-image" src="${o.hinhAnh}" alt="Ảnh từ Cloudinary">
+                    <img class="product-image" src="QuanLyThucDon/assets/img/mon_an.jpg" alt="Ảnh từ Cloudinary">
                     <div class="product-info">
                         <div class="product-title">${o.tenMon}</div>
-                        <div class="product-description">${o.moTa}</div>
                         <div class="product-price">
                             <div class="current-price">${o.gia}₫/1 ${o.donViTinh}</div>
                         </div>
@@ -145,10 +151,5 @@
             <i class="fab fa-facebook-messenger"></i>
         </div>
     </main>
-
-
-
-    <%-- <script src="../assets/js/products.js"></script> --%>
-     <script src="${pageContext.request.contextPath}/assets/js/products.js"></script>
 </body>
 </html>

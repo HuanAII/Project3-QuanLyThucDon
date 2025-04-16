@@ -59,34 +59,5 @@ dots.forEach(dot => {
         dots[currentSlide].classList.add('active'); 
         slideInterval = setInterval(nextSlide, 5000);
     });
-
-    document.querySelectorAll('.nav-item').forEach(item => {
-item.addEventListener('click', function() {
-const menuText = this.textContent.trim();
-
-// Xử lý điều hướng dựa trên nội dung của mục menu
-if (menuText === 'TRANG CHỦ') {
-    window.location.href = 'index.html';
-} else if (menuText === 'GIỚI THIỆU') {
-    window.location.href = 'about.html';
-} else if (menuText === 'SẢN PHẨM' || menuText.includes('SẢN PHẨM')) {
-    window.location.href = 'products.jsp';
-} else if (menuText === 'LIÊN HỆ') {
-    window.location.href = 'contact.html';
-} else if (menuText === 'TIN TỨC') {
-    window.location.href = 'news.html';
-} else if (menuText === 'HỆ THỐNG CỬA HÀNG') {
-    window.location.href = 'stores.html';
-} else if (menuText === 'THỰC ĐƠN') {
-    window.location.href = 'menu.html';
-} else if (menuText === 'ĐẶT BÀN') {
-    window.location.href = "booking.html";
-} else if (menuText === 'HƯỚNG DẪN SỬ DỤNG') {
-    window.location.href = 'guide.html';
-} else if (menuText.includes('SẢN PHẨM YÊU THÍCH')) {
-    window.location.href = 'favorites.html';
-}
-});
-});
 });
 //mvn clean compile package

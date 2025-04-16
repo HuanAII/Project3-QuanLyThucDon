@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public class FilterProductsServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Lấy tất cả các giá trị được chọn từ các checkbox (có thể có nhiều giá trị)
         String[] price = request.getParameterValues("price");  
         String sort = request.getParameter("sort");  
         String[] type = request.getParameterValues("type");  
@@ -44,14 +43,12 @@ public class FilterProductsServlet extends HttpServlet {
         }
         System.out.println();
         
-        // Gọi DAO để lấy danh sách sản phẩm theo các điều kiện lọc
+
         productsDAO dao = new productsDAO();
         List<Product> list = dao.getAllProductsBySort(price, sort, type);
-        
-        // Đặt kết quả vào request để gửi tới trang JSP
+   
         request.setAttribute("listP", list);
         System.out.println("Số lượng sản phẩm: " + (list != null ? list.size() : "null"));
-        // Forward kết quả tới trang JSP
         request.getRequestDispatcher("/pages/products.jsp").forward(request, response);
     }
 

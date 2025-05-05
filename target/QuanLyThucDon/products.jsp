@@ -122,10 +122,6 @@
  
         <!-- Products Grid -->
 
-        <%
-             List<Product> listP = productDAO.getAllProducts();
-              request.setAttribute("listP", listP);
-        %>
 
         <div class="products-container">
             <c:forEach items="${listP}" var="o">
@@ -155,6 +151,5 @@
             <i class="fab fa-facebook-messenger"></i>
         </div>
     </main>
-    <%-- <script src="../assets/js/products.js"></script> --%>
 </body>
 </html>

@@ -162,7 +162,7 @@
             <td><%= a.getId_danhmuc() %></td>
             <td><%= a.getName_danhmuc() %></td>
             <td>
-                <a class="btn-edit" href="edit-category.jsp?id=<%= a.getId_danhmuc() %>">Sửa</a>
+                <a class="btn-edit" href="edit-category?id=<%= a.getId_danhmuc() %>">Sửa</a>
                 <a class="btn-delete" href="delete-category?id=<%= a.getId_danhmuc() %>"
                    onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');">Xóa</a>
             </td>

@@ -212,6 +212,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
             e.printStackTrace();
         }
         return -1; // Trả về -1 nếu có lỗi
+        
     }
 
     public boolean addOrderDetails(int idDonHang, String idMon, int soLuong) {

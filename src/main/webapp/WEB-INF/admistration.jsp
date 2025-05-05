@@ -25,13 +25,13 @@
         }
         .container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: Row;
             margin: 20px;
         }
         .menu {
-            width: 25%;
             background-color: #fff;
             padding: 20px;
+            width: 20%;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
@@ -87,9 +87,10 @@
         }
 
         .content {
-            width: 70%;
             background-color: #fff;
             padding: 20px;
+            width: 75%;
+            margin-left: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }

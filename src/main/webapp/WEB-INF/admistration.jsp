@@ -111,6 +111,7 @@
         <ul>
             <li><a href="${pageContext.request.contextPath}/admin/thongke">Thống kê</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/datban">Đặt bàn</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/hoadon">Hóa đơn</a></li>
 
             <li>
                 <a href="javascript:void(0);" onclick="toggleSubMenu()">Thực đơn ▾</a>
@@ -119,12 +120,9 @@
                     <li><a href="${pageContext.request.contextPath}/admin/thucdon/danhmuc">Danh mục</a></li>
                 </ul>
             </li>
-
-            <li><a href="${pageContext.request.contextPath}/admin/hoadon">Hóa đơn</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/tables">Bàn ăn</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/nhanvien">Nhân viên</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/khachhang">Khách hàng</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/hethong">Hệ thống</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/thietlap">Thiết lập nhà hàng</a></li>
         </ul>
     </div>
 

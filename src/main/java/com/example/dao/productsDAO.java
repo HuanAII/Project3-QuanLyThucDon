@@ -344,12 +344,4 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
 
         return productList;
     }
-
-    public static void main(String[] args) {
-        productsDAO dao = new productsDAO();
-        String[] price = {}; 
-        String[] type = {};
-        String sort = "price-desc"; 
-        dao.addOrder(1, 40000, "Cho xu ly", null, "KhangHy", "0123456789", "Ha Noi");
-    }
 }

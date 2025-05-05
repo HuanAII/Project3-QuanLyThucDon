@@ -1,6 +1,7 @@
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\models\Product.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_datban_controller.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\UpdatePasswordsServlet.java
+C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Edit_table_servlet.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\CartServlet.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\AdminDispatcher.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_delete_menu.java
@@ -9,9 +10,11 @@ C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlet
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_add_thucdon.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_edit_category.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Amin_themdanhmuc.java
+C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Delete_table_servlet.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\manage_reservation.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\User_Dispatcher.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\models\reservation.java
+C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\dao\TableDAO.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\dao\productDao.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_thucdon_controller.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\models\CartItem.java
@@ -32,9 +35,12 @@ C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\utils\D
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\dao\reservationDAO.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\models\Table.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\ProductsServlet.java
+C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_edit_table.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\models\User.java
+C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\TableServlet.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\utils\Session.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\DatHangServlet.java
+C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Add_table_servlet.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\dao\UserDAO.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_hoadon_controller.java
 C:\Users\ASUS\Documents\Project3-QuanLyThucDon\src\main\java\com\example\servlets\ThanhToanServlet.java

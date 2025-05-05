@@ -1,4 +1,7 @@
+com\example\servlets\Admin\Add_table_servlet.class
+com\example\servlets\Admin\Delete_table_servlet.class
 com\example\dao\reservationDAO.class
+com\example\servlets\Admin\Edit_table_servlet.class
 com\example\servlets\Admin_thucdon_controller.class
 com\example\servlets\UpdatePasswordsServlet.class
 com\example\models\Product.class
@@ -17,10 +20,12 @@ com\example\servlets\ThanhToanServlet.class
 com\example\dao\productsDAO.class
 com\example\servlets\ResetPasswordServlet.class
 com\example\dao\UserDAO.class
+com\example\servlets\Admin\TableServlet.class
 com\example\utils\EmailUtils.class
 com\example\servlets\Admin\Amin_themdanhmuc.class
 com\example\servlets\reservationServlet.class
 com\example\utils\DBConnection.class
+com\example\dao\TableDAO.class
 com\example\models\CartItem.class
 com\example\servlets\manage_reservation.class
 com\example\servlets\RegisterServlet.class

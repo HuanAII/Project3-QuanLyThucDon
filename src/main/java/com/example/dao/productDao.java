@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.models.Category;
 import com.example.models.Product;
 import com.example.utils.DBConnection;
 public class productDao {

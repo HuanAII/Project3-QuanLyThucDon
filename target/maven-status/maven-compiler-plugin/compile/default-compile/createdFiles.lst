@@ -30,5 +30,4 @@ com\example\servlets\UpdateCartServlet.class
 com\example\servlets\Admin_xoadanhmuc.class
 com\example\utils\Session.class
 com\example\servlets\DatHangServlet.class
-com\example\dao\productDao.class
 com\example\servlets\AdminDispatcher.class

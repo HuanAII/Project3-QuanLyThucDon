@@ -29,7 +29,7 @@ public class ThanhToanServlet extends HttpServlet {
         List<CartItem> cart = (List<CartItem>) request.getSession().getAttribute("cart");
         request.setAttribute("cart", cart);
         // Chuyển tới trang giỏ hàng JSP
-        request.getRequestDispatcher("/pages/thanhToan.jsp").forward(request, response);
+        request.getRequestDispatcher("thanhToan.jsp").forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

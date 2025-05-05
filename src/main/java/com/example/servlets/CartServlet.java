@@ -31,17 +31,13 @@ public class CartServlet extends HttpServlet {
             System.out.println(">> USER: " + user + " dang xem gio hang");
             productsDAO dao = new productsDAO();
             List<CartItem> cartFromDB = dao.getCartByUserId(id_kh);
-            System.out.println(">> So luong sp trong gio hang: " + cartFromDB.size());
-
             session.setAttribute("cart", cartFromDB);
-            System.out.println(cartFromDB);
+
         } else {
             // Người dùng KHÔNG đăng nhập — lấy giỏ hàng từ session
             System.out.println(">> KHACH chua dang nhap dang xem gio hang");
             List<CartItem> cartFromSession = (List<CartItem>) session.getAttribute("cart");
             if (cartFromSession == null) cartFromSession = new ArrayList<>();
-
-            System.out.println(">> So luong sp trong gio hang: " + cartFromSession.size());
             session.setAttribute("cart", cartFromSession);
         }
 
@@ -51,7 +47,6 @@ public class CartServlet extends HttpServlet {
         }
 
         CartItem cartItem = new CartItem();
-        System.out.println(">> Cart: " + cart);
         double tongTien = cartItem.tinhTongTien(cart); // Tính tổng tiền từ giỏ hàng
         session.setAttribute("tongTien", tongTien); // Lưu tổng tiền vào session
         System.out.println(">> Tong tien: " + tongTien);

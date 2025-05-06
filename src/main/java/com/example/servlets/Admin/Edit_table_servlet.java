@@ -1,7 +1,5 @@
 package com.example.servlets.Admin;
 import java.io.IOException;
-import java.util.List;
-
 import com.example.dao.TableDAO;
 import com.example.models.Table;
 

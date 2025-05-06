@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.example.models.Category;
 import com.example.utils.DBConnection;
 
@@ -94,6 +93,79 @@ public class categoryDAO {
                 if (stmt != null) stmt.close();
                 if (conn != null) conn.close();
             } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static Category getCategoryById(String id) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+    
+        try {
+            conn = DBConnection.getConnection();
+            String sql = "SELECT * FROM danh_muc WHERE id_danhmuc = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+    
+            if (rs.next()) {
+                String id_danhmuc = rs.getString("id_danhmuc");
+                String name = rs.getString("name");
+                return new Category(id_danhmuc, name); 
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi thao tác với cơ sở dữ liệu:");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Lỗi không xác định:");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    
+        return null;
+    }
+
+    public static boolean updateCategory(Category category) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+    
+        try {
+    
+            conn = DBConnection.getConnection();
+    
+  
+            String sql = "UPDATE danh_muc SET name = ? WHERE id_danhmuc = ?";
+    
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, category.getName_danhmuc()); 
+            stmt.setString(2, category.getId_danhmuc()); 
+    
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; 
+        } catch (SQLException e) {
+            System.err.println("Lỗi thao tác với cơ sở dữ liệu:");
+            e.printStackTrace();
+            return false;
+        } catch (Exception e) {
+            System.err.println("Lỗi không xác định:");
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }

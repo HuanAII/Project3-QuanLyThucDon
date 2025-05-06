@@ -212,6 +212,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
             e.printStackTrace();
         }
         return -1; // Trả về -1 nếu có lỗi
+        
     }
 
     public boolean addOrderDetails(int idDonHang, String idMon, int soLuong) {
@@ -275,8 +276,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
                 }
             }
         }
-
-        // Xử lý lọc theo loại sản phẩm (type)
+        
         if (type != null && type.length > 0) {
             for (String t : type) {
                 switch (t) {
@@ -312,15 +312,13 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
                     query.append(" ORDER BY gia ASC"); // Sắp xếp theo giá tăng dần
                     break;
                 case "price-desc":
-                    query.append(" ORDER BY gia DESC"); // Sắp xếp theo giá giảm dần
+                    query.append(" ORDER BY gia DESC"); 
                     break;
                 default:
-                    // Không thay đổi gì khi chọn "mặc định"
                     break;
             }
         }
 
-        // Thực hiện truy vấn và lấy kết quả từ cơ sở dữ liệu
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query.toString())) {
 
@@ -345,20 +343,5 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         }
 
         return productList;
-    }
-
-    public static void main(String[] args) {
-        productsDAO dao = new productsDAO();
-        String[] price = {}; // Ví dụ giá trị lọc
-        String[] type = {}; // Ví dụ loại sản phẩm
-        String sort = "price-desc"; // Ví dụ sắp xếp theo giá tăng dần
-        // List<Product> products = dao.getAllProducts();
-        // List<CartItem> products = dao.getCartByUserId("1");
-        // Product product = dao.getCartByUserId("1");
-        // System.out.println(products);
-        dao.addOrder(1, 40000, "Cho xu ly", null, "KhangHy", "0123456789", "Ha Noi");
-        // for (Product p : products) {
-        // System.out.println(p);
-        // }
     }
 }

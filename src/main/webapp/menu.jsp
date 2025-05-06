@@ -31,9 +31,6 @@
         <div class="nav-item">TRANG CHỦ</div>
         <div class="nav-item">GIỚI THIỆU</div>
         <div class="nav-item expandable active">SẢN PHẨM</div>
-        <!-- <div class="nav-item">TIN TỨC</div> -->
         <div class="nav-item">LIÊN HỆ</div>
-        <!-- <div class="nav-item">HỆ THỐNG CỬA HÀNG</div> -->
-        <div class="nav-item">THỰC ĐƠN</div>
         <div class="nav-item">ĐẶT BÀN</div>
     </nav>

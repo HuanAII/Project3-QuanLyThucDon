@@ -51,7 +51,7 @@ public class DatHangServlet extends HttpServlet {
         }
 
         // Tính tổng tiền
-        double total = session.getAttribute("tongTien") != null ? (double) session.getAttribute("tongTien") : 0.0;
+        double total = session.getAttribute("tongTienSauGiam") != null ? (double) session.getAttribute("tongTienSauGiam") : 0.0;
 
         // Thêm đơn hàng và lấy idDonHang vừa được tạo
         int idDonHang = dao.addOrder(id_kh, total, "Cho xu ly", null, hoTen, soDienThoai, diaChi);

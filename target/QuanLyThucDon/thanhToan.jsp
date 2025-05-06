@@ -62,12 +62,15 @@
 
         <!-- Tóm tắt đơn hàng -->
         <div class="cart-summary">
-          <input type="text" placeholder="Nhập mã giảm giá" name="maGiamGia" />
-          <button>Áp dụng</button>
+          <form action="DiscountServlet" method="post">
+            <input type="text" placeholder="Nhập mã giảm giá" name="maGiamGia" value="${maGiamGia}" />
+            <button type="submit" class="btn-apply-discount">Áp dụng</button>
+          </form>
 
           <div class="total">Tạm tính: ${tongTien}</div>
           <div class="total">Phí vận chuyển: 0</div>
-          <div class="total">Tổng cộng: <strong>${tongTien}</strong></div>
+          <div class="total">Đã giảm giá: ${giamGia}</div>
+          <div class="total">Tổng cộng: <strong>${tongTienSauGiam}</strong></div>
         </div>
       </div>
     </div>

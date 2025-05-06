@@ -13,6 +13,7 @@ com\example\servlets\LoginServlet.class
 com\example\models\Table.class
 com\example\models\reservation.class
 com\example\servlets\CartServlet.class
+com\example\servlets\DiscountServlet.class
 com\example\servlets\Admin\Admin_edit_category.class
 com\example\servlets\Admin\edit_menu.class
 com\example\servlets\ThanhToanServlet.class

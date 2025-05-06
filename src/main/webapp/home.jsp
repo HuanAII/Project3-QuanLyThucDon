@@ -190,7 +190,7 @@
         <div class="logo">ANT Bistro</div>
         <div class="nav-items">
             <a href="<%=request.getContextPath()%>/pages/index.html">Trang chủ</a>
-            <a href="<%=request.getContextPath()%>/products.jsp">Thực đơn</a>
+            <a href="<%=request.getContextPath()%>/ProductsServlet">Thực đơn</a>
             <a href="<%=request.getContextPath()%>/booking.jsp">Đặt bàn</a>
             <a href="<%=request.getContextPath()%>/contact.jsp">Liên hệ</a>
             <a href="logout" class="logout">Đăng xuất</a>

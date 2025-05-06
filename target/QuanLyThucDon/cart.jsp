@@ -15,7 +15,6 @@
     <main>
       <%-- Danh sách sản phẩm trong giỏ hàng --%>
       <div class="cart-container">
-
           <c:forEach items="${cart}" var="o">
             <div class="cart-item">
               <img src="${o.hinhAnh}" alt="ảnh món ăn" />
@@ -42,8 +41,6 @@
               </div>
             </div>
           </c:forEach>
-
-
       </div>
 
       <%-- Tóm tắt giỏ hàng --%>

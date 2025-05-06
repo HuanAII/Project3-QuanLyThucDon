@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import com.example.models.CartItem;
@@ -229,6 +232,43 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
             return false;
         }
     }
+
+        public Integer getValidDiscount(String maGiamGia) {
+            Integer discount = null;
+            String query = "SELECT discount, start_date, end_date FROM khuyen_mai WHERE ma_giam_gia = ?";
+
+            try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+
+                ps.setString(1, maGiamGia);
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    // Chắc chắn đây là java.sql.Date
+                    Date startDate = rs.getDate("start_date");
+                    Date endDate = rs.getDate("end_date");
+                    int dis = rs.getInt("discount");
+
+                    LocalDate today = LocalDate.now();
+
+                    // Chuyển Date thành LocalDate
+                    LocalDate start = startDate.toLocalDate();
+                    LocalDate end = endDate.toLocalDate();
+
+                    if ((start.isEqual(today) || start.isBefore(today)) &&
+                        (end.isEqual(today) || end.isAfter(today))) {
+                        discount = dis;
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return discount;
+        }
+
+    
 
     public List<Product> getAllProductsBySort(String[] price, String sort, String[] type) {
         List<Product> productList = new ArrayList<>();

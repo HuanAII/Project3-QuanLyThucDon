@@ -23,6 +23,7 @@ D:\Dev\Ngay2\Project3-QuanLyThucDon\src\main\java\com\example\models\CartItem.ja
 D:\Dev\Ngay2\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_add_thucdon.java
 D:\Dev\Ngay2\Project3-QuanLyThucDon\src\main\java\com\example\servlets\ThanhToanServlet.java
 D:\Dev\Ngay2\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_xoadanhmuc.java
+D:\Dev\Ngay2\Project3-QuanLyThucDon\src\main\java\com\example\servlets\DiscountServlet.java
 D:\Dev\Ngay2\Project3-QuanLyThucDon\src\main\java\com\example\models\User.java
 D:\Dev\Ngay2\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Delete_table_servlet.java
 D:\Dev\Ngay2\Project3-QuanLyThucDon\src\main\java\com\example\utils\MessagingException.java

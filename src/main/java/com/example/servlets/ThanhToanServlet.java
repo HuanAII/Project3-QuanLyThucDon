@@ -31,7 +31,6 @@ public class ThanhToanServlet extends HttpServlet {
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Xử lý khi có yêu cầu POST (nếu cần)
         doGet(request, response);
     }
    

@@ -1,4 +1,4 @@
-package com.example.servlets;
+package com.example.servlets.Admin;
 import java.io.IOException;
 
 import com.example.dao.productDao;

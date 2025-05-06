@@ -171,7 +171,6 @@
     </tbody>
 </table>
 
-<!-- Form thêm danh mục -->
 <div id="addForm">
     <form action="add-category" method="post">
         <div>

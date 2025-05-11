@@ -13,6 +13,16 @@
     <jsp:include page="menu.jsp" />
 
     <main>
+      <%-- THONG BAO --%>
+          <% String thongBao = (String) request.getAttribute("thongBao"); %>
+    <% if (thongBao != null) { %>
+        <div class="thong-bao" style="color: red; font-weight: bold;"><%= thongBao %></div>
+    <%  
+    session.removeAttribute("thongBao"); 
+    } 
+    %>
+
+
       <%-- Danh sách sản phẩm trong giỏ hàng --%>
       <div class="cart-container">
 
@@ -48,7 +58,7 @@
 
       <%-- Tóm tắt giỏ hàng --%>
       <div class="summary">
-        <a href="ProductsServlet" class="continue">← Tiếp tục mua hàng</a>
+        <a href="products.jsp" class="continue">← Tiếp tục mua hàng</a>
         <div class="total">
           <p>Tạm tính: <strong>${tongTien} VND</strong></p>
           <p>Thành tiền: <strong class="highlight">${tongTien} VND</strong></p>

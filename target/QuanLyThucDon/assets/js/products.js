@@ -34,3 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+window.addEventListener("DOMContentLoaded", () => {
+  const toast = document.getElementById("toast-notification");
+  if (toast) {
+    setTimeout(() => {
+      toast.style.opacity = 0;
+    }, 7000);
+  }
+});

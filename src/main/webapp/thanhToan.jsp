@@ -14,10 +14,22 @@
       <div class="form-left">
         <form action="DatHangServlet" method="post">
           <h2>Thông tin nhận hàng</h2>
-          <input type="email" name="email" placeholder="Email" required />
+
+          <!-- Email: auto fill nếu có -->
+          <input type="email" name="email" placeholder="Email (tùy chọn)" 
+                 value="${userInfo.email}" />
+
+          <!-- Họ và tên: bắt buộc nhập -->
           <input type="text" name="hoTen" placeholder="Họ và tên" required />
-          <input type="tel" name="soDienThoai" placeholder="Số điện thoại (tùy chọn)" />
-          <input type="text" name="diaChi" placeholder="Địa chỉ nhận hàng" required />
+
+          <!-- Số điện thoại: auto fill nếu có -->
+          <input type="tel" name="soDienThoai" placeholder="Số điện thoại (tùy chọn)" 
+                 value="${userInfo.sdt}" />
+
+          <!-- Địa chỉ: auto fill nếu có -->
+          <input type="text" name="diaChi" placeholder="Địa chỉ nhận hàng" required 
+                 value="${userInfo.address}" />
+
           <textarea name="ghiChu" placeholder="Ghi chú (tùy chọn)" rows="3"></textarea>
 
           <h2>Phương thức thanh toán</h2>

@@ -16,31 +16,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo-container">
-            <img src="./assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
-            <div class="logo-text">ANT BISTRO</div>
-        </div>
-
-            <a href="CartServlet" class="notification-icon">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </a>
-            
-        <div class="mobile-menu-toggle">
-            <i class="fas fa-bars"></i>
-        </div>
-    </header>
-
-    <nav class="horizontal-nav">
-        <a href="/QuanLyThucDon/user?page=trangchu" class="nav-item">TRANG CHỦ</a>
-        <a href="/QuanLyThucDon/user?page=about" class="nav-item">GIỚI THIỆU</a>
-        <a href="/QuanLyThucDon/user?page=products" class="nav-item expandable">SẢN PHẨM</a>
-        <a href="/QuanLyThucDon/user?page=contact" class="nav-item">LIÊN HỆ</a>
-        <a href="/QuanLyThucDon/user?page=stores" class="nav-item">HỆ THỐNG CỬA HÀNG</a>
-        <a href="/QuanLyThucDon/user?page=booking" class="nav-item">ĐẶT BÀN</a>
-    </nav>
-
+    <jsp:include page="menu.jsp" />
     <main>
+    
+    <%
+        String addedMsg = (String) session.getAttribute("addedMsg");
+        if (addedMsg != null) {
+    %>
+        <div id="toast-notification"><%= addedMsg %></div>
+    <%
+            session.removeAttribute("addedMsg");
+        }
+    %>
+
+
         <div class="breadcrumb">
             <a href="index.html">Trang chủ</a> <span>/</span> Tất cả sản phẩm
         </div>
@@ -50,10 +39,13 @@
             <form action="FilterProductsServlet" method="post" >
                 <div class="filter-section">
                     <div class="sort-buttons">
-                        <button class="sort-button active" name="default"  value="default">Mặc định</button>
-                        <button class="sort-button" name="sort" value="name-asc">Tên A-Z</button>
-                        <button class="sort-button" name="sort" value="price-asc">Giá thấp đến cao</button>
-                        <button class="sort-button" name="sort" value="price-desc">Giá cao xuống thấp</button>
+            <button class="sort-button <%= (request.getAttribute("sortType") == null || "default".equals(request.getAttribute("sortType"))) ? "active" : "" %>" name="sort" value="default">Mặc định</button>
+
+            <button class="sort-button <%= "name-asc".equals(request.getAttribute("sortType")) ? "active" : "" %>" name="sort" value="name-asc">Tên A-Z</button>
+
+            <button class="sort-button <%= "price-asc".equals(request.getAttribute("sortType")) ? "active" : "" %>" name="sort" value="price-asc">Giá thấp đến cao</button>
+
+            <button class="sort-button <%= "price-desc".equals(request.getAttribute("sortType")) ? "active" : "" %>" name="sort" value="price-desc">Giá cao xuống thấp</button>
                     </div>
                     
                     <div class="filter-wrapper">
@@ -129,11 +121,12 @@
             productsDAO dao = new productsDAO();
             listP = dao.getAllProducts();
             request.setAttribute("listP", listP);
+            
         }
 %>
             <c:forEach items="${listP}" var="o">
                 <div class="product-card">
-                    <img class="product-image" src="https://studiovietnam.com/wp-content/uploads/2022/03/hinh-anh-ve-do-an-22.jpg" alt="Ảnh từ Cloudinary">
+                    <img class="product-image" src="${o.hinhAnh}" alt="Ảnh từ Cloudinary">
                     <div class="product-info">
                         <div class="product-title">${o.tenMon}</div>
                         <div class="product-price">

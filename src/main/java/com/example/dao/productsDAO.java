@@ -11,6 +11,8 @@ import java.util.List;
 import java.sql.Date;
 
 import com.example.models.CartItem;
+import com.example.models.ChiTietDonHang;
+import com.example.models.DonHang;
 import com.example.models.Product;
 import com.example.utils.DBConnection;
 
@@ -19,16 +21,15 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         List<Product> productList = new ArrayList<>();
         String query = "SELECT * FROM thucdon";
 
-        // Sử dụng try-with-resources để tự động đóng tài nguyên
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query);
                 ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                // Đọc đúng thứ tự cột từ CSDL
+              
                 Product product = new Product(
-                        rs.getString("idMon"), // Giả sử cột 1 là id
-                        rs.getString("tenMon"), // Cột 2 là tên
+                        rs.getString("idMon"), 
+                        rs.getString("tenMon"),
                         rs.getString("idDanhMuc"),
                         rs.getDouble("gia"),
                         rs.getString("hinhAnh"),
@@ -38,9 +39,9 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
             }
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ cụ thể
+            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace(); // Xử lý các ngoại lệ khác
+            e.printStackTrace();
         }
 
         return productList;
@@ -49,7 +50,6 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
     public Product getProductByID(String id) {
         Product product = null;
         String query = "SELECT * FROM thucdon WHERE idMon = ?";
-
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query)) {
 
@@ -80,8 +80,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
     public void AddToCart(String idMon, String id_kh, double soLuong) {
         try {
             Connection conn = DBConnection.getConnection();
-
-            // 1. Kiểm tra xem đã tồn tại idMon + id_kh trong giỏ hàng chưa
+            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
             String checkSql = "SELECT soLuong FROM gio_hang WHERE idMon = ? AND id_kh = ?";
             PreparedStatement checkStmt = conn.prepareStatement(checkSql);
             checkStmt.setString(1, idMon);
@@ -112,7 +111,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
             checkStmt.close();
             conn.close();
         } catch (Exception e) {
-            e.printStackTrace(); // ghi log lỗi nếu có
+            e.printStackTrace(); 
         }
     }
 
@@ -185,6 +184,22 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
             e.printStackTrace();
         }
     }
+
+        public void clearCartByUserId(String id_kh) {
+        String query = "DELETE FROM gio_hang WHERE id_kh = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, id_kh);
+            ps.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public int addOrder(Integer id_kh, double total, String status, String id_table, String tenKH, String sdt,
             String dia_chi) {
@@ -266,6 +281,70 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
 
             return discount;
         }
+
+
+        public List<DonHang> getDonHangByUsername(String username) {
+            List<DonHang> list = new ArrayList<>();
+
+            try (Connection conn = DBConnection.getConnection()) {
+                // Tìm ID người dùng
+                String sqlGetUserId = "SELECT id FROM user WHERE username = ?";
+                PreparedStatement psUser = conn.prepareStatement(sqlGetUserId);
+                psUser.setString(1, username);
+                ResultSet rsUser = psUser.executeQuery();
+
+                if (!rsUser.next()) return list;
+                int idKh = rsUser.getInt("id");
+
+                // Lấy danh sách đơn hàng của người dùng
+                String sqlDonHang = "SELECT * FROM donhang WHERE id_kh = ?";
+                PreparedStatement psDH = conn.prepareStatement(sqlDonHang);
+                psDH.setInt(1, idKh);
+                ResultSet rsDH = psDH.executeQuery();
+
+                while (rsDH.next()) {
+                    DonHang dh = new DonHang();
+                    int idDonHang = rsDH.getInt("idDonHang");
+
+                    dh.setIdDonHang(idDonHang);
+                    dh.setDate(rsDH.getDate("date"));
+                    dh.setTotal(rsDH.getDouble("total"));
+                    dh.setStatus(rsDH.getString("status"));
+                    dh.setTenKH(rsDH.getString("tenKH"));
+                    dh.setSdt(rsDH.getString("sdt"));
+                    dh.setDiaChi(rsDH.getString("dia_chi"));
+
+                    // Chi tiết đơn hàng
+                    String sqlChiTiet = "SELECT c.soLuong, m.tenMon, m.gia " +
+                                        "FROM chitietdonhang c JOIN thucdon m ON c.idMon = m.idMon " +
+                                        "WHERE c.idDonHang = ?";
+                    PreparedStatement psCT = conn.prepareStatement(sqlChiTiet);
+                    psCT.setInt(1, idDonHang);
+                    ResultSet rsCT = psCT.executeQuery();
+
+                    List<ChiTietDonHang> chiTietList = new ArrayList<>();
+                    while (rsCT.next()) {
+                        ChiTietDonHang ct = new ChiTietDonHang();
+                        ct.setTenMon(rsCT.getString("tenMon"));
+                        ct.setSoLuong(rsCT.getInt("soLuong"));
+                        ct.setGia(rsCT.getDouble("gia"));
+                        chiTietList.add(ct);
+                    }
+
+                    dh.setChiTietList(chiTietList);
+                    list.add(dh);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return list;
+        }
+
+
+
+
 
 
 

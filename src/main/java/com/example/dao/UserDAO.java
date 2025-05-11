@@ -403,4 +403,26 @@ public class UserDAO {
             return false;
         }
     }
+
+    public User getUserByUsernameOrEmail(String userValue) {
+    User user = null;
+    try (Connection conn = DBConnection.getConnection()) {
+        String sql = "SELECT * FROM user WHERE username = ? OR email = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, userValue);
+        ps.setString(2, userValue);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            user = new User();
+            user.setUsername(rs.getString("username"));
+            user.setEmail(rs.getString("email"));
+            user.setSdt(rs.getString("sdt"));
+            user.setAddress(rs.getString("dia_chi"));
+            // Thêm các trường khác nếu cần
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return user;
+}
 }

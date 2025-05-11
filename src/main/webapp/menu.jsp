@@ -26,6 +26,12 @@
             <i class="fas fa-bars"></i>
         </div>
     </header>
+
+    <% 
+        String user = (String) session.getAttribute("user");
+    %>
+
+
     
     <nav class="horizontal-nav">
         <a href="/QuanLyThucDon/user?page=trangchu" class="nav-item">TRANG CHỦ</a>
@@ -34,4 +40,8 @@
         <a href="/QuanLyThucDon/user?page=contact" class="nav-item">LIÊN HỆ</a>
         <a href="/QuanLyThucDon/user?page=stores" class="nav-item">HỆ THỐNG CỬA HÀNG</a>
         <a href="/QuanLyThucDon/user?page=booking" class="nav-item">ĐẶT BÀN</a>
+        <% if (user != null) { %>
+        <a href="${pageContext.request.contextPath}/DonHangServlet" class="nav-item">ĐƠN HÀNG CỦA BẠN</a>
+        <% } %>
+
     </nav>

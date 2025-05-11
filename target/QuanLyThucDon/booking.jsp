@@ -10,30 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   </head>
   <body>
-    <header class="header">
-      <div class="logo-container">
-        <img src="./assets/img/logo.png" alt="Ant Bistro Logo" class="logo" />
-        <div class="logo-text">ANT BISTRO</div>
-      </div>
-        <a href="CartServlet" class="notification-icon">
-            <i class="fa-solid fa-cart-shopping"></i>
-        </a>
-      <div class="mobile-menu-toggle">
-        <i class="fas fa-bars"></i>
-      </div>
-    </header>
-    <nav class="horizontal-nav">
-      <a href="/QuanLyThucDon/user?page=trangchu" class="nav-item">TRANG CHỦ</a>
-      <a href="/QuanLyThucDon/user?page=about" class="nav-item">GIỚI THIỆU</a>
-      <a href="/QuanLyThucDon/user?page=products" class="nav-item expandable"
-        >SẢN PHẨM</a
-      >
-      <a href="/QuanLyThucDon/user?page=contact" class="nav-item">LIÊN HỆ</a>
-      <a href="/QuanLyThucDon/user?page=stores" class="nav-item"
-        >HỆ THỐNG CỬA HÀNG</a
-      >
-      <a href="/QuanLyThucDon/user?page=booking" class="nav-item">ĐẶT BÀN</a>
-    </nav>
+
+    <jsp:include page="menu.jsp" />
 
     <main>
 

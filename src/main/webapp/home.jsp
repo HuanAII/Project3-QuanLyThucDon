@@ -189,7 +189,7 @@
     <nav class="navbar">
         <div class="logo">ANT Bistro</div>
         <div class="nav-items">
-            <a href="<%=request.getContextPath()%>/pages/index.html">Trang chủ</a>
+            <a href="<%=request.getContextPath()%>/index.html">Trang chủ</a>
             <a href="<%=request.getContextPath()%>/products.jsp">Thực đơn</a>
             <a href="<%=request.getContextPath()%>/booking.jsp">Đặt bàn</a>
             <a href="<%=request.getContextPath()%>/contact.jsp">Liên hệ</a>
@@ -200,7 +200,7 @@
     <script>
         // Tự động chuyển hướng đến trang chủ sau khi đăng nhập
         window.onload = function() {
-            window.location.href = '<%=request.getContextPath()%>/pages/index.html';
+            window.location.href = '<%=request.getContextPath()%>/index.html';
         }
     </script>
     

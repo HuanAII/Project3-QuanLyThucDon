@@ -10,33 +10,30 @@ public class User_Dispatcher extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = req.getParameter("page");
-        String redirectTo = "index.html"; 
+        String redirectTo = "index.jsp"; 
         if (page != null) {
             switch (page) {
                 case "trangchu":
-                    redirectTo = "index.html";
+                    redirectTo = "index.jsp";
                     break;
                 case "about":
-                    redirectTo = "about.html";
+                    redirectTo = "about.jsp";
                     break;
                 case "products":
                 
                     redirectTo = "products.jsp";
                     break;
                 case "contact":
-                    redirectTo = "contact.html";
+                    redirectTo = "contact.jsp";
                     break;
                 case "stores":
-                    redirectTo = "stores.html";
+                    redirectTo = "stores.jsp";
                     break;
                 case "booking":
-                    redirectTo = "booking.html";
-                    break;
-                case "favorites":
-                    redirectTo = "fav.html";
+                    redirectTo = "booking.jsp";
                     break;
                 default:
-                    redirectTo = "index.html";
+                    redirectTo = "index.jsp";
             }
         }
         resp.sendRedirect(redirectTo);

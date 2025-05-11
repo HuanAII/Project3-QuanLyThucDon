@@ -66,7 +66,8 @@ public class UserDAO {
                 user.setUsername(resultSet.getString("username"));
                 user.setRole(resultSet.getString("role"));
                 user.setEmail(resultSet.getString("email"));
-                user.setAddress(resultSet.getString("Address"));
+                user.setAddress(resultSet.getString("dia_chi"));
+                user.setSdt(resultSet.getString("sdt"));
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -113,7 +114,8 @@ public class UserDAO {
                 user.setUsername(resultSet.getString("username"));
                 user.setRole(resultSet.getString("role"));
                 user.setEmail(resultSet.getString("email"));
-                user.setAddress(resultSet.getString("Address"));
+                user.setAddress(resultSet.getString("dia_chi"));
+                user.setSdt(resultSet.getString("sdt"));
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -155,14 +157,15 @@ public class UserDAO {
             String encryptedPassword = encryptPassword(user.getPassword());
 
             // SQL để thêm user mới
-            String sql = "INSERT INTO user (id, username, password, role, email, Address) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO user (id, username, password, role, email, dia_chi,sdt) VALUES (?, ?, ?, ?, ?, ?,?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, id);
             statement.setString(2, user.getUsername());
             statement.setString(3, encryptedPassword);
-            statement.setString(4, user.getRole() != null ? user.getRole() : "user"); // Mặc định role là "user"
+            statement.setString(4, user.getRole() != null ? user.getRole() : "Khách hàng"); // Mặc định role là "Khách hàng"
             statement.setString(5, user.getEmail());
             statement.setString(6, user.getAddress());
+            statement.setString(7, user.getSdt());
 
             // Thực thi
             int rowsInserted = statement.executeUpdate();
@@ -248,7 +251,7 @@ public class UserDAO {
             connection = DBConnection.getConnection();
 
             // SQL để cập nhật thông tin user
-            String sql = "UPDATE user SET username=?, role=?, email=?, Address=? WHERE id=?";
+            String sql = "UPDATE user SET username=?, role=?, email=?, dia_chi=? WHERE id=?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getRole());
@@ -416,9 +419,8 @@ public class UserDAO {
             user = new User();
             user.setUsername(rs.getString("username"));
             user.setEmail(rs.getString("email"));
-            user.setSdt(rs.getString("sdt"));
             user.setAddress(rs.getString("dia_chi"));
-            // Thêm các trường khác nếu cần
+            user.setSdt(rs.getString("sdt"));
         }
     } catch (Exception e) {
         e.printStackTrace();

@@ -46,7 +46,10 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             // Đăng nhập thành công, tạo session
             HttpSession session = request.getSession();
-            session.setAttribute("user", user);
+            String username = user.getUsername().toString();
+            String userId = user.getId().toString();
+            session.setAttribute("user", username);
+            session.setAttribute("id_kh", userId);
 
             // Nếu "Ghi nhớ đăng nhập" được chọn, tạo cookie
             if (rememberMe != null) {
@@ -74,7 +77,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("manager/dashboard.jsp");
             } else {
                 // Người dùng thông thường
-                response.sendRedirect("home.jsp");
+                response.sendRedirect("index.jsp");
             }
         } else {
             // Đăng nhập thất bại, quay lại trang đăng nhập với thông báo lỗi

@@ -263,6 +263,11 @@
                     <input type="email" id="email" name="email" required>
                     <label for="email">Email</label>
                 </div>
+                
+                <div class="input-group">
+                    <input type="text" id="phone" name="phone" pattern="[0-9]{10,15}" required>
+                    <label for="phone">Số điện thoại</label>
+                </div>
                 <div class="input-group">
                     <input type="password" id="password" name="password" required onkeyup="checkPasswordStrength()">
                     <label for="password">Mật khẩu</label>
@@ -281,7 +286,7 @@
                     <input type="text" id="address" name="address">
                     <label for="address">Địa chỉ</label>
                 </div>
-                <input type="hidden" name="role" value="user">
+                <input type="hidden" name="role" value="Khách hàng">
                 
                 <button type="submit" class="btn">Đăng ký</button>
                 <div class="login-link">

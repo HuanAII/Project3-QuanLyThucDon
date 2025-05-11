@@ -154,18 +154,18 @@ public class UserDAO {
             String id = generateUniqueId();
 
             // Mã hóa mật khẩu
-            String encryptedPassword = encryptPassword(user.getPassword());
+            
 
             // SQL để thêm user mới
-            String sql = "INSERT INTO user (id, username, password, role, email, dia_chi,sdt) VALUES (?, ?, ?, ?, ?, ?,?)";
+            String sql = "INSERT INTO user ( username, password, role, email, dia_chi,sdt) VALUES ( ?, ?, ?, ?, ?,?)";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, id);
-            statement.setString(2, user.getUsername());
-            statement.setString(3, encryptedPassword);
-            statement.setString(4, user.getRole() != null ? user.getRole() : "Khách hàng"); // Mặc định role là "Khách hàng"
-            statement.setString(5, user.getEmail());
-            statement.setString(6, user.getAddress());
-            statement.setString(7, user.getSdt());
+            // statement.setString(1, id);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword()); 
+            statement.setString(3, user.getRole() != null ? user.getRole() : "Khách hàng"); // Mặc định role là "Khách hàng"
+            statement.setString(4, user.getEmail());
+            statement.setString(5, user.getAddress());
+            statement.setString(6, user.getSdt());
 
             // Thực thi
             int rowsInserted = statement.executeUpdate();

@@ -79,9 +79,6 @@
         </div>
       </div>
 
-      <div class="chat-icon">
-        <i class="fab fa-facebook-messenger"></i>
-      </div>
     </main>
   </body>
   <script src="./assets/js/main.js"></script>

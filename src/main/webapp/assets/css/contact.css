@@ -1,370 +1,353 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #000;
-    color: white;
-    min-height: 100vh;
-    overflow-x: hidden;
+  background-color: #000;
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Header and Horizontal Navigation (giữ nguyên từ trang chính) */
 .header {
-    background-color: #000;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    height: 80px;
-    position: relative;
-    z-index: 100;
+  background-color: #000;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 80px;
+  position: relative;
+  z-index: 100;
 }
 
 .logo-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .logo {
-    width: 60px;
-    height: 60px;
+  width: 60px;
+  height: 60px;
 }
 
 .logo-text {
-    margin-left: 10px;
-    font-weight: bold;
-    font-size: 18px;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .horizontal-nav {
-    display: flex;
-    justify-content: center;
-    background-color: #111;
-    padding: 15px 0;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
-    overflow-x: auto;
-    white-space: nowrap;
-    position: relative;
-    z-index: 100;
+  display: flex;
+  justify-content: center;
+  background-color: #111;
+  padding: 15px 0;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  overflow-x: auto;
+  white-space: nowrap;
+  position: relative;
+  z-index: 100;
 }
 
 .nav-item {
-    padding: 0 20px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: color 0.2s;
-    color: white;
-    position: relative;
+  padding: 0 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+  color: white;
+  position: relative;
 }
 
-.nav-item:hover, .nav-item.active {
-    color: #ff1236;
+.nav-item:hover,
+.nav-item.active {
+  color: #ff1236;
 }
 
 .nav-item.expandable {
-    position: relative;
+  position: relative;
 }
 
 .nav-item.expandable::after {
-    content: '+';
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-/* Notification Icon */
-.notification-icon {
-    position: fixed;
-    top: 20px;
-    right: 70px;
-    background-color: #ff1236;
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    cursor: pointer;
-    z-index: 15;
+  content: "+";
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* Mobile Menu Toggle */
 .mobile-menu-toggle {
-    display: none;
-    cursor: pointer;
-    font-size: 24px;
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
 }
 
 /* Breadcrumb */
 .breadcrumb {
-    display: flex;
-    padding: 20px;
-    font-size: 14px;
-    background-color: #111;
+  display: flex;
+  padding: 20px;
+  font-size: 14px;
+  background-color: #111;
 }
 
 .breadcrumb a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .breadcrumb span {
-    color: #ff1236;
-    margin: 0 8px;
+  color: #ff1236;
+  margin: 0 8px;
 }
 
 /* Page Title */
 .page-title {
-    text-align: center;
-    margin: 20px 0 40px;
-    font-size: 32px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: bold;
+  text-align: center;
+  margin: 20px 0 40px;
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
 }
 
 /* Contact Container */
 .contact-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
 }
 
 /* Google Map */
 .map-container {
-    width: 100%;
-    height: 450px;
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
+  width: 100%;
+  height: 450px;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
 }
 
 .map-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 .map-info {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #333;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 15px;
-    max-width: 300px;
-    font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 15px;
+  max-width: 300px;
+  font-size: 14px;
 }
 
 .map-info h3 {
-    font-size: 16px;
-    margin-bottom: 5px;
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
 .map-info p {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .map-info a {
-    color: #0078ff;
-    text-decoration: none;
+  color: #0078ff;
+  text-decoration: none;
 }
 
 /* Contact Form */
 .contact-form {
-    background-color: #111;
-    padding: 30px;
-    border-radius: 5px;
+  background-color: #111;
+  padding: 30px;
+  border-radius: 5px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .form-label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 500;
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
 }
 
 .form-control {
-    width: 100%;
-    padding: 12px 15px;
-    background-color: #222;
-    border: 1px solid #333;
-    border-radius: 4px;
-    color: white;
-    font-size: 16px;
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #222;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
 }
 
 .form-textarea {
-    min-height: 120px;
-    resize: vertical;
+  min-height: 120px;
+  resize: vertical;
 }
 
 .submit-btn {
-    width: 100%;
-    padding: 15px;
-    background-color: #ff1236;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  width: 100%;
+  padding: 15px;
+  background-color: #ff1236;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .submit-btn:hover {
-    background-color: #e6002a;
+  background-color: #e6002a;
 }
 
 /* Bottom Navbar */
 .bottom-navbar {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #000;
-    z-index: 5;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #000;
+  z-index: 5;
 }
 
 .bottom-nav-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    color: white;
-    text-decoration: none;
-    font-size: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
 }
 
 .bottom-nav-icon {
-    font-size: 20px;
-    margin-bottom: 5px;
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
 /* Chat Icon */
 .chat-icon {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    background-color: #0084ff;
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 15;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: #0084ff;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 15;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Contact Info Section */
 .contact-info-section {
-    margin: 40px 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+  margin: 40px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
 }
 
 .contact-info-box {
-    background-color: #111;
-    padding: 25px;
-    border-radius: 5px;
-    text-align: center;
+  background-color: #111;
+  padding: 25px;
+  border-radius: 5px;
+  text-align: center;
 }
 
 .contact-info-icon {
-    font-size: 36px;
-    color: #ff1236;
-    margin-bottom: 15px;
+  font-size: 36px;
+  color: #ff1236;
+  margin-bottom: 15px;
 }
 
 .contact-info-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .contact-info-detail {
-    color: #ccc;
-    line-height: 1.6;
+  color: #ccc;
+  line-height: 1.6;
 }
 
 .contact-phone {
-    font-size: 20px;
-    color: #ff1236;
-    font-weight: bold;
-    margin: 5px 0;
+  font-size: 20px;
+  color: #ff1236;
+  font-weight: bold;
+  margin: 5px 0;
 }
 
 /* Responsive */
 @media (max-width: 992px) {
-    .horizontal-nav {
-        padding: 10px 0;
-        overflow-x: auto;
-    }
-    
-    .nav-item {
-        padding: 0 15px;
-        font-size: 14px;
-    }
-    
-    .contact-info-section {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
+  .horizontal-nav {
+    padding: 10px 0;
+    overflow-x: auto;
+  }
+
+  .nav-item {
+    padding: 0 15px;
+    font-size: 14px;
+  }
+
+  .contact-info-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 @media (max-width: 768px) {
-    .mobile-menu-toggle {
-        display: block;
-    }
-    
-    .horizontal-nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background-color: #111;
-        z-index: 101;
-    }
-    
-    .horizontal-nav.active {
-        display: flex;
-    }
-    
-    .nav-item {
-        padding: 15px 20px;
-        text-align: center;
-        border-bottom: 1px solid #333;
-    }
-    
-    .page-title {
-        font-size: 24px;
-        margin: 15px 0 30px;
-    }
-    
-    .map-container {
-        height: 300px;
-    }
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .horizontal-nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: #111;
+    z-index: 101;
+  }
+
+  .horizontal-nav.active {
+    display: flex;
+  }
+
+  .nav-item {
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+  }
+
+  .page-title {
+    font-size: 24px;
+    margin: 15px 0 30px;
+  }
+
+  .map-container {
+    height: 300px;
+  }
 }

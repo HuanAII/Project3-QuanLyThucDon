@@ -37,6 +37,7 @@ com\example\servlets\Admin\Admin_add_thucdon.class
 com\example\models\User.class
 com\example\servlets\User_Dispatcher.class
 com\example\dao\categoryDAO.class
+com\example\servlets\LogoutServlet.class
 com\example\servlets\HomeServlet.class
 com\example\servlets\User\ProductsServlet.class
 com\example\utils\MessagingException.class

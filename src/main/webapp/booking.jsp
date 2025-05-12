@@ -122,9 +122,6 @@
         </div>
       </div>
 
-      <div class="chat-icon">
-        <i class="fab fa-facebook-messenger"></i>
-      </div>
     </main>
     <script src="./assets/js/booking.js"></script>
   </body>

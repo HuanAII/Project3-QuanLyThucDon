@@ -54,10 +54,10 @@ public class LoginServlet extends HttpServlet {
             // Nếu "Ghi nhớ đăng nhập" được chọn, tạo cookie
             if (rememberMe != null) {
                 Cookie userCookie = new Cookie("userLogin", usernameOrEmail);
-                userCookie.setMaxAge(24 * 60 * 60); // 1 ngày
+                userCookie.setMaxAge(24 * 60 * 60); 
                 response.addCookie(userCookie);
             } else {
-                // Xóa cookie nếu có
+            
                 Cookie[] cookies = request.getCookies();
                 if (cookies != null) {
                     for (Cookie cookie : cookies) {

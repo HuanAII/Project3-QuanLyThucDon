@@ -18,7 +18,7 @@
 <body>
     <header class="header">
         <div class="logo-container">
-            <img src="../assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
+            <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
             <div class="logo-text">ANT BISTRO</div>
         </div>
 

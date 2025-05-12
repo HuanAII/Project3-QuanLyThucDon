@@ -133,11 +133,12 @@
                             <div class="current-price">${o.gia}₫/1 ${o.donViTinh}</div>
                         </div>
                         <div class="action-buttons">
+                        
                             <%-- NÚT THÊM VÀO GIỎ HÀNG --%>
                                <form action="AddToCartServlet" method="post">
                                  <input type="hidden" name="idMon" value="${o.idMon}">
                                      <button type="submit" class="action-button add-to-cart" >
-                                         <i class="fas fa-shopping-cart"></i>
+                                         <i class="fa-solid fa-cart-plus"></i>
                                      </button>
                                 </form>
                         </div>
@@ -147,9 +148,9 @@
         </div>
 
         <!-- Chat Icon -->
-        <div class="chat-icon">
+        <%-- <div class="chat-icon">
             <i class="fab fa-facebook-messenger"></i>
-        </div>
+        </div> --%>
     </main>
         <%-- <script src="../assets/js/products.js"></script> --%>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

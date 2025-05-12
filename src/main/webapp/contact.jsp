@@ -13,20 +13,6 @@
     />
   </head>
   <body>
-    <header class="header">
-      <div class="logo-container">
-        <img src="./assets/img/logo.png" alt="Ant Bistro Logo" class="logo" />
-        <div class="logo-text">ANT BISTRO</div>
-      </div>
-
-      <div class="notification-icon">
-        <i class="fas fa-bell"></i>
-      </div>
-
-      <div class="mobile-menu-toggle">
-        <i class="fas fa-bars"></i>
-      </div>
-    </header>
 
     <jsp:include page="menu.jsp" />
 
@@ -130,9 +116,6 @@
         </div>
       </div>
 
-      <div class="chat-icon">
-        <i class="fab fa-facebook-messenger"></i>
-      </div>
     </main>
 
     <!-- Bottom Navigation -->

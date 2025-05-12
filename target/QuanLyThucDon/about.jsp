@@ -102,10 +102,7 @@
         © Bản quyền thuộc về Kiến Vàng | Cung cấp bởi Sapo
       </footer>
 
-      <!-- Chat Icon -->
-      <div class="chat-icon">
-        <i class="fab fa-facebook-messenger"></i>
-      </div>
+
     </main>
 
     <!-- <script src="./assets/js/about.js"></script> -->

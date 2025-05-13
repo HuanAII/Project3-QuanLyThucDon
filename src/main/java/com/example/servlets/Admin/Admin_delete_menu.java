@@ -1,7 +1,6 @@
 package com.example.servlets.Admin;
 import java.io.IOException;
 
-import com.example.dao.productDao;
 import com.example.dao.productsDAO;
 
 import jakarta.servlet.ServletException;

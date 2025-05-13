@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import com.example.dao.productDao;
 import com.example.dao.productsDAO;
 import com.example.models.Product;
 

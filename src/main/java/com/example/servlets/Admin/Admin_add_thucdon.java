@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import com.example.dao.productDao;
+import com.example.dao.productsDAO;
 import com.example.models.Product;
 
 import jakarta.servlet.ServletException;
@@ -65,7 +66,7 @@ public class Admin_add_thucdon extends HttpServlet {
         }
         String img_path = uploadDir + "/" + file.getName();
         Product product = new Product(id, name, id_danhmuc, gia, img_path, mota, donVi);
-        Boolean result = productDao.addProduct(product);
+        Boolean result = productsDAO.addProduct(product);
 
         if (!result) {
             req.setAttribute("error", "Thêm danh mục thất bại!");

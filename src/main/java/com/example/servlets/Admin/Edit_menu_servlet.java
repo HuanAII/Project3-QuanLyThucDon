@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import com.example.dao.productDao;
+import com.example.dao.productsDAO;
 import com.example.models.Product;
 
 import jakarta.servlet.annotation.MultipartConfig;
@@ -54,7 +55,7 @@ public class Edit_menu_servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idMonStr = req.getParameter("id");
-        Product product = productDao.getProductById(idMonStr);
+        Product product = productsDAO.getProductById(idMonStr);
         req.setAttribute("product", product);
         req.setAttribute("contentPage", "/WEB-INF/pages/edit_menu.jsp");
         req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
@@ -63,7 +64,7 @@ public class Edit_menu_servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("idMon");
-        Product oldProduct = productDao.getProductById(id);
+        Product oldProduct = productsDAO.getProductById(id);
 
         if (oldProduct == null) {
             req.setAttribute("error", "Không tìm thấy sản phẩm để cập nhật!");
@@ -89,7 +90,7 @@ public class Edit_menu_servlet extends HttpServlet {
         String img_path = saveImageAndGetPath(filePart, uploadPath, currentImage, req);
 
         Product updatedProduct = new Product(id, name, idDanhMuc, gia, img_path, mota, donVi);
-        boolean result = productDao.updateProduct(updatedProduct);
+        boolean result = productsDAO.updateProduct(updatedProduct);
 
         if (result) {
             req.setAttribute("success", "Cập nhật sản phẩm thành công!");

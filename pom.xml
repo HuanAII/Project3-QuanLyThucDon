@@ -23,7 +23,7 @@
     </repositories>
 
     
-
+    <!-- JSTL  -->
     <dependencies>
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>

@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import com.example.dao.productDao;
+import com.example.dao.productsDAO;
 import com.example.models.Product;
 
 import jakarta.servlet.ServletException;
@@ -35,7 +36,7 @@ public class Admin_add_thucdon extends HttpServlet {
         String id = req.getParameter("idMon");
         String name = req.getParameter("tenMon");
         String id_danhmuc = req.getParameter("idDanhMuc");
-        Double gia = Double.parseDouble(req.getParameter("gia").trim());
+        Integer gia = Integer.parseInt(req.getParameter("gia").trim());
         String mota = req.getParameter("mota");
         String donVi = req.getParameter("donViTinh");
 

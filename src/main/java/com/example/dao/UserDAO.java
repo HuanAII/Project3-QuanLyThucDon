@@ -54,19 +54,17 @@ public class UserDAO {
             String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);
-            statement.setString(2, password); // Sử dụng mật khẩu gốc không mã hóa
+            statement.setString(2, password); 
 
-            // Thực thi truy vấn
+
             resultSet = statement.executeQuery();
 
-            // Nếu tìm thấy user
             if (resultSet.next()) {
                 user = new User();
                 user.setId(resultSet.getString("id"));
                 user.setUsername(resultSet.getString("username"));
                 user.setRole(resultSet.getString("role"));
                 user.setEmail(resultSet.getString("email"));
-                user.setAddress(resultSet.getString("dia_chi"));
                 user.setSdt(resultSet.getString("sdt"));
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -114,7 +112,6 @@ public class UserDAO {
                 user.setUsername(resultSet.getString("username"));
                 user.setRole(resultSet.getString("role"));
                 user.setEmail(resultSet.getString("email"));
-                user.setAddress(resultSet.getString("dia_chi"));
                 user.setSdt(resultSet.getString("sdt"));
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -164,7 +161,6 @@ public class UserDAO {
             statement.setString(2, user.getPassword()); 
             statement.setString(3, user.getRole() != null ? user.getRole() : "Khách hàng"); // Mặc định role là "Khách hàng"
             statement.setString(4, user.getEmail());
-            statement.setString(5, user.getAddress());
             statement.setString(6, user.getSdt());
 
             // Thực thi
@@ -247,26 +243,19 @@ public class UserDAO {
         boolean success = false;
 
         try {
-            // Lấy kết nối database
             connection = DBConnection.getConnection();
-
-            // SQL để cập nhật thông tin user
             String sql = "UPDATE user SET username=?, role=?, email=?, dia_chi=? WHERE id=?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getRole());
             statement.setString(3, user.getEmail());
-            statement.setString(4, user.getAddress());
             statement.setString(5, user.getId());
-
-            // Thực thi
             int rowsUpdated = statement.executeUpdate();
             success = (rowsUpdated > 0);
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            // Đóng kết nối và các statement
             try {
                 if (statement != null)
                     statement.close();
@@ -303,7 +292,7 @@ public class UserDAO {
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                // Mật khẩu cũ đúng, cập nhật mật khẩu mới
+
                 statement.close();
 
                 String updateSql = "UPDATE user SET password = ? WHERE id = ?";
@@ -318,7 +307,6 @@ public class UserDAO {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            // Đóng kết nối và các statement
             try {
                 if (resultSet != null)
                     resultSet.close();
@@ -333,33 +321,27 @@ public class UserDAO {
         return success;
     }
 
-    // Cập nhật mật khẩu thành dạng mã hóa
+
     public boolean updatePasswordToHash(String username, String plainPassword) {
         Connection connection = null;
         PreparedStatement statement = null;
         boolean success = false;
-
         try {
-            // Lấy kết nối database
             connection = DBConnection.getConnection();
 
-            // Mã hóa mật khẩu
             String hashedPassword = encryptPassword(plainPassword);
 
-            // SQL để cập nhật mật khẩu
             String sql = "UPDATE user SET password = ? WHERE username = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, hashedPassword);
             statement.setString(2, username);
 
-            // Thực thi
             int rowsUpdated = statement.executeUpdate();
             success = (rowsUpdated > 0);
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            // Đóng kết nối và các statement
             try {
                 if (statement != null)
                     statement.close();
@@ -419,7 +401,6 @@ public class UserDAO {
             user = new User();
             user.setUsername(rs.getString("username"));
             user.setEmail(rs.getString("email"));
-            user.setAddress(rs.getString("dia_chi"));
             user.setSdt(rs.getString("sdt"));
         }
     } catch (Exception e) {

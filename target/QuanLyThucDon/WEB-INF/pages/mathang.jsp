@@ -97,7 +97,7 @@
             List<Product> listThucDon = productDao.getAllProducts();
             int stt = 1;
             for (Product a : listThucDon) {
-                String hinhAnh = "https://drive.google.com/uc?export=view&id=" + a.getHinhAnh();
+                String hinhAnh = a.getHinhAnh();
         %>
         <tr>
             <td><%= stt++ %></td>
@@ -105,13 +105,12 @@
             <td><%= a.getTenMon() %></td>
             <td><%= a.getIdDanhMuc() %></td>
             <td><%= a.getGia() %></td>
-            <td>
-                <img src="${pageContext.request.contextPath}/assets/img/mon_an.jpg" class="product_img" alt="Hình ảnh">
+            <td>    
+                <img src="${pageContext.request.contextPath}/uploads/2.4.png" class="product_img" alt="Hình ảnh">
             </td>
             <td><%= a.getMota() %></td>
             <td><%= a.getDonViTinh() %></td>
             <td>
-                <!-- Nút Sửa -->
                 <button class="btn-action btn-edit" onclick="window.location.href='${pageContext.request.contextPath}/admin/thucdon/editProduct?id=<%= a.getIdMon() %>'">
                     Sửa
                 </button>

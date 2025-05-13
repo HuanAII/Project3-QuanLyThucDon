@@ -25,7 +25,7 @@ public class productDao {
                 String id = rs.getString("idMon");
                 String tenMon = rs.getString("tenMon");
                 String danhMuc = rs.getString("idDanhMuc");
-                Double gia = rs.getDouble("gia"); 
+                int gia = rs.getInt("gia"); 
                 String hinhAnh = rs.getString("hinhAnh");
                 String mota = rs.getString("mota");
                 String donViTinh = rs.getString("donViTinh");
@@ -160,7 +160,7 @@ public class productDao {
                 product.setIdMon(rs.getString("idMon"));
                 product.setTenMon(rs.getString("tenMon"));
                 product.setIdDanhMuc(rs.getString("idDanhMuc"));
-                product.setGia(rs.getDouble("gia"));
+                product.setGia(rs.getInt("gia"));
                 product.setHinhAnh(rs.getString("hinhAnh"));
                 product.setMota(rs.getString("mota"));
                 product.setDonViTinh(rs.getString("donViTinh"));

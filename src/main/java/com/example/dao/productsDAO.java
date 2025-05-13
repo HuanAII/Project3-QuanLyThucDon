@@ -16,8 +16,8 @@ import com.example.models.DonHang;
 import com.example.models.Product;
 import com.example.utils.DBConnection;
 
-public class productsDAO { // Class để truy cập dữ liệu sản phẩm từ cơ sở dữ liệu
-    public List<Product> getAllProducts() {
+public class productsDAO {
+    public static List<Product> getAllProducts() {
         List<Product> productList = new ArrayList<>();
         String query = "SELECT * FROM thucdon";
 
@@ -31,7 +31,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
                         rs.getString("idMon"), 
                         rs.getString("tenMon"),
                         rs.getString("idDanhMuc"),
-                        rs.getDouble("gia"),
+                        rs.getInt("gia"),
                         rs.getString("hinhAnh"),
                         rs.getString("moTa"),
                         rs.getString("donViTinh"));
@@ -47,7 +47,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         return productList;
     }
 
-    public Product getProductByID(String id) {
+    public static Product getProductByID(String id) {
         Product product = null;
         String query = "SELECT * FROM thucdon WHERE idMon = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -61,7 +61,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
                             rs.getString("idMon"),
                             rs.getString("tenMon"),
                             rs.getString("idDanhMuc"),
-                            rs.getDouble("gia"),
+                            rs.getInt("gia"),
                             rs.getString("hinhAnh"),
                             rs.getString("moTa"),
                             rs.getString("donViTinh"));
@@ -77,7 +77,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         return product;
     }
 
-    public void AddToCart(String idMon, String id_kh, double soLuong) {
+    public static void AddToCart(String idMon, String id_kh, double soLuong) {
         try {
             Connection conn = DBConnection.getConnection();
             // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
@@ -115,7 +115,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         }
     }
 
-    public List<CartItem> getCartByUserId(String id_kh) {
+    public static List<CartItem> getCartByUserId(String id_kh) {
         List<CartItem> productList = new ArrayList<>();
         String query = "SELECT td.idMon, td.tenMon, td.hinhAnh, td.gia, gh.soLuong " +
                 "FROM gio_hang gh JOIN thucdon td ON gh.idMon = td.idMon " +
@@ -146,7 +146,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         return productList;
     }
 
-    public void deleteCartItem(String idMon, String id_kh) {
+    public static  void deleteCartItem(String idMon, String id_kh) {
         String sql = "DELETE FROM gio_hang WHERE idMon = ? AND id_kh = ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -159,7 +159,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
     }
 
     // Tăng/giảm số lượng
-    public void updateCartItem(String idMon, String id_kh, int delta) {
+    public static void updateCartItem(String idMon, String id_kh, int delta) {
         try (Connection conn = DBConnection.getConnection()) {
             String sql = "UPDATE gio_hang SET soLuong = soLuong + ? WHERE idMon = ? AND id_kh = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -173,7 +173,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
     }
 
     // Xoá nếu số lượng <= 0
-    public void removeIfQuantityZero(String idMon, String id_kh) {
+    public static void removeIfQuantityZero(String idMon, String id_kh) {
         try (Connection conn = DBConnection.getConnection()) {
             String sql = "DELETE FROM gio_hang WHERE idMon = ? AND id_kh = ? AND soLuong <= 0";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -185,7 +185,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         }
     }
 
-        public void clearCartByUserId(String id_kh) {
+        public static  void clearCartByUserId(String id_kh) {
         String query = "DELETE FROM gio_hang WHERE id_kh = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -201,7 +201,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
     }
 
 
-    public int addOrder(Integer id_kh, double total, String status, String id_table, String tenKH, String sdt,
+    public static int addOrder(Integer id_kh, double total, String status, String id_table, String tenKH, String sdt,
             String dia_chi) {
         String sql = "INSERT INTO donhang (date, total, status, id_kh, id_table, tenKH, sdt, dia_chi) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -232,7 +232,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         
     }
 
-    public boolean addOrderDetails(int idDonHang, String idMon, int soLuong) {
+    public static boolean addOrderDetails(int idDonHang, String idMon, int soLuong) {
         String sql = "INSERT INTO chitietdonhang (idDonHang, idMon, soLuong) VALUES (?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -247,7 +247,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         }
     }
 
-        public Integer getValidDiscount(String maGiamGia) {
+        public static Integer getValidDiscount(String maGiamGia) {
             Integer discount = null;
             String query = "SELECT discount, start_date, end_date FROM khuyen_mai WHERE ma_giam_gia = ?";
 
@@ -283,7 +283,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         }
 
 
-        public List<DonHang> getDonHangByUsername(String username) {
+        public static List<DonHang> getDonHangByUsername(String username) {
             List<DonHang> list = new ArrayList<>();
 
             try (Connection conn = DBConnection.getConnection()) {
@@ -348,7 +348,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
 
 
 
-    public List<Product> getAllProductsBySort(String[] price, String sort, String[] type) {
+    public static List<Product> getAllProductsBySort(String[] price, String sort, String[] type) {
         List<Product> productList = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM thucdon");
         boolean isFirstCondition = true;
@@ -447,7 +447,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
                         rs.getString("idMon"),
                         rs.getString("tenMon"),
                         rs.getString("idDanhMuc"),
-                        rs.getDouble("gia"),
+                        rs.getInt("gia"),
                         rs.getString("hinhAnh"),
                         rs.getString("moTa"),
                         rs.getString("donViTinh"));

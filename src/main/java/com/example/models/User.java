@@ -7,7 +7,6 @@ public class User {
     private String role;
     private String sdt;
     private String email;
-    private String address;
 
     public User() {
     }
@@ -24,7 +23,6 @@ public class User {
         this.role = role;
         this.sdt = sdt;
         this.email = email;
-        this.address = address;
     }
 
     // Getters và Setters
@@ -74,17 +72,9 @@ public class User {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     @Override
     public String toString() {
         return "User [id=" + id + ", username=" + username + ", role=" + role + ", sdt=" + sdt + ", email=" + email + ", address="
-                + address + "]";
+                 + "]";
     }
 }

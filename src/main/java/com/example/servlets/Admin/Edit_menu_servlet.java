@@ -40,7 +40,6 @@ public class Edit_menu_servlet extends HttpServlet {
             Files.copy(input, file.toPath());
         }
 
-        // Xóa ảnh cũ
         if (currentImage != null && !currentImage.isEmpty()) {
             File oldFile = new File(req.getServletContext().getRealPath("/") + currentImage);
             if (oldFile.exists()) {
@@ -76,7 +75,8 @@ public class Edit_menu_servlet extends HttpServlet {
         String idDanhMuc = getOrDefault(req.getParameter("idDanhMuc"), oldProduct.getIdDanhMuc());
         String mota = getOrDefault(req.getParameter("mota"), oldProduct.getMota());
         String donVi = getOrDefault(req.getParameter("donViTinh"), oldProduct.getDonViTinh());
-        Double gia = parseOrDefault(req.getParameter("gia"), oldProduct.getGia());
+        int gia = parseOrDefault(req.getParameter("gia"), oldProduct.getGia());
+        System.out.println(gia);
 
     
         String uploadDir = "uploads";
@@ -106,10 +106,10 @@ public class Edit_menu_servlet extends HttpServlet {
         return (input == null || input.trim().isEmpty()) ? defaultValue : input.trim();
     }
 
-    private Double parseOrDefault(String input, Double defaultValue) {
+    private int parseOrDefault(String input, int defaultValue) {
         if (input == null || input.trim().isEmpty()) return defaultValue;
         try {
-            return Double.parseDouble(input.trim());
+            return Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
             return defaultValue;
         }

@@ -126,11 +126,12 @@
 %>
             <c:forEach items="${listP}" var="o">
                 <div class="product-card">
-                    <img class="product-image" src="${o.hinhAnh}" alt="Ảnh từ Cloudinary">
+                   <img class="product-image" src="${o.hinhAnh}" alt="">
+
                     <div class="product-info">
                         <div class="product-title">${o.tenMon}</div>
                         <div class="product-price">
-                            <div class="current-price">${o.gia}₫/1 ${o.donViTinh}</div>
+                            <div class="current-price">${o.gia}₫/ ${o.donViTinh}</div>
                         </div>
                         <div class="action-buttons">
                         
@@ -148,7 +149,6 @@
         </div>
 
     </main>
-        <%-- <script src="../assets/js/products.js"></script> --%>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
      <script src="${pageContext.request.contextPath}/assets/js/products.js"></script>
 </body>

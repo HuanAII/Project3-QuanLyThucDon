@@ -247,7 +247,7 @@
         <div class="form-section">
             <h2>Đăng ký tài khoản</h2>
             
-            <%-- Hiển thị thông báo lỗi --%>
+
             <% if(request.getAttribute("errorMessage") != null) { %>
                 <div class="message error-message">
                     <%= request.getAttribute("errorMessage") %>
@@ -282,10 +282,6 @@
                     <input type="password" id="confirmPassword" name="confirmPassword" required>
                     <label for="confirmPassword">Xác nhận mật khẩu</label>
                 </div>
-                <div class="input-group">
-                    <input type="text" id="address" name="address">
-                    <label for="address">Địa chỉ</label>
-                </div>
                 <input type="hidden" name="role" value="Khách hàng">
                 
                 <button type="submit" class="btn">Đăng ký</button>
@@ -302,37 +298,31 @@
             var strengthBar = document.getElementById('passwordStrengthBar');
             var passwordInfo = document.getElementById('passwordInfo');
             
-            // Hiển thị thông tin mật khẩu khi bắt đầu nhập
             if (password.length > 0) {
                 passwordInfo.style.display = 'block';
             } else {
                 passwordInfo.style.display = 'none';
             }
             
-            // Tính điểm mạnh của mật khẩu
             var strength = 0;
-            
-            // Độ dài mật khẩu
+
             if (password.length >= 8) {
                 strength += 25;
             }
             
-            // Chữ hoa
             if (password.match(/[A-Z]/)) {
                 strength += 25;
             }
             
-            // Số
             if (password.match(/[0-9]/)) {
                 strength += 25;
             }
             
-            // Ký tự đặc biệt
+
             if (password.match(/[^A-Za-z0-9]/)) {
                 strength += 25;
             }
             
-            // Cập nhật thanh sức mạnh
             strengthBar.style.width = strength + '%';
         }
         

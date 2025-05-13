@@ -17,14 +17,14 @@
 
 <body>
     <header class="header">
-        <div class="logo-container">
+        <%-- <div class="logo-container">
             <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
             <div class="logo-text">ANT BISTRO</div>
-        </div>
+        </div> --%>
 
         <a href="CartServlet" class="notification-icon">
             <i class="fa-solid fa-cart-shopping"></i>
-        </a>
+        </a>    
 
         <div class="mobile-menu-toggle">
             <i class="fas fa-bars"></i>
@@ -35,6 +35,9 @@
     <div class="nav-container">
         <nav class="horizontal-nav">
             <ul class="nav-list">
+                    <div class="logo-container" >
+            <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
+                    </div>
                 <li><a href="/QuanLyThucDon/user?page=trangchu" class="nav-item">TRANG CHỦ</a></li>
                 <li><a href="/QuanLyThucDon/user?page=about" class="nav-item">GIỚI THIỆU</a></li>
                 <li><a href="/QuanLyThucDon/user?page=products" class="nav-item">SẢN PHẨM</a></li>

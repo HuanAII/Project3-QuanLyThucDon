@@ -68,13 +68,13 @@
               style="font-size: 28px; color: #ff1236"
             ></i>
           </div>
-          <div class="overlay-title">ANT BISTRO</div>
-          <h1 class="restaurant-name">Nhà hàng Ant Bistro</h1>
-          <button class="about-btn">VỀ CHÚNG TÔI</button>
+          <div class="overlay-title">HNK</div>
+          <h1 class="restaurant-name">Nhà hàng HNK</h1>
+          <button class="about-btn"><a href="about.jsp"  style="text-decoration: none; color:white ">VỀ CHÚNG TÔI</a></button>
 
           <!-- Footer -->
           <div class="footer">
-            © Bản quyền thuộc về Kiến Vàng | Cung cấp bởi Sapo
+            PBL3 Nhóm 3 - Đại Học Công Nghệ Thông Tin - Khoa CNTT - Trường ĐH BKDN
           </div>
         </div>
       </div>

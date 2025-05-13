@@ -147,10 +147,6 @@
             </c:forEach>
         </div>
 
-        <!-- Chat Icon -->
-        <%-- <div class="chat-icon">
-            <i class="fab fa-facebook-messenger"></i>
-        </div> --%>
     </main>
         <%-- <script src="../assets/js/products.js"></script> --%>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -47,7 +47,7 @@ body {
 
 #toast-notification {
   position: absolute;
-  top: 200px;
+  top: 10px;
   right: 30px;
   background-color: #28a745;
   color: white;
@@ -58,19 +58,6 @@ body {
   opacity: 1;
   transition: opacity 0.5s ease-out;
   font-weight: bold;
-}
-
-/* Header and Horizontal Navigation (giữ nguyên từ trang chính) */
-.header {
-  background-color: #000;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  height: 80px;
-  position: relative;
-  z-index: 100;
 }
 
 .logo-container {

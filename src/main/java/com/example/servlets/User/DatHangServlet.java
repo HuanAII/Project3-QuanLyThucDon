@@ -1,5 +1,7 @@
 package com.example.servlets.User;
 
+import com.example.dao.CartDAO;
+import com.example.dao.OrderDAO;
 import com.example.dao.productsDAO;
 import com.example.models.CartItem;
 
@@ -54,7 +56,6 @@ public class DatHangServlet extends HttpServlet {
         Object user = session.getAttribute("user");
         Integer id_kh = null;
 
-        productsDAO dao = new productsDAO();
 
         if (user != null) {
             id_kh = Integer.parseInt(session.getAttribute("id_kh").toString());
@@ -66,7 +67,7 @@ public class DatHangServlet extends HttpServlet {
         double total = tongTienSauGiam != null ? tongTienSauGiam : (tongTien != null ? tongTien : 0.0);
 
         // Thêm đơn hàng
-        int idDonHang = dao.addOrder(id_kh, total, "Cho xu ly", null, hoTen, soDienThoai, diaChi);
+        int idDonHang = OrderDAO.addOrder(id_kh, total, "Cho xu ly", null, hoTen, soDienThoai, diaChi);
 
         if (idDonHang == -1) {
             request.setAttribute("error", "Không thể thêm đơn hàng. Vui lòng thử lại!");
@@ -76,7 +77,7 @@ public class DatHangServlet extends HttpServlet {
 
         boolean isOrderDetailsAdded = true;
         for (CartItem item : cart) {
-            if (!dao.addOrderDetails(idDonHang, item.getIdMon(), item.getSoLuong())) {
+            if (!OrderDAO.addOrderDetails(idDonHang, item.getIdMon(), item.getSoLuong())) {
                 isOrderDetailsAdded = false;
                 break;
             }
@@ -88,7 +89,7 @@ public class DatHangServlet extends HttpServlet {
             session.removeAttribute("giamGia");
             session.removeAttribute("tongTienSauGiam");
             session.removeAttribute("discount");
-            dao.clearCartByUserId(String.valueOf(id_kh));
+            CartDAO.clearCartByUserId(String.valueOf(id_kh));
 
             System.out.println("Dat don hang thanh cong voi id: " + idDonHang);
             session.setAttribute("addedMsg", "Đặt hàng thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.");

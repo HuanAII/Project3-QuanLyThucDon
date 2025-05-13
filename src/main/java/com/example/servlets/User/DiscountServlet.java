@@ -1,4 +1,5 @@
 package com.example.servlets.User;
+import com.example.dao.OrderDAO;
 import com.example.dao.productsDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,7 +24,7 @@ public class DiscountServlet extends HttpServlet {
                 : 0.0;
 
         productsDAO dao = new productsDAO();
-        Integer discount = dao.getValidDiscount(maGiamGia);
+        Integer discount = OrderDAO.getValidDiscount(maGiamGia);
 
         if (discount != null && discount > 0) {
             double giamGia = tongTien * discount / 100.0;

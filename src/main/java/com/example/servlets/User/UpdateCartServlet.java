@@ -3,6 +3,7 @@ package com.example.servlets.User;
 import java.io.IOException;
 import java.util.List;
 
+import com.example.dao.CartDAO;
 import com.example.dao.productsDAO;
 import com.example.models.CartItem;
 
@@ -32,14 +33,14 @@ public class UpdateCartServlet extends HttpServlet {
             productsDAO dao = new productsDAO();
             switch (action) {
                 case "plus":
-                    dao.updateCartItem(idMon, id_kh, 1);
+                    CartDAO.updateCartItem(idMon, id_kh, 1);
                     break;
                 case "minus":
-                    dao.updateCartItem(idMon, id_kh, -1);
-                    dao.removeIfQuantityZero(idMon, id_kh);
+                    CartDAO.updateCartItem(idMon, id_kh, -1);
+                    CartDAO.removeIfQuantityZero(idMon, id_kh);
                     break;
                 case "remove":
-                    dao.deleteCartItem(idMon, id_kh);
+                    CartDAO.deleteCartItem(idMon, id_kh);
                     break;
             }
         } else {

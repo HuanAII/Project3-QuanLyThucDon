@@ -1,0 +1,158 @@
+package com.example.dao;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.models.ChiTietDonHang;
+import com.example.models.DonHang;
+import com.example.utils.DBConnection;
+
+public class OrderDAO {
+        public static int addOrder(Integer id_kh, double total, String status, String id_table, String tenKH, String sdt,
+            String dia_chi) {
+        String sql = "INSERT INTO donhang (date, total, status, id_kh, id_table, tenKH, sdt, dia_chi) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setDouble(1, total);
+            ps.setString(2, status);
+            if (id_kh != null) {
+                ps.setInt(3, id_kh);
+            } else {
+                ps.setNull(3, java.sql.Types.INTEGER);
+            }
+            ps.setString(4, id_table);
+            ps.setString(5, tenKH);
+            ps.setString(6, sdt);
+            ps.setString(7, dia_chi);
+            ps.executeUpdate();
+
+            // Lấy idDonHang vừa được tạo
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getInt(1); // Trả về idDonHang
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1; // Trả về -1 nếu có lỗi
+        
+    }
+
+    public static boolean addOrderDetails(int idDonHang, String idMon, int soLuong) {
+        String sql = "INSERT INTO chitietdonhang (idDonHang, idMon, soLuong) VALUES (?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idDonHang);
+            ps.setString(2, idMon);
+            ps.setInt(3, soLuong);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+        public static Integer getValidDiscount(String maGiamGia) {
+            Integer discount = null;
+            String query = "SELECT discount, start_date, end_date FROM khuyen_mai WHERE ma_giam_gia = ?";
+
+            try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+
+                ps.setString(1, maGiamGia);
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    // Chắc chắn đây là java.sql.Date
+                    Date startDate = rs.getDate("start_date");
+                    Date endDate = rs.getDate("end_date");
+                    int dis = rs.getInt("discount");
+
+                    LocalDate today = LocalDate.now();
+
+                    // Chuyển Date thành LocalDate
+                    LocalDate start = startDate.toLocalDate();
+                    LocalDate end = endDate.toLocalDate();
+
+                    if ((start.isEqual(today) || start.isBefore(today)) &&
+                        (end.isEqual(today) || end.isAfter(today))) {
+                        discount = dis;
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return discount;
+        }
+
+
+        public static List<DonHang> getDonHangByUsername(String username) {
+            List<DonHang> list = new ArrayList<>();
+
+            try (Connection conn = DBConnection.getConnection()) {
+                // Tìm ID người dùng
+                String sqlGetUserId = "SELECT id FROM user WHERE username = ?";
+                PreparedStatement psUser = conn.prepareStatement(sqlGetUserId);
+                psUser.setString(1, username);
+                ResultSet rsUser = psUser.executeQuery();
+
+                if (!rsUser.next()) return list;
+                int idKh = rsUser.getInt("id");
+
+                // Lấy danh sách đơn hàng của người dùng
+                String sqlDonHang = "SELECT * FROM donhang WHERE id_kh = ?";
+                PreparedStatement psDH = conn.prepareStatement(sqlDonHang);
+                psDH.setInt(1, idKh);
+                ResultSet rsDH = psDH.executeQuery();
+
+                while (rsDH.next()) {
+                    DonHang dh = new DonHang();
+                    int idDonHang = rsDH.getInt("idDonHang");
+
+                    dh.setIdDonHang(idDonHang);
+                    dh.setDate(rsDH.getDate("date"));
+                    dh.setTotal(rsDH.getDouble("total"));
+                    dh.setStatus(rsDH.getString("status"));
+                    dh.setTenKH(rsDH.getString("tenKH"));
+                    dh.setSdt(rsDH.getString("sdt"));
+                    dh.setDiaChi(rsDH.getString("dia_chi"));
+
+                    // Chi tiết đơn hàng
+                    String sqlChiTiet = "SELECT c.soLuong, m.tenMon, m.gia " +
+                                        "FROM chitietdonhang c JOIN thucdon m ON c.idMon = m.idMon " +
+                                        "WHERE c.idDonHang = ?";
+                    PreparedStatement psCT = conn.prepareStatement(sqlChiTiet);
+                    psCT.setInt(1, idDonHang);
+                    ResultSet rsCT = psCT.executeQuery();
+
+                    List<ChiTietDonHang> chiTietList = new ArrayList<>();
+                    while (rsCT.next()) {
+                        ChiTietDonHang ct = new ChiTietDonHang();
+                        ct.setTenMon(rsCT.getString("tenMon"));
+                        ct.setSoLuong(rsCT.getInt("soLuong"));
+                        ct.setGia(rsCT.getDouble("gia"));
+                        chiTietList.add(ct);
+                    }
+
+                    dh.setChiTietList(chiTietList);
+                    list.add(dh);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return list;
+        }
+    
+}

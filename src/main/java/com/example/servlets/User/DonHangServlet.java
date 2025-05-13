@@ -1,5 +1,6 @@
 package com.example.servlets.User;
 
+import com.example.dao.OrderDAO;
 import com.example.dao.productsDAO;
 import com.example.models.DonHang;
 
@@ -24,9 +25,8 @@ public class DonHangServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
-
-        productsDAO dao = new productsDAO();
-        List<DonHang> list = dao.getDonHangByUsername(user);
+        
+        List<DonHang> list = OrderDAO.getDonHangByUsername(user);
 
         request.setAttribute("listDH", list);
         request.getRequestDispatcher("DonHangDaDat.jsp").forward(request, response);

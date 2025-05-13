@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.dao.CartDAO;
 import com.example.dao.productsDAO;
 import com.example.models.CartItem;
 import jakarta.servlet.ServletException;
@@ -27,8 +28,7 @@ public class CartServlet extends HttpServlet {
         if (user != null) {
             // Người DÙNG đã đăng nhập — Lấy dữ liệu từ DB
             System.out.println(">> USER: " + user + " dang xem gio hang");
-            productsDAO dao = new productsDAO();
-            List<CartItem> cartFromDB = dao.getCartByUserId(id_kh);
+            List<CartItem> cartFromDB = CartDAO.getCartByUserId(id_kh);
             System.out.println(">> So luong sp trong gio hang: " + cartFromDB.size());
 
             session.setAttribute("cart", cartFromDB);

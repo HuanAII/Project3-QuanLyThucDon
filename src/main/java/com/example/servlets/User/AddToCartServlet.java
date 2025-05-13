@@ -4,7 +4,8 @@
     import java.util.ArrayList;
     import java.util.List;
 
-    import com.example.dao.productsDAO;
+import com.example.dao.CartDAO;
+import com.example.dao.productsDAO;
     import com.example.models.CartItem;
     import com.example.models.Product;
 
@@ -30,8 +31,7 @@ public class AddToCartServlet extends HttpServlet {
         
 
         if (user != null) {
-            productsDAO dao = new productsDAO();
-            dao.AddToCart(idMon, id_kh, soLuong);
+            CartDAO.AddToCart(idMon, id_kh, soLuong);
             System.out.println(">> USER: " + user + " them SP: " + idMon);
         } else {
             List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");

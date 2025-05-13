@@ -14,7 +14,7 @@
 
     <main>
       <%-- THONG BAO --%>
-          <% String thongBao = (String) request.getAttribute("thongBao"); %>
+    <% String thongBao = (String) request.getAttribute("thongBao"); %>
     <% if (thongBao != null) { %>
         <div class="thong-bao" style="color: red; font-weight: bold;"><%= thongBao %></div>
     <%  

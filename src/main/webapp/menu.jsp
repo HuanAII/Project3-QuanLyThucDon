@@ -26,9 +26,6 @@
             <i class="fa-solid fa-cart-shopping"></i>
         </a>    
 
-        <div class="mobile-menu-toggle">
-            <i class="fas fa-bars"></i>
-        </div>
     </header>
 
     <!-- Thanh điều hướng + Đăng nhập/Đăng ký/Chào -->

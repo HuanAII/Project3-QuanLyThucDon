@@ -26,6 +26,21 @@ public class DatHangServlet extends HttpServlet {
         String ghiChu = request.getParameter("ghiChu");
         String phuongThucThanhToan = request.getParameter("payment");
 
+        if (soDienThoai.length() < 10 || soDienThoai.length() > 11) {
+            request.setAttribute("error", "Số điện thoại không hợp lệ!");
+            System.out.println("Số điện thoại không hợp lệ");
+            request.getRequestDispatcher("thanhToan.jsp").forward(request, response);
+            return;
+        }
+        
+        if (diaChi.length() < 5) {
+            request.setAttribute("error", "Địa chỉ không hợp lệ!");
+            System.out.println("Địa chỉ không hợp lệ");
+            request.getRequestDispatcher("thanhToan.jsp").forward(request, response);
+            return;
+            
+        }
+
         HttpSession session = request.getSession();
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 

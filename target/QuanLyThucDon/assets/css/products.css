@@ -195,6 +195,7 @@ body {
   cursor: pointer;
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .dropdown-filter i {

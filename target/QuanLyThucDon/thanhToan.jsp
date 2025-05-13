@@ -15,16 +15,25 @@
         <form action="DatHangServlet" method="post">
           <h2>Thông tin nhận hàng</h2>
 
+        <% String error = (String) request.getAttribute("error"); %>
+        <% if (error != null) { %>
+            <div class="thong-bao" style="color: red; font-weight: bold; margin-bottom:10px;"><%= error %></div>
+        <%  
+        session.removeAttribute("error"); 
+        } 
+        %>
+
           <!-- Email: auto fill nếu có -->
-          <input type="email" name="email" placeholder="Email (tùy chọn)" 
+          <input type="email" name="email" placeholder="Email" 
                  value="${userInfo.email}" />
 
           <!-- Họ và tên: bắt buộc nhập -->
           <input type="text" name="hoTen" placeholder="Họ và tên" required />
 
           <!-- Số điện thoại: auto fill nếu có -->
-          <input type="tel" name="soDienThoai" placeholder="Số điện thoại (tùy chọn)" 
+          <input type="tel" name="soDienThoai" placeholder="Số điện thoại" 
                  value="${userInfo.sdt}" />
+
 
           <!-- Địa chỉ: auto fill nếu có -->
           <input type="text" name="diaChi" placeholder="Địa chỉ nhận hàng" required 

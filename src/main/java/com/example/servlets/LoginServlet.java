@@ -71,9 +71,10 @@ public class LoginServlet extends HttpServlet {
             }
 
             // Chuyển hướng dựa trên vai trò của người dùng
-            if ("admin".equals(user.getRole())) {
-                response.sendRedirect("admin/dashboard.jsp");
-            } else if ("manager".equals(user.getRole())) {
+            if ("Quan lý".equals(user.getRole())) {
+                response.sendRedirect(request.getContextPath() + "/admin");
+
+            } else if ("Quan lý".equals(user.getRole())) {
                 response.sendRedirect("manager/dashboard.jsp");
             } else {
                 // Người dùng thông thường

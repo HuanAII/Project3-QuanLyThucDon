@@ -121,7 +121,6 @@
                 </ul>
             </li>
             <li><a href="${pageContext.request.contextPath}/admin/tables">Bàn ăn</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/nhanvien">Nhân viên</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/khachhang">Khách hàng</a></li>
         </ul>
     </div>

@@ -101,7 +101,7 @@ public class OrderDAO {
 
             try (Connection conn = DBConnection.getConnection()) {
                 // Tìm ID người dùng
-                String sqlGetUserId = "SELECT id FROM user WHERE username = ?";
+                String sqlGetUserId = "SELECT id FROM user_account WHERE username = ?";
                 PreparedStatement psUser = conn.prepareStatement(sqlGetUserId);
                 psUser.setString(1, username);
                 ResultSet rsUser = psUser.executeQuery();

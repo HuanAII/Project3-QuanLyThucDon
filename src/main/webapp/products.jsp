@@ -92,10 +92,10 @@
                                     </div>
                                 </div>
                                 <div class="filter-content">
-                                    <div class="filter-option">
+                                    <%-- <div class="filter-option">
                                         <input type="checkbox" name="type" value="food" id="type-buffet" class="filter-checkbox">
                                         <label for="type-buffet" class="filter-label">ĐỒ ĂN</label>
-                                    </div>
+                                    </div> --%>
                                     <div class="filter-option">
                                         <input type="checkbox" name="type" value="drink" id="type-alacarte" class="filter-checkbox">
                                         <label for="type-alacarte" class="filter-label">ĐỒ UỐNG</label>

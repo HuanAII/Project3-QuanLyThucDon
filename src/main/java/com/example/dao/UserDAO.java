@@ -51,7 +51,7 @@ public class UserDAO {
             connection = DBConnection.getConnection();
 
             // SQL truy vấn - so sánh trực tiếp với mật khẩu không mã hóa
-            String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+            String sql = "SELECT * FROM user_account WHERE username = ? AND password = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);
             statement.setString(2, password); 
@@ -97,7 +97,7 @@ public class UserDAO {
             connection = DBConnection.getConnection();
 
             // SQL truy vấn - so sánh trực tiếp với mật khẩu không mã hóa
-            String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+            String sql = "SELECT * FROM user_account WHERE email = ? AND password = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, email);
             statement.setString(2, password); // Sử dụng mật khẩu gốc không mã hóa
@@ -154,7 +154,7 @@ public class UserDAO {
             
 
             // SQL để thêm user mới
-            String sql = "INSERT INTO user ( username, password, role, email,sdt,HoVaTen) VALUES ( ?, ?, ?, ?, ?,?)";
+            String sql = "INSERT INTO user_account ( username, password, role, email,sdt,HoVaTen) VALUES ( ?, ?, ?, ?, ?,?)";
             statement = connection.prepareStatement(sql);
             // statement.setString(1, id);
             statement.setString(1, user.getUsername());
@@ -195,7 +195,7 @@ public class UserDAO {
         ResultSet resultSet = null;
 
         try {
-            String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
+            String sql = "SELECT COUNT(*) FROM user_account WHERE username = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);
 
@@ -219,7 +219,7 @@ public class UserDAO {
         ResultSet resultSet = null;
 
         try {
-            String sql = "SELECT COUNT(*) FROM user WHERE email = ?";
+            String sql = "SELECT COUNT(*) FROM user_account WHERE email = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, email);
 
@@ -245,7 +245,7 @@ public class UserDAO {
 
         try {
             connection = DBConnection.getConnection();
-            String sql = "UPDATE user SET username=?, role=?, email=? WHERE id=?";
+            String sql = "UPDATE user_account SET username=?, role=?, email=? WHERE id=?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getRole());
@@ -285,7 +285,7 @@ public class UserDAO {
             String encryptedNewPassword = encryptPassword(newPassword);
 
             // Kiểm tra mật khẩu cũ
-            String checkSql = "SELECT * FROM user WHERE id = ? AND password = ?";
+            String checkSql = "SELECT * FROM user_account WHERE id = ? AND password = ?";
             statement = connection.prepareStatement(checkSql);
             statement.setString(1, userId);
             statement.setString(2, encryptedOldPassword);
@@ -296,7 +296,7 @@ public class UserDAO {
 
                 statement.close();
 
-                String updateSql = "UPDATE user SET password = ? WHERE id = ?";
+                String updateSql = "UPDATE user_account SET password = ? WHERE id = ?";
                 statement = connection.prepareStatement(updateSql);
                 statement.setString(1, encryptedNewPassword);
                 statement.setString(2, userId);
@@ -332,7 +332,7 @@ public class UserDAO {
 
             String hashedPassword = encryptPassword(plainPassword);
 
-            String sql = "UPDATE user SET password = ? WHERE username = ?";
+            String sql = "UPDATE user_account SET password = ? WHERE username = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, hashedPassword);
             statement.setString(2, username);
@@ -356,7 +356,7 @@ public class UserDAO {
     }
 
     public boolean updateResetToken(String email, String token) throws ClassNotFoundException {
-        String sql = "UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?";
+        String sql = "UPDATE user_account SET reset_token = ?, reset_token_expiry = ? WHERE email = ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -374,7 +374,7 @@ public class UserDAO {
     }
 
     public boolean resetPassword(String token, String newPassword) throws ClassNotFoundException {
-        String sql = "UPDATE users SET password = ?, reset_token = NULL, reset_token_expiry = NULL " +
+        String sql = "UPDATE user_account SET password = ?, reset_token = NULL, reset_token_expiry = NULL " +
                 "WHERE reset_token = ? AND reset_token_expiry > ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -393,7 +393,7 @@ public class UserDAO {
     public User getUserByUsernameOrEmail(String userValue) {
     User user = null;
     try (Connection conn = DBConnection.getConnection()) {
-        String sql = "SELECT * FROM user WHERE username = ? OR email = ?";
+        String sql = "SELECT * FROM user_account WHERE username = ? OR email = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, userValue);
         ps.setString(2, userValue);

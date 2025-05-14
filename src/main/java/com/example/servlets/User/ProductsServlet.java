@@ -19,14 +19,9 @@ public class ProductsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
          HttpSession session = request.getSession();
-        session.setAttribute("user", "KhangHy");
-        session.setAttribute("id_kh", "1");
-        System.out.println("username: " + session.getAttribute("user")+"dang dang nhap");
-
-        productsDAO dao = new productsDAO();
-        List<Product> list = dao.getAllProducts();
-        request.setAttribute("listP", list);
-        System.out.println("listP: " + list);
+        
+        session.getAttribute("listP");
+        System.out.println("listP: " + session.getAttribute("listP"));
         request.getRequestDispatcher("products.jsp").forward(request, response);
     }
 

@@ -54,12 +54,6 @@ public class Admin_add_thucdon extends HttpServlet {
         }
 
         File file = new File(uploads, fileName);
-        int count = 1;
-        while (file.exists()) {
-            String newFileName = fileName.replace(".", "_" + count + ".");
-            file = new File(uploads, newFileName);
-            count++;
-        }
         try (InputStream input = filePart.getInputStream()) {
             Files.copy(input, file.toPath());
         }

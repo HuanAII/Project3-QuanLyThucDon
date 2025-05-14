@@ -35,11 +35,8 @@
           <input type="tel" name="soDienThoai" placeholder="Số điện thoại" 
                  value="${userInfo.sdt}" />
 
-
-          <!-- Địa chỉ: auto fill nếu có -->
+          <!-- Địa chỉ:  -->
           <input type="text" name="diaChi" placeholder="Địa chỉ nhận hàng" required/>
-
-          <textarea name="ghiChu" placeholder="Ghi chú (tùy chọn)" rows="3"></textarea>
 
           <h2>Phương thức thanh toán</h2>
           <div class="payment-method">

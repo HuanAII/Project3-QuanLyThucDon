@@ -28,7 +28,6 @@ public class DatHangServlet extends HttpServlet {
         String hoVaTen = request.getParameter("hoTen");
         String soDienThoai = request.getParameter("soDienThoai");
         String diaChi = request.getParameter("diaChi");
-        String ghiChu = request.getParameter("ghiChu");
         String phuongThucThanhToan = request.getParameter("payment");
 
         if (soDienThoai.length() < 10 || soDienThoai.length() > 11) {

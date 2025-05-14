@@ -6,13 +6,13 @@ public class CartItem {
     private String idMon;
     private String tenMon;
     private String hinhAnh;
-    private double gia;
+    private int gia;
     private int soLuong;
     
     public CartItem() {
     }
     
-    public CartItem(String idMon, String tenMon, String hinhAnh, double gia, int soLuong) {
+    public CartItem(String idMon, String tenMon, String hinhAnh, int gia, int soLuong) {
         this.idMon = idMon;
         this.tenMon = tenMon;
         this.hinhAnh = hinhAnh;
@@ -37,10 +37,10 @@ public class CartItem {
     public void setHinhAnh(String hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
-    public double getGia() {
+    public int getGia() {
         return gia;
     }
-    public void setGia(double gia) {
+    public void setGia(int gia) {
         this.gia = gia;
     }
     public int getSoLuong() {
@@ -57,11 +57,11 @@ public class CartItem {
     }
 
 
-    public double tinhTongTien(List<CartItem> cart) {
-        double tongTien = 0.0;
+    public int tinhTongTien(List<CartItem> cart) {
+        int tongTien = 0;
         if (cart != null) {
             for (CartItem item : cart) {
-                tongTien += item.getSoLuong() * item.getGia(); // Tính tổng tiền: số lượng * giá
+                tongTien += item.getSoLuong() * item.getGia(); 
             }
         }
         return tongTien;

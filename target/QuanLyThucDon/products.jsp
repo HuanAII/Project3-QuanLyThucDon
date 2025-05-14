@@ -71,7 +71,7 @@
             <c:forEach items="${listP}" var="o">
                 <div class="product-card">
                     <div class="product-img-wrap">
-                        <img class="product-image" src="http://localhost:8080/QuanLyThucDon/${o.hinhAnh}" alt="Hình ảnh món ăn">
+                        <img class="product-image" src="http://localhost:8080/QuanLyThucDon/uploads/${o.hinhAnh}" alt="Hình ảnh món ăn">
                     </div>
                     <div class="product-info">
                         <div class="product-title">${o.tenMon}</div>

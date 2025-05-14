@@ -1,5 +1,6 @@
 com\example\servlets\UpdatePasswordsServlet.class
 com\example\models\Product.class
+com\example\servlets\ImageServlet.class
 com\example\servlets\Admin\menu_list_servlet.class
 com\example\models\ChiTietDonHang.class
 com\example\servlets\Admin\Edit_category_servlet.class

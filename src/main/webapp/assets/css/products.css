@@ -223,6 +223,7 @@ body {
   border: none;
   min-height: 200px;
   position: relative;
+  border: solid 2px #333;
 }
 
 .product-card:hover {

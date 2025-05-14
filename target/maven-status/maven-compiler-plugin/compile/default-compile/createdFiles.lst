@@ -1,5 +1,6 @@
 com\example\servlets\UpdatePasswordsServlet.class
 com\example\models\Product.class
+com\example\servlets\Admin\menu_list_servlet.class
 com\example\models\ChiTietDonHang.class
 com\example\servlets\Admin\Edit_category_servlet.class
 com\example\utils\EmailUtils$1.class
@@ -35,6 +36,7 @@ com\example\dao\OrderDAO.class
 com\example\servlets\Admin\AdminDispatcher.class
 com\example\dao\UserDAO.class
 com\example\utils\EmailUtils.class
+com\example\servlets\Admin\category_list_servlet.class
 com\example\models\DonHang.class
 com\example\servlets\reservationServlet.class
 com\example\utils\DBConnection.class
@@ -47,4 +49,3 @@ com\example\models\User.class
 com\example\servlets\User_Dispatcher.class
 com\example\servlets\LogoutServlet.class
 com\example\servlets\User\CartServlet.class
-com\example\dao\productDao.class

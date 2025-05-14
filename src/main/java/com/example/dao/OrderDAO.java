@@ -14,22 +14,22 @@ import com.example.models.DonHang;
 import com.example.utils.DBConnection;
 
 public class OrderDAO {
-        public static int addOrder(Integer id_kh, double total, String status, String id_table, String tenKH, String sdt,
-            String dia_chi) {
-        String sql = "INSERT INTO donhang (date, total, status, id_kh, id_table, tenKH, sdt, dia_chi) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)";
+        public static int addOrder(Integer account_id, double total, String status, String id_table, String name, String sdt,
+            String address) {
+        String sql = "INSERT INTO donhang (date, total, status, account_id, id_table, name, sdt, address) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setDouble(1, total);
             ps.setString(2, status);
-            if (id_kh != null) {
-                ps.setInt(3, id_kh);
+            if (account_id != null) {
+                ps.setInt(3, account_id);
             } else {
                 ps.setNull(3, java.sql.Types.INTEGER);
             }
             ps.setString(4, id_table);
-            ps.setString(5, tenKH);
+            ps.setString(5, name);
             ps.setString(6, sdt);
-            ps.setString(7, dia_chi);
+            ps.setString(7, address);
             ps.executeUpdate();
 
             // Lấy idDonHang vừa được tạo
@@ -107,12 +107,12 @@ public class OrderDAO {
                 ResultSet rsUser = psUser.executeQuery();
 
                 if (!rsUser.next()) return list;
-                int idKh = rsUser.getInt("id");
+                int account_id = rsUser.getInt("id");
 
                 // Lấy danh sách đơn hàng của người dùng
-                String sqlDonHang = "SELECT * FROM donhang WHERE id_kh = ?";
+                String sqlDonHang = "SELECT * FROM donhang WHERE account_id = ?";
                 PreparedStatement psDH = conn.prepareStatement(sqlDonHang);
-                psDH.setInt(1, idKh);
+                psDH.setInt(1, account_id);
                 ResultSet rsDH = psDH.executeQuery();
 
                 while (rsDH.next()) {
@@ -123,9 +123,9 @@ public class OrderDAO {
                     dh.setDate(rsDH.getDate("date"));
                     dh.setTotal(rsDH.getDouble("total"));
                     dh.setStatus(rsDH.getString("status"));
-                    dh.setTenKH(rsDH.getString("tenKH"));
+                    dh.setTenKH(rsDH.getString("name"));
                     dh.setSdt(rsDH.getString("sdt"));
-                    dh.setDiaChi(rsDH.getString("dia_chi"));
+                    dh.setDiaChi(rsDH.getString("address"));
 
                     // Chi tiết đơn hàng
                     String sqlChiTiet = "SELECT c.soLuong, m.tenMon, m.gia " +

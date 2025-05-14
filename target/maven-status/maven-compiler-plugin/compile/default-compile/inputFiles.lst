@@ -2,6 +2,8 @@ C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\jav
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\servlets\reservationServlet.java
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\dao\categoryDAO.java
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\servlets\User\DonHangServlet.java
+C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\servlets\Admin\menu_list_servlet.java
+C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\servlets\Admin\category_list_servlet.java
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\models\DonHang.java
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\servlets\User\ThanhToanServlet.java
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\models\Category.java
@@ -18,7 +20,6 @@ C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\jav
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\servlets\Admin\Edit_table_servlet.java
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\servlets\Admin\AdminDispatcher.java
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\servlets\UpdatePasswordsServlet.java
-C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\dao\productDao.java
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\servlets\LogoutServlet.java
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\dao\reservationDAO.java
 C:\Users\Khang Hy\Desktop\LLLLLLLL\PBL3\Project3-QuanLyThucDon-Huan\src\main\java\com\example\servlets\User\AddToCartServlet.java

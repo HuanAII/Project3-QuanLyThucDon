@@ -23,7 +23,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
     HttpSession session = request.getSession();
     String user = (String) session.getAttribute("user");
-    String id_kh = (String) session.getAttribute("id_kh");
     System.out.println("user: " + user + " đang xem trang thanh toán");
 
     List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -42,6 +41,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     if (userValue != null) {
         UserDAO userDAO = new UserDAO();
         User userInfo = userDAO.getUserByUsernameOrEmail(userValue);
+        System.out.println("Thông tin người dùng: " + userInfo);
         session.setAttribute("userInfo", userInfo);
 }
 

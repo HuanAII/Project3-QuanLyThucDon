@@ -27,11 +27,11 @@ public class AddToCartServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         String user = (String) session.getAttribute("user");
-        String id_kh = (String) session.getAttribute("id_kh");
+        String account_id = (String) session.getAttribute("account_id");
         
 
         if (user != null) {
-            CartDAO.AddToCart(idMon, id_kh, soLuong);
+            CartDAO.AddToCart(idMon, account_id, soLuong);
             System.out.println(">> USER: " + user + " them SP: " + idMon);
         } else {
             List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");

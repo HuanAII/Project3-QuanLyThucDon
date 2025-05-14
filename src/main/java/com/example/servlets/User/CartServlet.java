@@ -23,12 +23,12 @@ public class CartServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         String user = (String) session.getAttribute("user");
-        String id_kh = (String) session.getAttribute("id_kh");
+        String account_id = (String) session.getAttribute("account_id");
 
         if (user != null) {
             // Người DÙNG đã đăng nhập — Lấy dữ liệu từ DB
             System.out.println(">> USER: " + user + " dang xem gio hang");
-            List<CartItem> cartFromDB = CartDAO.getCartByUserId(id_kh);
+            List<CartItem> cartFromDB = CartDAO.getCartByUserId(account_id);
             System.out.println(">> So luong sp trong gio hang: " + cartFromDB.size());
 
             session.setAttribute("cart", cartFromDB);

@@ -26,7 +26,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
                         rs.getString("idMon"), 
                         rs.getString("tenMon"),
                         rs.getString("idDanhMuc"),
-                        rs.getDouble("gia"),
+                        rs.getInt("gia"),
                         rs.getString("hinhAnh"),
                         rs.getString("moTa"),
                         rs.getString("donViTinh"));
@@ -42,6 +42,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         return productList;
     }
 
+    
     public static Product getProductByID(String id) {
         Product product = null;
         String query = "SELECT * FROM thucdon WHERE idMon = ?";
@@ -56,7 +57,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
                             rs.getString("idMon"),
                             rs.getString("tenMon"),
                             rs.getString("idDanhMuc"),
-                            rs.getDouble("gia"),
+                            rs.getInt("gia"),
                             rs.getString("hinhAnh"),
                             rs.getString("moTa"),
                             rs.getString("donViTinh"));
@@ -77,7 +78,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
 
 
 
-    public List<Product> getAllProductsBySort(String[] price, String sort, String[] type) {
+    public static List<Product> getAllProductsBySort(String[] price, String sort, String[] type) {
         List<Product> productList = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM thucdon");
         boolean isFirstCondition = true;
@@ -176,7 +177,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
                         rs.getString("idMon"),
                         rs.getString("tenMon"),
                         rs.getString("idDanhMuc"),
-                        rs.getDouble("gia"),
+                        rs.getInt("gia"),
                         rs.getString("hinhAnh"),
                         rs.getString("moTa"),
                         rs.getString("donViTinh"));
@@ -309,7 +310,7 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
                 product.setIdMon(rs.getString("idMon"));
                 product.setTenMon(rs.getString("tenMon"));
                 product.setIdDanhMuc(rs.getString("idDanhMuc"));
-                product.setGia(rs.getDouble("gia"));
+                product.setGia(rs.getInt("gia"));
                 product.setHinhAnh(rs.getString("hinhAnh"));
                 product.setMota(rs.getString("mota"));
                 product.setDonViTinh(rs.getString("donViTinh"));

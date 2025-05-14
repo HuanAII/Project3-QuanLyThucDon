@@ -28,13 +28,12 @@ public class RegisterServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String email = request.getParameter("email");
+        String HoVaTen = request.getParameter("HoVaTen");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-        String address = request.getParameter("address");
         String role = request.getParameter("role");
         String phone = request.getParameter("phone");
 
-        // Kiểm tra mật khẩu xác nhận
         if (!password.equals(confirmPassword)) {
             request.setAttribute("errorMessage", "Mật khẩu xác nhận không khớp!");
             request.getRequestDispatcher("register.jsp").forward(request, response);
@@ -66,16 +65,16 @@ public class RegisterServlet extends HttpServlet {
         }
 
         if (role == null || role.isEmpty()) {
-            role = "user";
+            role = "Khách hàng";
         }
 
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setEmail(email);
         newUser.setPassword(password);
-        newUser.setAddress(address);
         newUser.setRole(role);
         newUser.setSdt(phone);  
+        newUser.setHoVaTen(HoVaTen);
 
         if (userDAO.registerUser(newUser)) {
             request.setAttribute("message", "Đăng ký thành công! Vui lòng đăng nhập.");

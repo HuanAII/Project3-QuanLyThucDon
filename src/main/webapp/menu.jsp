@@ -37,7 +37,7 @@
                     </div>
                 <li><a href="/QuanLyThucDon/user?page=trangchu" class="nav-item">TRANG CHỦ</a></li>
                 <li><a href="/QuanLyThucDon/user?page=about" class="nav-item">GIỚI THIỆU</a></li>
-                <li><a href="/QuanLyThucDon/user?page=products" class="nav-item">SẢN PHẨM</a></li>
+                <li><a href="/QuanLyThucDon/user?page=products" class="nav-item">THỰC ĐƠN</a></li>
                 <li><a href="/QuanLyThucDon/user?page=contact" class="nav-item">LIÊN HỆ</a></li>
                 <li><a href="/QuanLyThucDon/user?page=stores" class="nav-item">HỆ THỐNG CỬA HÀNG</a></li>
                 <li><a href="/QuanLyThucDon/user?page=booking" class="nav-item">ĐẶT BÀN</a></li>

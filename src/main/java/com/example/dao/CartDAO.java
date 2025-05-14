@@ -13,31 +13,31 @@ import com.example.models.CartItem;
 import com.example.utils.DBConnection;
 
 public class CartDAO {
-    public static void AddToCart(String idMon, String id_kh, double soLuong) {
+    public static void AddToCart(String idMon, String account_id, double soLuong) {
         try {
             Connection conn = DBConnection.getConnection();
             // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
-            String checkSql = "SELECT soLuong FROM gio_hang WHERE idMon = ? AND id_kh = ?";
+            String checkSql = "SELECT soLuong FROM gio_hang WHERE idMon = ? AND account_id = ?";
             PreparedStatement checkStmt = conn.prepareStatement(checkSql);
             checkStmt.setString(1, idMon);
-            checkStmt.setString(2, id_kh);
+            checkStmt.setString(2, account_id);
             ResultSet rs = checkStmt.executeQuery();
 
             if (rs.next()) {
                 // Đã tồn tại → cập nhật số lượng
-                String updateSql = "UPDATE gio_hang SET soLuong = soLuong + ? WHERE idMon = ? AND id_kh = ?";
+                String updateSql = "UPDATE gio_hang SET soLuong = soLuong + ? WHERE idMon = ? AND account_id = ?";
                 PreparedStatement updateStmt = conn.prepareStatement(updateSql);
                 updateStmt.setDouble(1, soLuong);
                 updateStmt.setString(2, idMon);
-                updateStmt.setString(3, id_kh);
+                updateStmt.setString(3, account_id);
                 updateStmt.executeUpdate();
                 updateStmt.close();
             } else {
                 // Chưa có → thêm mới
-                String insertSql = "INSERT INTO gio_hang (idMon, id_kh, soLuong) VALUES (?, ?, ?)";
+                String insertSql = "INSERT INTO gio_hang (idMon, account_id, soLuong) VALUES (?, ?, ?)";
                 PreparedStatement insertStmt = conn.prepareStatement(insertSql);
                 insertStmt.setString(1, idMon);
-                insertStmt.setString(2, id_kh);
+                insertStmt.setString(2, account_id);
                 insertStmt.setDouble(3, soLuong);
                 insertStmt.executeUpdate();
                 insertStmt.close();
@@ -51,16 +51,16 @@ public class CartDAO {
         }
     }
 
-    public static List<CartItem> getCartByUserId(String id_kh) {
+    public static List<CartItem> getCartByUserId(String account_id) {
         List<CartItem> productList = new ArrayList<>();
         String query = "SELECT td.idMon, td.tenMon, td.hinhAnh, td.gia, gh.soLuong " +
                 "FROM gio_hang gh JOIN thucdon td ON gh.idMon = td.idMon " +
-                "WHERE gh.id_kh = ?";
+                "WHERE gh.account_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query)) {
 
-            ps.setString(1, id_kh);
+            ps.setString(1, account_id);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -82,12 +82,12 @@ public class CartDAO {
         return productList;
     }
 
-    public static void deleteCartItem(String idMon, String id_kh) {
-        String sql = "DELETE FROM gio_hang WHERE idMon = ? AND id_kh = ?";
+    public static void deleteCartItem(String idMon, String account_id) {
+        String sql = "DELETE FROM gio_hang WHERE idMon = ? AND account_id = ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, idMon);
-            ps.setString(2, id_kh);
+            ps.setString(2, account_id);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,13 +95,13 @@ public class CartDAO {
     }
 
     // Tăng/giảm số lượng
-    public static void updateCartItem(String idMon, String id_kh, int delta) {
+    public static void updateCartItem(String idMon, String account_id, int delta) {
         try (Connection conn = DBConnection.getConnection()) {
-            String sql = "UPDATE gio_hang SET soLuong = soLuong + ? WHERE idMon = ? AND id_kh = ?";
+            String sql = "UPDATE gio_hang SET soLuong = soLuong + ? WHERE idMon = ? AND account_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, delta);
             ps.setString(2, idMon);
-            ps.setString(3, id_kh);
+            ps.setString(3, account_id);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,25 +109,25 @@ public class CartDAO {
     }
 
     // Xoá nếu số lượng <= 0
-    public static void removeIfQuantityZero(String idMon, String id_kh) {
+    public static void removeIfQuantityZero(String idMon, String account_id) {
         try (Connection conn = DBConnection.getConnection()) {
-            String sql = "DELETE FROM gio_hang WHERE idMon = ? AND id_kh = ? AND soLuong <= 0";
+            String sql = "DELETE FROM gio_hang WHERE idMon = ? AND account_id = ? AND soLuong <= 0";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, idMon);
-            ps.setString(2, id_kh);
+            ps.setString(2, account_id);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-        public static void clearCartByUserId(String id_kh) {
-        String query = "DELETE FROM gio_hang WHERE id_kh = ?";
+        public static void clearCartByUserId(String account_id) {
+        String query = "DELETE FROM gio_hang WHERE account_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
             PreparedStatement ps = conn.prepareStatement(query)) {
 
-            ps.setString(1, id_kh);
+            ps.setString(1, account_id);
             ps.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {

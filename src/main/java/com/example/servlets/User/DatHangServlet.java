@@ -22,7 +22,7 @@ public class DatHangServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
-        String hoTen = request.getParameter("hoTen");
+        String hoVaTen = request.getParameter("hoTen");
         String soDienThoai = request.getParameter("soDienThoai");
         String diaChi = request.getParameter("diaChi");
         String ghiChu = request.getParameter("ghiChu");
@@ -54,11 +54,11 @@ public class DatHangServlet extends HttpServlet {
         }
 
         Object user = session.getAttribute("user");
-        Integer id_kh = null;
+        Integer account_id = null;
 
 
         if (user != null) {
-            id_kh = Integer.parseInt(session.getAttribute("id_kh").toString());
+            account_id = Integer.parseInt(session.getAttribute("account_id").toString());
         }
 
         // 🔧 DÙNG TỔNG TIỀN SAU GIẢM (nếu có)
@@ -67,7 +67,7 @@ public class DatHangServlet extends HttpServlet {
         double total = tongTienSauGiam != null ? tongTienSauGiam : (tongTien != null ? tongTien : 0.0);
 
         // Thêm đơn hàng
-        int idDonHang = OrderDAO.addOrder(id_kh, total, "Cho xu ly", null, hoTen, soDienThoai, diaChi);
+        int idDonHang = OrderDAO.addOrder(account_id, total, "Cho xu ly", null, hoVaTen, soDienThoai, diaChi);
 
         if (idDonHang == -1) {
             request.setAttribute("error", "Không thể thêm đơn hàng. Vui lòng thử lại!");
@@ -89,7 +89,7 @@ public class DatHangServlet extends HttpServlet {
             session.removeAttribute("giamGia");
             session.removeAttribute("tongTienSauGiam");
             session.removeAttribute("discount");
-            CartDAO.clearCartByUserId(String.valueOf(id_kh));
+            CartDAO.clearCartByUserId(String.valueOf(account_id));
 
             System.out.println("Dat don hang thanh cong voi id: " + idDonHang);
             session.setAttribute("addedMsg", "Đặt hàng thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.");

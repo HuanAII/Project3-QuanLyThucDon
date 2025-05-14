@@ -5,7 +5,6 @@ public class ChiTietDonHang {
     private int soLuong;
     private double gia;
 
-    // Getters, setters
     public String getTenMon() {
         return tenMon;
     }

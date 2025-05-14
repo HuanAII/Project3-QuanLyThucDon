@@ -6,8 +6,8 @@ public class User {
     private String password;
     private String role;
     private String sdt;
+    private String hoVaTen; 
     private String email;
-    private String address;
 
     public User() {
     }
@@ -17,14 +17,14 @@ public class User {
         this.password = password;
     }
 
-    public User(String id, String username, String password, String role, String sdt, String email, String address) {
+    public User(String id, String username, String password, String role, String sdt, String email, String hoVaTen) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
         this.sdt = sdt;
         this.email = email;
-        this.address = address;
+        this.hoVaTen = hoVaTen; 
     }
 
     // Getters và Setters
@@ -59,9 +59,11 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
     public String getSdt() {
         return sdt;
     }
+
     public void setSdt(String sdt) {
         this.sdt = sdt;
     }
@@ -74,17 +76,17 @@ public class User {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public String getHoVaTen() { 
+        return hoVaTen;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setHoVaTen(String hoVaTen) {
+        this.hoVaTen = hoVaTen;
     }
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", username=" + username + ", role=" + role + ", sdt=" + sdt + ", email=" + email + ", address="
-                + address + "]";
+        return "User [id=" + id + ", username=" + username + ", role=" + role +
+               ", sdt=" + sdt + ", email=" + email + ", hoVaTen=" + hoVaTen + "]";
     }
 }

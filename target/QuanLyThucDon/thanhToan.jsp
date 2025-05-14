@@ -28,7 +28,8 @@
                  value="${userInfo.email}" />
 
           <!-- Họ và tên: bắt buộc nhập -->
-          <input type="text" name="hoTen" placeholder="Họ và tên" required />
+          <input type="text" name="hoTen" placeholder="Họ và tên" required 
+                value="${userInfo.hoVaTen}"/>
 
           <!-- Số điện thoại: auto fill nếu có -->
           <input type="tel" name="soDienThoai" placeholder="Số điện thoại" 
@@ -36,8 +37,7 @@
 
 
           <!-- Địa chỉ: auto fill nếu có -->
-          <input type="text" name="diaChi" placeholder="Địa chỉ nhận hàng" required 
-                 value="${userInfo.address}" />
+          <input type="text" name="diaChi" placeholder="Địa chỉ nhận hàng" required/>
 
           <textarea name="ghiChu" placeholder="Ghi chú (tùy chọn)" rows="3"></textarea>
 

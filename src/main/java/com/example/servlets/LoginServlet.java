@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
             String username = user.getUsername().toString();
             String userId = user.getId().toString();
             session.setAttribute("user", username);
-            session.setAttribute("id_kh", userId);
+            session.setAttribute("account_id", userId);
 
             // Nếu "Ghi nhớ đăng nhập" được chọn, tạo cookie
             if (rememberMe != null) {

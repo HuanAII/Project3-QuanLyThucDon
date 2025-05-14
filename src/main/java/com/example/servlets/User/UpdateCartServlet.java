@@ -22,7 +22,7 @@ public class UpdateCartServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         String user = (String) session.getAttribute("user");
-        String id_kh = (String) session.getAttribute("id_kh");
+        String account_id = (String) session.getAttribute("account_id");
 
         if (idMon == null || action == null) {
             response.sendRedirect("CartServlet");
@@ -33,14 +33,14 @@ public class UpdateCartServlet extends HttpServlet {
             productsDAO dao = new productsDAO();
             switch (action) {
                 case "plus":
-                    CartDAO.updateCartItem(idMon, id_kh, 1);
+                    CartDAO.updateCartItem(idMon, account_id, 1);
                     break;
                 case "minus":
-                    CartDAO.updateCartItem(idMon, id_kh, -1);
-                    CartDAO.removeIfQuantityZero(idMon, id_kh);
+                    CartDAO.updateCartItem(idMon, account_id, -1);
+                    CartDAO.removeIfQuantityZero(idMon, account_id);
                     break;
                 case "remove":
-                    CartDAO.deleteCartItem(idMon, id_kh);
+                    CartDAO.deleteCartItem(idMon, account_id);
                     break;
             }
         } else {

@@ -4,14 +4,14 @@ public class Product {
     private String idMon;
     private String tenMon;
     private String idDanhMuc;
-    private double gia;
+    private int gia;
     private String hinhAnh;
     private String mota;
     private String donViTinh;
     public Product() {
     }
 
-    public Product(String idMon, String tenMon, String idDanhMuc, double gia, String hinhAnh, String mota, String donViTinh) {
+    public Product(String idMon, String tenMon, String idDanhMuc, int gia, String hinhAnh, String mota, String donViTinh) {
         this.idMon = idMon;
         this.tenMon = tenMon;
         this.idDanhMuc = idDanhMuc;
@@ -45,11 +45,11 @@ public class Product {
         this.idDanhMuc = idDanhMuc;
     }
 
-    public double getGia() {
+    public int getGia() {
         return gia;
     }
 
-    public void setGia(double gia) {
+    public void setGia(int gia) {
         this.gia = gia;
     }
 

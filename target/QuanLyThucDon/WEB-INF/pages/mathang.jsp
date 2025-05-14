@@ -1,7 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.models.Product" %>
-<%@ page import="com.example.dao.productDao" %>
+<%@ page import="com.example.dao.productsDAO" %>
 <%@ page import="java.util.List" %>
 <style>
     .product-header {
@@ -86,7 +86,7 @@
             <th>Tên Món</th>
             <th>Danh Mục</th>
             <th>Giá</th>
-            <th>Hình Ảnh</th>
+            <%-- <th>Hình Ảnh</th> --%>
             <th>Mô Tả</th>
             <th>Đơn Vị Tính</th>
             <th>Hành động</th>
@@ -94,10 +94,10 @@
     </thead>
     <tbody>
         <%
-            List<Product> listThucDon = productDao.getAllProducts();
+            List<Product> listThucDon = productsDAO.getAllProducts();
             int stt = 1;
             for (Product a : listThucDon) {
-                String hinhAnh = "https://drive.google.com/uc?export=view&id=" + a.getHinhAnh();
+                String hinhAnh = a.getHinhAnh();
         %>
         <tr>
             <td><%= stt++ %></td>
@@ -105,13 +105,13 @@
             <td><%= a.getTenMon() %></td>
             <td><%= a.getIdDanhMuc() %></td>
             <td><%= a.getGia() %></td>
-            <td>
-                <img src="${pageContext.request.contextPath}/assets/img/mon_an.jpg" class="product_img" alt="Hình ảnh">
-            </td>
+            <%-- <td>    
+               <img src="<%= hinhAnh %>" class="product_img" alt="Hình ảnh">
+
+            </td> --%>
             <td><%= a.getMota() %></td>
             <td><%= a.getDonViTinh() %></td>
             <td>
-                <!-- Nút Sửa -->
                 <button class="btn-action btn-edit" onclick="window.location.href='${pageContext.request.contextPath}/admin/thucdon/editProduct?id=<%= a.getIdMon() %>'">
                     Sửa
                 </button>

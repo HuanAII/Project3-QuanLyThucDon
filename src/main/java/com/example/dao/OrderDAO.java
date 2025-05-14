@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import com.example.models.ChiTietDonHang;
 import com.example.models.DonHang;
+import com.example.models.HoaDon;
 import com.example.utils.DBConnection;
 
 public class OrderDAO {
@@ -56,6 +58,28 @@ public class OrderDAO {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+  public static boolean addHoaDon(HoaDon hoaDon) {
+        String sql = "INSERT INTO hoa_don (idDonHang, tenPhuonThucThanhToan, ngayThanhToan, soTien) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, hoaDon.getIdDonHang());
+            ps.setString(2, hoaDon.getTenPhuongThucThanhToan());
+            ps.setDate(3, hoaDon.getNgayThanhToan());
+            ps.setDouble(4, hoaDon.getSoTien());
+
+            ps.executeUpdate();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Có thể thay bằng logging
             return false;
         }
     }

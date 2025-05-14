@@ -89,7 +89,6 @@
           </form>
 
           <div class="total">Tạm tính: <strong>${tongTien} đ</strong></div>
-          <div class="total">Phí vận chuyển: <strong>0 đ</strong></div>
           <div class="total">Đã giảm giá: 
             <strong>
               <c:choose>

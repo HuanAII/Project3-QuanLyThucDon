@@ -10,60 +10,6 @@ body {
   overflow-x: hidden;
 }
 
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  width: 60px;
-  height: 60px;
-}
-
-.logo-text {
-  margin-left: 10px;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.horizontal-nav {
-  display: flex;
-  justify-content: center;
-  background-color: #111;
-  padding: 15px 0;
-  border-top: 1px solid #333;
-  border-bottom: 1px solid #333;
-  overflow-x: auto;
-  white-space: nowrap;
-  position: relative;
-  z-index: 100;
-}
-
-.nav-item {
-  padding: 0 20px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: color 0.2s;
-  color: white;
-  position: relative;
-}
-
-.nav-item:hover {
-  color: #ff1236;
-}
-
-.nav-item.expandable {
-  position: relative;
-}
-
-.nav-item.expandable::after {
-  content: "+";
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
 /* Main Content Area */
 .main-content {
   width: 100%;

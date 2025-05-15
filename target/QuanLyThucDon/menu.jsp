@@ -33,7 +33,10 @@
         <nav class="horizontal-nav">
             <ul class="nav-list">
                     <div class="logo-container" >
-            <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
+                        <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="Ant Bistro Logo" class="logoM">
+                    </div>
+                    <div class="logo-container" >
+                       <img src="" alt="" class="logo">
                     </div>
                 <li><a href="/QuanLyThucDon/user?page=trangchu" class="nav-item">TRANG CHỦ</a></li>
                 <li><a href="/QuanLyThucDon/user?page=about" class="nav-item">GIỚI THIỆU</a></li>

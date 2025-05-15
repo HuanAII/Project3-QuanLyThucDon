@@ -54,10 +54,12 @@
 <form action="FilterProductsServlet" method="post">
     <div class="products-tabs">
         <c:forEach items="${listC}" var="category">
-            <div class="products-tab">
-                <!-- Input radio ẩn đi, chỉ hiển thị nhãn -->
+            <div class="products-tab ${selectedCategory == category.id_danhmuc ? 'active' : ''}">
                 <input type="radio" id="category-${category.id_danhmuc}" name="categoryId" value="${category.id_danhmuc}" class="hidden-radio" onchange="this.form.submit()">
-                <label for="category-${category.id_danhmuc}" class="category-label">${category.name_danhmuc}</label>
+                <label for="category-${category.id_danhmuc}" 
+                       class="category-label">
+                    ${category.name_danhmuc}
+                </label>
             </div>
         </c:forEach>
     </div>

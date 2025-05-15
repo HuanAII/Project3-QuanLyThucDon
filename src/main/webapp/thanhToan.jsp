@@ -69,7 +69,7 @@
         <!-- Danh sách món -->
         <c:forEach items="${cart}" var="o">
           <div class="cart-item">
-            <img src="${o.hinhAnh}" alt="Món ăn" />
+            <img src="http://localhost:8080/QuanLyThucDon/uploads/${o.hinhAnh}" alt="Món ăn" />
             <div class="item-info">
               <div class="item-name">${o.tenMon}</div>
               <div class="item-price">Đơn giá: ${o.gia} đ</div>

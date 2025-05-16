@@ -389,6 +389,7 @@
     </c:choose>
 </div>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const noteTexts = document.querySelectorAll('.note-text');

@@ -5,12 +5,15 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.models.ChiTietDonHang;
 import com.example.models.DonHang;
+import com.example.models.ReservationItem;
+import com.example.models.reservation;
 import com.example.utils.DBConnection;
 
 public class OrderDAO {
@@ -24,26 +27,72 @@ public class OrderDAO {
             if (account_id != null) {
                 ps.setInt(3, account_id);
             } else {
-                ps.setNull(3, java.sql.Types.INTEGER);
+                ps.setNull(3, -1);
             }
             ps.setString(4, id_table);
             ps.setString(5, name);
             ps.setString(6, sdt);
             ps.setString(7, address);
             ps.executeUpdate();
-
-            // Lấy idDonHang vừa được tạo
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
-                    return rs.getInt(1); // Trả về idDonHang
+                    return rs.getInt(1);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return -1; // Trả về -1 nếu có lỗi
+        return -1; 
         
     }
+
+
+public static boolean addOrderFromWaitingReservation(reservation reservation, List<ReservationItem> listItems, String idban) {
+    String sql = "INSERT INTO donhang (date, total, status, account_id, id_table, name, sdt, address) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)";
+    String status = "CHO_THANH_TOAN";
+    int account_id = reservation.getIdAccount();
+    String id_table = idban;
+    String name = reservation.getName();
+    String sdt = reservation.getPhone();
+    String address = "Tai cho";
+
+    double total = 0;
+    for (ReservationItem item : listItems) {
+        total += item.getGia() * item.getSoLuong();
+    }
+
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+        ps.setDouble(1, total);
+        ps.setString(2, status);
+        if (account_id != -1) {
+            ps.setInt(3, account_id);
+        } else {
+            ps.setNull(3, Types.INTEGER);
+        }
+        ps.setString(4, id_table);
+        ps.setString(5, name);
+        ps.setString(6, sdt);
+        ps.setString(7, address);
+        ps.executeUpdate();
+
+        try (ResultSet rs = ps.getGeneratedKeys()) {
+            if (rs.next()) {
+                int idDonHang = rs.getInt(1);
+                for (ReservationItem item : listItems) {
+                    addOrderDetails(idDonHang, item.getMonAnId(), item.getSoLuong());
+                }
+                return true;
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
+
 
     public static boolean addOrderDetails(int idDonHang, String idMon, int soLuong) {
         String sql = "INSERT INTO chitietdonhang (idDonHang, idMon, soLuong) VALUES (?, ?, ?)";
@@ -94,6 +143,55 @@ public class OrderDAO {
 
             return discount;
         }
+ 
+public static List<DonHang> getAllOrders() {
+    List<DonHang> list = new ArrayList<>();
+
+    try (Connection conn = DBConnection.getConnection()) {
+        String sql = "SELECT * FROM donhang";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            DonHang dh = new DonHang();
+            int idDonHang = rs.getInt("idDonHang");
+
+            dh.setIdDonHang(idDonHang);
+            dh.setDate(rs.getDate("date"));
+            dh.setTotal(rs.getDouble("total"));
+            dh.setStatus(rs.getString("status"));
+            dh.setIdTable(rs.getString("id_table"));
+            dh.setAccountId(rs.getInt("account_id"));
+            dh.setTenKH(rs.getString("name"));
+            dh.setSdt(rs.getString("sdt"));
+            dh.setDiaChi(rs.getString("address"));
+
+            String sqlChiTiet = "SELECT c.soLuong, m.tenMon, m.gia " +
+                                "FROM chitietdonhang c JOIN thucdon m ON c.idMon = m.idMon " +
+                                "WHERE c.idDonHang = ?";
+            PreparedStatement psCT = conn.prepareStatement(sqlChiTiet);
+            psCT.setInt(1, idDonHang);
+            ResultSet rsCT = psCT.executeQuery();
+
+            List<ChiTietDonHang> chiTietList = new ArrayList<>();
+            while (rsCT.next()) {
+                ChiTietDonHang ct = new ChiTietDonHang();
+                ct.setTenMon(rsCT.getString("tenMon"));
+                ct.setSoLuong(rsCT.getInt("soLuong"));
+                ct.setGia(rsCT.getDouble("gia"));
+                chiTietList.add(ct);
+            }
+
+            dh.setChiTietList(chiTietList);
+            list.add(dh);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return list;
+}
 
 
         public static List<DonHang> getDonHangByUsername(String username) {
@@ -154,5 +252,83 @@ public class OrderDAO {
 
             return list;
         }
-    
+
+        public static boolean deleteOrder(String orderId) {
+            String sql = "DELETE FROM donhang WHERE idDonHang = ?";
+            try (Connection conn = DBConnection.getConnection();
+                    PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, orderId);
+                ps.executeUpdate();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        public static boolean updateOrderStatus(String orderId , String status) {
+            String sql = "UPDATE donhang SET status = ? WHERE idDonHang = ?";
+            try (Connection conn = DBConnection.getConnection();
+                    PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, status);
+                ps.setString(2, orderId);
+                ps.executeUpdate();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+public static List<DonHang> getOdersByStatus(String status) {
+    List<DonHang> list = new ArrayList<>();
+
+    try (Connection conn = DBConnection.getConnection()) {
+        String sql = "SELECT * FROM donhang where status = ?";
+
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, status);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            DonHang dh = new DonHang();
+            int idDonHang = rs.getInt("idDonHang");
+
+            dh.setIdDonHang(idDonHang);
+            dh.setDate(rs.getDate("date"));
+            dh.setTotal(rs.getDouble("total"));
+            dh.setStatus(rs.getString("status"));
+            dh.setIdTable(rs.getString("id_table"));
+            dh.setAccountId(rs.getInt("account_id"));
+            dh.setTenKH(rs.getString("name"));
+            dh.setSdt(rs.getString("sdt"));
+            dh.setDiaChi(rs.getString("address"));
+
+            String sqlChiTiet = "SELECT c.soLuong, m.tenMon, m.gia " +
+                                "FROM chitietdonhang c JOIN thucdon m ON c.idMon = m.idMon " +
+                                "WHERE c.idDonHang = ?";
+            PreparedStatement psCT = conn.prepareStatement(sqlChiTiet);
+            psCT.setInt(1, idDonHang);
+            ResultSet rsCT = psCT.executeQuery();
+
+            List<ChiTietDonHang> chiTietList = new ArrayList<>();
+            while (rsCT.next()) {
+                ChiTietDonHang ct = new ChiTietDonHang();
+                ct.setTenMon(rsCT.getString("tenMon"));
+                ct.setSoLuong(rsCT.getInt("soLuong"));
+                ct.setGia(rsCT.getDouble("gia"));
+                chiTietList.add(ct);
+            }
+
+            dh.setChiTietList(chiTietList);
+            list.add(dh);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return list;
+}
+
 }

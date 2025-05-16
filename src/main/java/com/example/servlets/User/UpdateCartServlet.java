@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import com.example.dao.CartDAO;
-import com.example.dao.productsDAO;
 import com.example.models.CartItem;
 
 import jakarta.servlet.ServletException;
@@ -30,7 +29,6 @@ public class UpdateCartServlet extends HttpServlet {
         }
 
         if (user != null) {
-            productsDAO dao = new productsDAO();
             switch (action) {
                 case "plus":
                     CartDAO.updateCartItem(idMon, account_id, 1);

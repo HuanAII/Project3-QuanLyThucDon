@@ -11,7 +11,7 @@ import java.util.List;
 import com.example.models.Product;
 import com.example.utils.DBConnection;
 
-public class productsDAO { // Class để truy cập dữ liệu sản phẩm từ cơ sở dữ liệu
+public class productsDAO { 
     public static List<Product> getAllProducts() {
         List<Product> productList = new ArrayList<>();
         String query = "SELECT * FROM thucdon";
@@ -82,8 +82,6 @@ public class productsDAO { // Class để truy cập dữ liệu sản phẩm t�
         List<Product> productList = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM thucdon");
         boolean isFirstCondition = true;
-
-        // Xử lý lọc theo nhiều giá trị price
         if (price != null && price.length > 0) {
             for (String p : price) {
                 switch (p) {

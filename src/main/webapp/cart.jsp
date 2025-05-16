@@ -22,8 +22,6 @@
     } 
     %>
 
-
-      <%-- Danh sách sản phẩm trong giỏ hàng --%>
       <div class="cart-container">
 
           <c:forEach items="${cart}" var="o">
@@ -40,7 +38,7 @@
                 </span>
               </div>
 
-              <div class="price">${o.gia}</div>
+              <div class="price">${o.gia} VND</div>
 
               <div class="quantity">
                 <form action="UpdateCartServlet" method="get" style="display:flex; align-items:center;">

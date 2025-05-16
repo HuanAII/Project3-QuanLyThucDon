@@ -43,9 +43,7 @@ public class FilterProductsServlet extends HttpServlet {
         }
         System.out.println();
         
-
-        productsDAO dao = new productsDAO();
-        List<Product> list = dao.getAllProductsBySort(price, sort, type);
+        List<Product> list = productsDAO.getAllProductsBySort(price, sort, type);
    
         request.setAttribute("listP", list);
         System.out.println("Số lượng sản phẩm: " + (list != null ? list.size() : "null"));

@@ -47,9 +47,8 @@ public class AddToCartServlet extends HttpServlet {
             }
 
             if (!found) {
-                // Lấy thông tin món từ DB
-                productsDAO dao = new productsDAO();
-                Product mon = dao.getProductByID(idMon);
+
+                Product mon = productsDAO.getProductByID(idMon);
                 if (mon != null) {
                     CartItem item = new CartItem(
                         mon.getIdMon(),

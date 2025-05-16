@@ -12,8 +12,6 @@ import com.example.dao.productsDAO;
 import com.example.models.Product;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-
 @WebServlet("/ProductsServlet")
 public class ProductsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,9 +20,7 @@ public class ProductsServlet extends HttpServlet {
         session.setAttribute("user", "KhangHy");
         session.setAttribute("id_kh", "1");
         System.out.println("username: " + session.getAttribute("user")+"dang dang nhap");
-
-        productsDAO dao = new productsDAO();
-        List<Product> list = dao.getAllProducts();
+        List<Product> list = productsDAO.getAllProducts();
         request.setAttribute("listP", list);
         System.out.println("listP: " + list);
         request.getRequestDispatcher("products.jsp").forward(request, response);

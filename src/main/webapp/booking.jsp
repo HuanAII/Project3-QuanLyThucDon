@@ -15,6 +15,16 @@
 
     <main>
 
+    <%
+    String bookingMessage = (String) session.getAttribute("bookingMessage");
+    if (bookingMessage != null) {
+      %>
+          <div class="alert alert-info"><%= bookingMessage %></div>
+      <%
+              session.removeAttribute("bookingMessage"); 
+          }
+      %>
+
       <div class="breadcrumb">
         <a href="index.html">Trang chủ</a> <span>/</span> Đặt bàn
       </div>
@@ -47,82 +57,57 @@
             </div>
           </c:forEach>
       </div>
-
-      <!-- Booking Form Container -->
       <div class="booking-container">
         <div class="booking-form">
           <h1 class="booking-title">ĐẶT CHỖ TRỰC TUYẾN</h1>
 
-          <form id="booking-form">
-            <div class="form-grid">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nameInput"
-                  placeholder="Tên của bạn"
-                  required
-                />
-              </div>
+          <form id="booking-form" action="BookingTableServlet" method="post">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <input type="text" name="name" class="form-control" id="nameInput" placeholder="Tên của bạn" required />
+                  </div>
+                  <div class="form-group">
+                    <input type="tel" name="phone" class="form-control" id="sdt" placeholder="Số điện thoại" required />
+                  </div>
+                </div>
 
-              <div class="form-group">
-                <input
-                  type="tel"
-                  class="form-control"
-                  id="sdt"
-                  placeholder="Số điện thoại"
-                  required
-                />
-              </div>
-            </div>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <select class="form-control" name="guests" id="guestCount" required>
+                      <option value="" disabled selected>Số người</option>
+                      <option value="1">1 Người</option>
+                      <option value="2">2 Người</option>
+                      <option value="3">3 Người</option>
+                      <option value="4">4 Người</option>
+                      <option value="5">5 Người</option>
+                      <option value="6">6 Người</option>
+                      <option value="7">7 Người</option>
+                      <option value="8">8 Người</option>
+                      <option value="9">9 Người</option>
+                      <option value="10">10+ Người</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <input type="date" name="date" id="date" class="form-control" required />
+                  </div>
+                </div>
 
-            <div class="form-grid">
-              <div class="form-group">
-                <select class="form-control" id="guestCount" required>
-                  <option value="" disabled selected>Số người</option>
-                  <option value="1">1 Người</option>
-                  <option value="2">2 Người</option>
-                  <option value="3">3 Người</option>
-                  <option value="4">4 Người</option>
-                  <option value="5">5 Người</option>
-                  <option value="6">6 Người</option>
-                  <option value="7">7 Người</option>
-                  <option value="8">8 Người</option>
-                  <option value="9">9 Người</option>
-                  <option value="10">10+ Người</option>
-                </select>
-              </div>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <input type="time" name="time" id="time" class="form-control" required />
+                  </div>
+                  <div class="form-group"></div>
+                </div>
 
-              <div class="form-group">
-                <input type="date" id="date" class="form-control" required />
-              </div>
-            </div>
+                <div class="form-group">
+                  <textarea class="form-textarea" name="message" id="message" placeholder="Tin nhắn" rows="5"></textarea>
+                </div>
 
-            <div class="form-grid">
-              <div class="form-group">
-                <input type="time" id="time" class="form-control" required />
-              </div>
-
-              <div class="form-group"></div>
-            </div>
-
-            <div class="form-group">
-              <textarea
-                class="form-textarea"
-                id="message"
-                placeholder="Tin nhắn"
-                rows="5"
-              ></textarea>
-            </div>
-
-            <button type="submit" id="submit" class="submit-btn">
-              ĐẶT BÀN
-            </button>
-          </form>
+                <button type="submit" id="submit" class="submit-btn">ĐẶT BÀN</button>
+              </form>
         </div>
       </div>
-
     </main>
-    <script src="./assets/js/booking.js"></script>
+    <%-- <script src="./assets/js/booking.js"></script> --%>
   </body>
 </html>

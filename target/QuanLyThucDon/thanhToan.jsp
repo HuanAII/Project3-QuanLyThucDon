@@ -27,8 +27,6 @@
 
           <input type="tel" name="soDienThoai" placeholder="Số điện thoại" 
                  value="${userInfo.sdt}" />
-
-
   
           <input type="text" name="diaChi" placeholder="Địa chỉ nhận hàng" required/>
 

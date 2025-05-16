@@ -32,7 +32,7 @@
         <div class="cart-container">
           <c:forEach items="${cart}" var="o">
             <div class="cart-item">
-              <img src="${o.hinhAnh}" alt="ảnh món ăn" />
+              <img src="http://localhost:8080/QuanLyThucDon/uploads/${o.hinhAnh}" alt="ảnh món ăn" />
               
               <div class="info">
                 <h3>${o.tenMon}</h3>

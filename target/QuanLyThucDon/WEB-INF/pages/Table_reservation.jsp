@@ -294,7 +294,7 @@
     
     <div class="filter-bar">
         <form class="filter-form" method="get" action="datban">
-            <input type="text" name="keyword" placeholder="Tìm tên KH hoặc SĐT" value="${param.keyword}" />
+            <input type="text" name="keyword" placeholder="SĐT" value="${param.keyword}" />
             <input type="date" name="date" placeholder="Ngày đặt" value="${param.date}" />
             <button type="submit" class="btn btn-primary">Lọc</button>
         </form>

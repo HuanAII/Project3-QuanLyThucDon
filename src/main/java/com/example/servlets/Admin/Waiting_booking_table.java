@@ -46,6 +46,7 @@ public class Waiting_booking_table extends HttpServlet {
 
         if (action != null && !action.isEmpty()) {
             if (action.equals("delete")) {
+                System.out.println("Delete reservation with ID: " + reservationId);
                 boolean result = reservationDAO.deleteWaitingReservationById(reservationId);
                 message = result ? "Xóa yêu cầu thành công!" : "Xóa yêu cầu thất bại.";
             } 

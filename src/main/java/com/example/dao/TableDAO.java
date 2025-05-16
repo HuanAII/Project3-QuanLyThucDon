@@ -2,7 +2,6 @@ package com.example.dao;
 
 import com.example.models.Table;
 import com.example.utils.DBConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

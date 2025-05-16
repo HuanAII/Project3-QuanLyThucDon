@@ -260,32 +260,57 @@
         }
 
         /* Responsive adjustments */
-        @media (max-width: 1024px) {
-            .tables-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .tables-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .page-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-            
-            .btn-add {
-                width: 100%;
-                justify-content: center;
-            }
+        .filter-form {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        @media (max-width: 480px) {
-            .tables-grid {
-                grid-template-columns: 1fr;
+        .filter-form label {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .filter-form input[type="date"] {
+            padding: 0.4rem 0.6rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.375rem;
+            font-size: 0.9rem;
+            color: var(--gray-800);
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+        }
+
+        .filter-form input[type="date"]:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .filter-form button {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .filter-form button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Responsive cho filter-form */
+        @media (max-width: 768px) {
+            .filter-form {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 0.5rem;
+            }
+
+            .filter-form button {
+                flex-shrink: 0;
             }
         }
     </style>
@@ -294,30 +319,27 @@
     <div class="container">
         <div class="page-header">
             <h1 class="page-title">Danh sách bàn</h1>
+
+            <form action="${pageContext.request.contextPath}/Filter_Table_Servlet" method="get" class="filter-form" style="margin-right: 1rem;">
+                <label for="filterDate">Lọc theo ngày:</label>
+                <input type="date" id="filterDate" name="date" value="<%= request.getParameter("date") != null ? request.getParameter("date") : "" %>"/>
+                <button type="submit">Lọc</button>
+            </form>
+
             <a href="${pageContext.request.contextPath}/admin/add-table" class="btn-add">Thêm bàn mới</a>
         </div>
 
+        <!-- Bàn đã đặt -->
+        <h2>Bàn đã đặt</h2>
         <div class="tables-grid">
-            <% 
-                List<Table> tables = (List<Table>) request.getAttribute("tables");
-                if (tables != null && !tables.isEmpty()) {
-                    for (Table table : tables) {
-                        // Giả định trạng thái bàn, thay thế bằng thông tin thực tế nếu có
-                        String statusClass = "status-available";
-                        String statusText = "Trống";
-                        
-                        // Nếu model Table có trường status, bạn có thể sử dụng nó để xác định trạng thái
-                        // if (table.getStatus() == 1) {
-                        //     statusClass = "status-occupied";
-                        //     statusText = "Đang sử dụng";
-                        // } else if (table.getStatus() == 2) {
-                        //     statusClass = "status-reserved";
-                        //     statusText = "Đã đặt trước";
-                        // }
+            <%
+                List<Table> bookedTables = (List<Table>) request.getAttribute("bookedTables");
+                if (bookedTables != null && !bookedTables.isEmpty()) {
+                    for (Table table : bookedTables) {
             %>
                 <div class="table-card">
                     <div class="table-header">
-                        <span class="table-status <%= statusClass %>"><%= statusText %></span>
+                        <span class="table-status status-reserved">Đã đặt</span>
                         <div class="table-icon">🍽️</div>
                         <h3 class="table-number">Bàn số <%= table.getTableNumber() %></h3>
                         <p class="table-id">Mã bàn: <%= table.getIdTable() %></p>
@@ -333,7 +355,7 @@
                         </div>
                         <div class="detail-item">
                             <span class="detail-icon">📋</span>
-                            <span>Đặt bàn: 0 lần hôm nay</span>
+                            <span>Đặt bàn: Đã có</span>
                         </div>
                     </div>
                     <div class="table-actions">
@@ -345,19 +367,64 @@
                         </a>
                     </div>
                 </div>
-            <% 
+            <%
                     }
-                } else { 
+                } else {
             %>
-                <div class="empty-state">
-                    <div class="empty-icon">🪑</div>
-                    <div class="empty-text">Chưa có bàn nào được thêm!</div>
-                    <a href="${pageContext.request.contextPath}/admin/add-table" class="btn-empty-add">Thêm bàn ngay</a>
+                <p>Không có bàn nào đã được đặt.</p>
+            <%
+                }
+            %>
+        </div>
+
+        <!-- Bàn chưa đặt -->
+        <h2>Bàn chưa đặt</h2>
+        <div class="tables-grid">
+            <%
+                List<Table> availableTables = (List<Table>) request.getAttribute("availableTables");
+                if (availableTables != null && !availableTables.isEmpty()) {
+                    for (Table table : availableTables) {
+            %>
+                <div class="table-card">
+                    <div class="table-header">
+                        <span class="table-status status-available">Trống</span>
+                        <div class="table-icon">🍽️</div>
+                        <h3 class="table-number">Bàn số <%= table.getTableNumber() %></h3>
+                        <p class="table-id">Mã bàn: <%= table.getIdTable() %></p>
+                    </div>
+                    <div class="table-details">
+                        <div class="detail-item">
+                            <span class="detail-icon">👥</span>
+                            <span>Sức chứa: <%= table.getSeats() %> người</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">📍</span>
+                            <span>Vị trí: Khu vực chính</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">📋</span>
+                            <span>Chưa được đặt</span>
+                        </div>
+                    </div>
+                    <div class="table-actions">
+                        <a href="${pageContext.request.contextPath}/admin/edit-table?id=<%= table.getIdTable() %>" class="btn-action btn-edit">
+                            <span class="btn-icon">✏️</span> Sửa
+                        </a>
+                        <a href="${pageContext.request.contextPath}/admin/delete-table?id=<%= table.getIdTable() %>" class="btn-action btn-delete">
+                            <span class="btn-icon">🗑️</span> Xóa
+                        </a>
+                    </div>
                 </div>
-            <% 
-                } 
+            <%
+                    }
+                } else {
+            %>
+                <p>Không có bàn nào đang trống.</p>
+            <%
+                }
             %>
         </div>
     </div>
 </body>
+
 </html>

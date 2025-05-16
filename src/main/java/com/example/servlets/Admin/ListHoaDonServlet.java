@@ -19,7 +19,7 @@ public class ListHoaDonServlet extends HttpServlet {
         List<HoaDon> hoaDonList = OrderDAO.getAllHoaDon(); 
         System.out.println("size : "+hoaDonList.size());
         request.setAttribute("hoaDonList", hoaDonList);
-System.out.println("hoaDonList : "+hoaDonList);
+        System.out.println("hoaDonList : "+hoaDonList);
         request.setAttribute("contentPage", "/WEB-INF/pages/hoadon.jsp");
         request.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(request, response);
     }

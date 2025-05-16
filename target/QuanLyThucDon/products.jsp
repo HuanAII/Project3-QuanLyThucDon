@@ -65,9 +65,6 @@
     </div>
 </form>
 
-
-
-
         <!-- Products Grid -->
         <div class="products-container">
             <c:forEach items="${listP}" var="o">

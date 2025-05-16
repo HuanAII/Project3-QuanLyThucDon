@@ -25,6 +25,7 @@ public class TableDAO {
                 );
                 tables.add(table);
             }
+            System.out.println("Tables: " + tables.size());
 
         } catch (Exception e) {
             e.printStackTrace();

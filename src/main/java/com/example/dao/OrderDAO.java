@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import com.example.models.ChiTietDonHang;
 import com.example.models.DonHang;
+import com.example.models.HoaDon;
 import com.example.models.ReservationItem;
 import com.example.models.reservation;
 import com.example.utils.DBConnection;
@@ -109,6 +111,53 @@ public static boolean addOrderFromWaitingReservation(reservation reservation, Li
         }
     }
 
+
+
+  public static boolean addHoaDon(HoaDon hoaDon) {
+        String sql = "INSERT INTO hoa_don (idDonHang, tenPhuonThucThanhToan, ngayThanhToan, soTien) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, hoaDon.getIdDonHang());
+            ps.setString(2, hoaDon.getTenPhuongThucThanhToan());
+            ps.setDate(3, hoaDon.getNgayThanhToan());
+            ps.setDouble(4, hoaDon.getSoTien());
+
+            ps.executeUpdate();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Có thể thay bằng logging
+            return false;
+        }
+    }
+
+    public static List<HoaDon> getAllHoaDon() {
+        List<HoaDon> list = new ArrayList<>();
+        String sql = "SELECT * FROM hoa_don";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                HoaDon hoaDon = new HoaDon();
+                hoaDon.setIdHoaDon(rs.getInt("idHoaDon"));
+                hoaDon.setIdDonHang(rs.getInt("idDonHang"));
+                hoaDon.setTenPhuongThucThanhToan(rs.getString("tenPhuonThucThanhToan"));
+                hoaDon.setNgayThanhToan(rs.getDate("ngayThanhToan"));
+                hoaDon.setSoTien(rs.getDouble("soTien"));
+                list.add(hoaDon);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Hoặc log lỗi
+        }
+
+        return list;
+    }
+
         public static Integer getValidDiscount(String maGiamGia) {
             Integer discount = null;
             String query = "SELECT discount, start_date, end_date FROM khuyen_mai WHERE ma_giam_gia = ?";
@@ -199,7 +248,7 @@ public static List<DonHang> getAllOrders() {
 
             try (Connection conn = DBConnection.getConnection()) {
                 // Tìm ID người dùng
-                String sqlGetUserId = "SELECT id FROM user WHERE username = ?";
+                String sqlGetUserId = "SELECT id FROM user_account WHERE username = ?";
                 PreparedStatement psUser = conn.prepareStatement(sqlGetUserId);
                 psUser.setString(1, username);
                 ResultSet rsUser = psUser.executeQuery();

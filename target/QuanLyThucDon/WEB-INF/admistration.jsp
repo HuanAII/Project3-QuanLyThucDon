@@ -286,7 +286,7 @@
             </li>
             
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/hoadon" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/list-hoadon" class="nav-link">
                     <i class="fas fa-file-invoice"></i>
                     <span>Hóa đơn</span>
                 </a>

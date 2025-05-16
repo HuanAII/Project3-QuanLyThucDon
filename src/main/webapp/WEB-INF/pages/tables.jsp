@@ -475,7 +475,7 @@
             <h3 class="modal-title">Thêm bàn mới</h3>
             <button class="modal-close" onclick="closeModal()">&times;</button>
         </div>
-        <form action="add-table" method="post">
+        <form action="/admin/add-table" method="post">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="idTable" class="form-label">ID bàn</label>

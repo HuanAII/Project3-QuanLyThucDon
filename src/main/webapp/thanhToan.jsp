@@ -27,10 +27,9 @@
 
           <input type="tel" name="soDienThoai" placeholder="Số điện thoại" 
                  value="${userInfo.sdt}" />
-  
-          <input type="text" name="diaChi" placeholder="Địa chỉ nhận hàng" required/>
 
-          <textarea name="ghiChu" placeholder="Ghi chú (tùy chọn)" rows="3"></textarea>
+          <!-- Địa chỉ:  -->
+          <input type="text" name="diaChi" placeholder="Địa chỉ nhận hàng" required/>
 
           <h2>Phương thức thanh toán</h2>
           <div class="payment-method">
@@ -63,7 +62,7 @@
         <!-- Danh sách món -->
         <c:forEach items="${cart}" var="o">
           <div class="cart-item">
-            <img src="${o.hinhAnh}" alt="Món ăn" />
+            <img src="http://localhost:8080/QuanLyThucDon/uploads/${o.hinhAnh}" alt="Món ăn" />
             <div class="item-info">
               <div class="item-name">${o.tenMon}</div>
               <div class="item-price">Đơn giá: ${o.gia} đ</div>
@@ -80,7 +79,6 @@
           </form>
 
           <div class="total">Tạm tính: <strong>${tongTien} đ</strong></div>
-          <div class="total">Phí vận chuyển: <strong>0 đ</strong></div>
           <div class="total">Đã giảm giá: 
             <strong>
               <c:choose>

@@ -21,8 +21,7 @@ public class TableDAO {
                 Table table = new Table(
                     rs.getString("id_table"),
                     rs.getInt("table_number"),
-                    rs.getInt("so_cho_ngoi"),
-                    rs.getString("trang_thai")
+                    rs.getInt("so_cho_ngoi")
                 );
                 tables.add(table);
             }
@@ -36,7 +35,7 @@ public class TableDAO {
 
 
     public static boolean addTable(Table table) {
-        String sql = "INSERT INTO ban_an (id_table, table_number, so_cho_ngoi, trang_thai) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO ban_an (id_table, table_number, so_cho_ngoi) VALUES (?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -44,7 +43,6 @@ public class TableDAO {
             stmt.setString(1, table.getIdTable());
             stmt.setInt(2, table.getTableNumber());
             stmt.setInt(3, table.getSeats());
-            stmt.setString(4, table.getStatus());
 
             return stmt.executeUpdate() > 0;
 
@@ -67,8 +65,7 @@ public class TableDAO {
                 return new Table(
                     rs.getString("id_table"),
                     rs.getInt("table_number"),
-                    rs.getInt("so_cho_ngoi"),
-                    rs.getString("trang_thai")
+                    rs.getInt("so_cho_ngoi")
                 );
             }
 
@@ -87,8 +84,6 @@ public class TableDAO {
 
             stmt.setInt(1, table.getTableNumber());
             stmt.setInt(2, table.getSeats());
-            stmt.setString(3, table.getStatus());
-            stmt.setString(4, table.getIdTable());
 
             return stmt.executeUpdate() > 0;
 

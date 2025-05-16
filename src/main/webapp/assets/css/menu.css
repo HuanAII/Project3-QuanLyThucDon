@@ -11,8 +11,8 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-/* Căn chỉnh logo và tên ứng dụng */
 
+/* Logo */
 .logo-container {
   display: flex;
   align-items: center;
@@ -24,18 +24,27 @@ body {
   padding: 0px;
 }
 
+.logoM {
+  width: 60px;
+  height: 47px;
+  padding: 0px;
+  position: absolute;
+  top: 10px;
+  left: 18px;
+}
+
 .logo-text {
   margin-left: 10px;
   font-weight: bold;
   font-size: 18px;
 }
 
-/* Căn chỉnh thanh điều hướng và user-actions */
+/* Thanh điều hướng */
 .nav-container {
   display: flex;
-  justify-content: space-between; /* Đẩy các phần tử sang hai bên */
+  justify-content: space-between;
   align-items: center;
-  background-color: #000000; /* Màu nền tối */
+  background-color: #000000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: sticky;
   width: 100%;
@@ -47,7 +56,7 @@ body {
   display: flex;
   justify-content: center;
   background-color: #111;
-  padding: 15px 0;
+  padding: 7px 0;
   border-top: 1px solid #333;
   border-bottom: 1px solid #333;
   overflow-x: auto;
@@ -61,7 +70,7 @@ body {
 .nav-list {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 15px;
   margin-left: 20px;
   margin-top: 10px;
   padding: 0;
@@ -69,17 +78,17 @@ body {
 
 .nav-item {
   text-decoration: none;
-  color: #f0f0f0; /* Màu chữ sáng */
+  color: #f0f0f0;
   font-weight: bold;
-  font-size: 16px;
-  padding: 10px 10px;
+  font-size: 14px;
+  padding: 10px 5px;
   border-radius: 25px;
   transition: all 0.3s ease;
 }
 
 .nav-item:hover {
-  background-color: #333; /* Màu nền khi hover */
-  color: #fff; /* Màu chữ khi hover */
+  background-color: #333;
+  color: #fff;
   transform: scale(1.05);
 }
 
@@ -134,26 +143,26 @@ nav a {
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-left: auto; /* Đẩy phần tử sang bên phải */
+  margin-left: auto;
   margin-right: 20px;
 }
 
 .user-actions .nav-item {
-  color: #f0f0f0; /* Màu chữ sáng */
+  color: #f0f0f0;
   font-size: 14px;
   padding: 8px 15px;
-  border: 1px solid #f0f0f0; /* Viền sáng */
+  border: 1px solid #f0f0f0;
   border-radius: 20px;
   transition: all 0.3s ease;
 }
 
 .user-actions .nav-item:hover {
-  background-color: #f0f0f0; /* Màu nền khi hover */
-  color: #1a1a1a; /* Màu chữ khi hover */
+  background-color: #f0f0f0;
+  color: #1a1a1a;
 }
 
 .welcome-text {
-  color: #f0f0f0; /* Màu chữ sáng */
+  color: #f0f0f0;
   font-weight: bold;
   margin-right: 10px;
 }

@@ -1,8 +1,11 @@
 package com.example.servlets.User;
 
+
 import com.example.dao.CartDAO;
 import com.example.dao.OrderDAO;
+
 import com.example.models.CartItem;
+import com.example.models.HoaDon;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+
 @WebServlet("/DatHangServlet")
 public class DatHangServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -23,7 +27,6 @@ public class DatHangServlet extends HttpServlet {
         String hoVaTen = request.getParameter("hoTen");
         String soDienThoai = request.getParameter("soDienThoai");
         String diaChi = request.getParameter("diaChi");
-        String ghiChu = request.getParameter("ghiChu");
         String phuongThucThanhToan = request.getParameter("payment");
 
         if (soDienThoai.length() < 10 || soDienThoai.length() > 11) {
@@ -79,6 +82,16 @@ public class DatHangServlet extends HttpServlet {
             request.getRequestDispatcher("thanhToan.jsp").forward(request, response);
             return;
         }
+
+                    // Thêm hóa đơn
+
+        HoaDon hoaDon = new HoaDon(idDonHang, phuongThucThanhToan, new java.sql.Date(System.currentTimeMillis()), total);
+        if (!OrderDAO.addHoaDon(hoaDon)) {
+            request.setAttribute("error", "Lỗi khi thêm hóa đơn. Vui lòng thử lại!");
+            request.getRequestDispatcher("thanhToan.jsp").forward(request, response);
+            return;
+        }
+
 
         boolean isOrderDetailsAdded = true;
         for (CartItem item : cart) {

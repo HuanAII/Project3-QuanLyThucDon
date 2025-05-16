@@ -15,39 +15,20 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/FilterProductsServlet")
 public class FilterProductsServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String[] price = request.getParameterValues("price");  
-        String sort = request.getParameter("sort");  
-        String[] type = request.getParameterValues("type");  
-        System.out.println("=== Giá trị người dùng đã chọn ===");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        System.out.print("Price: ");
-        if (price != null) {
-            for (String p : price) {
-                System.out.print(p + " ");
-            }
-        } else {
-            System.out.print("Không có");
-        }
-        System.out.println();
+        // Lấy categoryId từ request
+        String categoryId = request.getParameter("categoryId");
 
-        System.out.println("Sort: " + (sort != null ? sort : "Không có"));
+        System.out.println("Category ID được chọn: " + categoryId);
 
-        System.out.print("Type: ");
-        if (type != null) {
-            for (String t : type) {
-                System.out.print(t + " ");
-            }
-        } else {
-            System.out.print("Không có");
-        }
-        System.out.println();
-        
-        List<Product> list = productsDAO.getAllProductsBySort(price, sort, type);
-   
-        request.setAttribute("listP", list);
-        System.out.println("Số lượng sản phẩm: " + (list != null ? list.size() : "null"));
-        request.setAttribute("sortType", sort);
+        // Gọi DAO để lấy danh sách sản phẩm theo categoryId
+        List<Product> productList = productsDAO.getProductsByCategory(categoryId);
+
+        // Gửi dữ liệu sang JSP
+        request.setAttribute("listP", productList);
+        request.setAttribute("selectedCategory", categoryId); // nếu cần hiển thị lại đã chọn
         request.getRequestDispatcher("products.jsp").forward(request, response);
     }
 

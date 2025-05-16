@@ -1,5 +1,7 @@
+com\example\servlets\Admin\ListHoaDonServlet.class
 com\example\servlets\UpdatePasswordsServlet.class
 com\example\models\Product.class
+com\example\servlets\ImageServlet.class
 com\example\servlets\Admin\menu_list_servlet.class
 com\example\models\ChiTietDonHang.class
 com\example\servlets\Admin\Edit_category_servlet.class
@@ -14,8 +16,8 @@ com\example\servlets\Admin\Amin_themdanhmuc.class
 com\example\dao\TableDAO.class
 com\example\servlets\Admin\Delete_category_servlet.class
 com\example\dao\categoryDAO.class
+com\example\models\HoaDon.class
 com\example\servlets\HomeServlet.class
-com\example\servlets\User\ProductsServlet.class
 com\example\utils\MessagingException.class
 com\example\utils\Session.class
 com\example\servlets\User\UpdateCartServlet.class

@@ -111,7 +111,7 @@
         <ul>
             <li><a href="${pageContext.request.contextPath}/admin/thongke">Thống kê</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/datban">Đặt bàn</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/hoadon">Hóa đơn</a></li>
+            <li><a href="${pageContext.request.contextPath}/admin/list-hoadon">Hóa đơn</a></li>
 
             <li>
                 <a href="javascript:void(0);" onclick="toggleSubMenu()">Thực đơn ▾</a>

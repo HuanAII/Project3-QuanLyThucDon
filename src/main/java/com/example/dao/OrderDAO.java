@@ -84,6 +84,31 @@ public class OrderDAO {
         }
     }
 
+    public List<HoaDon> getAllHoaDon() {
+        List<HoaDon> list = new ArrayList<>();
+        String sql = "SELECT * FROM hoa_don";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                HoaDon hoaDon = new HoaDon();
+                hoaDon.setIdHoaDon(rs.getInt("idHoaDon"));
+                hoaDon.setIdDonHang(rs.getInt("idDonHang"));
+                hoaDon.setTenPhuongThucThanhToan(rs.getString("tenPhuonThucThanhToan"));
+                hoaDon.setNgayThanhToan(rs.getDate("ngayThanhToan"));
+                hoaDon.setSoTien(rs.getDouble("soTien"));
+                list.add(hoaDon);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Hoặc log lỗi
+        }
+
+        return list;
+    }
+
         public static Integer getValidDiscount(String maGiamGia) {
             Integer discount = null;
             String query = "SELECT discount, start_date, end_date FROM khuyen_mai WHERE ma_giam_gia = ?";

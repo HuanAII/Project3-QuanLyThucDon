@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
   <head>
@@ -38,7 +39,10 @@
                 </span>
               </div>
 
-              <div class="price">${o.gia} VND</div>
+                <div class="price">
+                    <fmt:formatNumber value="${o.gia}" type="number" groupingUsed="true" /> VND
+                </div>
+
 
               <div class="quantity">
                 <form action="UpdateCartServlet" method="get" style="display:flex; align-items:center;">
@@ -58,8 +62,8 @@
       <div class="summary">
         <a href="products.jsp" class="continue">← Tiếp tục mua hàng</a>
         <div class="total">
-          <p>Tạm tính: <strong>${tongTien} VND</strong></p>
-          <p>Thành tiền: <strong class="highlight">${tongTien} VND</strong></p>
+          <p>Tạm tính: <strong><fmt:formatNumber value="${tongTien}" type="number" groupingUsed="true" /> VNĐ</strong></p>
+          <p>Thành tiền: <strong class="highlight"><fmt:formatNumber value="${tongTien}" type="number" groupingUsed="true" /> VND</strong></p>
           <form action="ThanhToanServlet" method="post">
           <input type="hidden" name="thanhtoan" />
           <button class="checkout">THANH TOÁN NGAY</button>

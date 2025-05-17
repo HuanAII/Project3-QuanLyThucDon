@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -298,8 +300,12 @@
                                 <tr>
                                     <td class="item-name">${ct.tenMon}</td>
                                     <td>${ct.soLuong}</td>
-                                    <td class="item-price">${ct.gia}₫</td>
-                                    <td class="item-total">${ct.soLuong * ct.gia}₫</td>
+                                    <td class="item-price">
+                                        <fmt:formatNumber value="${ct.gia}" type="number" groupingUsed="true"/>VNĐ
+                                    </td>
+                                    <td class="item-total">
+                                        <fmt:formatNumber value="${ct.soLuong * ct.gia}" type="number" groupingUsed="true"/>VNĐ
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -308,7 +314,10 @@
                 
                 <div class="order-total">
                     <div class="total-label">Tổng cộng:</div>
-                    <div class="total-amount">${o.total}₫</div>
+                    <div class="total-amount">
+                        <fmt:formatNumber value="${o.total}" type="number" groupingUsed="true" />₫
+                    </div>
+
                 </div>
             </div>
         </c:forEach>

@@ -47,7 +47,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
     req.setAttribute("availableTables", availableTables);
     req.setAttribute("selectedDate", dateParam != null ? dateParam : new SimpleDateFormat("yyyy-MM-dd").format(date));
 
-            req.setAttribute("contentPage", "/WEB-INF/pages/list_table.jsp");
+    req.setAttribute("contentPage", "/WEB-INF/pages/list_table.jsp");
     req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
 }
 

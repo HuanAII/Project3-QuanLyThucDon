@@ -4,7 +4,7 @@
 <%@ page import="com.example.dao.productsDAO" %>
 <%@ page import="com.example.dao.categoryDAO" %>
 <%@ page import="java.util.List" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -75,7 +75,10 @@
                     <div class="product-info">
                         <div class="product-title">${o.tenMon}</div>
                         <div class="product-description">${o.mota}</div>
-                        <div class="product-price">${o.gia}₫ <span class="product-unit">/ ${o.donViTinh}</span></div>
+                        <div class="product-price">
+                            <fmt:formatNumber value="${o.gia}" type="number" groupingUsed="true" /> VNĐ
+                            <span class="product-unit">/ ${o.donViTinh}</span>
+                        </div>
                         <form action="AddToCartServlet" method="post" class="action-buttons">
                             <input type="hidden" name="idMon" value="${o.idMon}">
                             <button type="submit" class="action-button add-to-cart" title="Thêm vào giỏ">

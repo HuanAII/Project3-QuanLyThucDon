@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
 <style>
     :root {
         --primary-color: #4a6fa5;
@@ -288,7 +289,6 @@
         }
     }
 </style>
-
 <div class="page-header">
     <h1 class="page-title">Danh Sách Đặt Bàn Chờ</h1>
     
@@ -337,7 +337,6 @@
                         <tr>
                             <td>${status.index + 1}</td>
                             <td><strong>${item.name}</strong></td>
-    
                             <td class="phone-number">${item.phone}</td>
                             <td class="guest-count">${item.guests}</td>
                             <td class="reservation-date">${item.date}</td>
@@ -371,7 +370,7 @@
                                         onclick="openTableSelection('${item.id_reservation}', ${item.guests})">
                                         Xác nhận
                                     </button>
-                                    <form method="post" action="${pageContext.request.contextPath}/admin/Waiting_booking_table">
+                                    <form method="post" action="${pageContext.request.contextPath}/admin/Waiting_booking_table" style="margin:0;">
                                         <input type="hidden" name="reservationId" value="${item.id_reservation}" />
                                         <button type="submit" name="action" value="delete" 
                                             class="btn btn-danger" style="padding: 6px 10px; font-size: 12px; background-color: #dc3545;"
@@ -390,6 +389,67 @@
 </div>
 
 
+<div id="tableModal" style="
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1050;
+    width: 400px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+">
+  <h4 style="margin-bottom: 20px; font-size: 20px; color: #333; text-align: center;">
+    Chọn Bàn
+  </h4>
+
+  <div style="margin-bottom: 15px;">
+    <select id="tableSelect" style="
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    ">
+      <c:forEach var="table" items="${listTable}">
+        <option value="${table.idTable}">Bàn ${table.tableNumber}</option>
+      </c:forEach>
+    </select>
+  </div>
+
+  <div style="text-align: right; display: flex; justify-content: flex-end; gap: 10px;">
+    <button class="btn btn-secondary" onclick="closeTableModal()" style="
+        padding: 8px 16px;
+        border: none;
+        background: #ccc;
+        color: #333;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+    ">Hủy</button>
+
+    <button class="btn btn-success" onclick="confirmTableSelection()" style="
+        padding: 8px 16px;
+        border: none;
+        background: #28a745;
+        color: white;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+    ">Xác nhận</button>
+  </div>
+</div>
+
+<form id="tableForm" method="post" action="${pageContext.request.contextPath}/admin/Waiting_booking_table" style="display:none;">
+    <input type="hidden" name="reservationId" id="reservationIdInput" />
+    <input type="hidden" name="tableId" id="tableIdInput" />
+    <input type="hidden" name="action" value="confirm" />
+</form>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const noteTexts = document.querySelectorAll('.note-text');
@@ -399,4 +459,30 @@
             });
         });
     });
+
+    function openTableSelection(reservationId, guestCount) {
+        const modal = document.getElementById('tableModal');
+        modal.style.display = 'block';
+        modal.dataset.reservationId = reservationId;
+    }
+
+    function closeTableModal() {
+        document.getElementById('tableModal').style.display = 'none';
+    }
+
+    function confirmTableSelection() {
+        const modal = document.getElementById('tableModal');
+        const reservationId = modal.dataset.reservationId;
+        const tableId = document.getElementById('tableSelect').value;
+
+        if (!reservationId || !tableId) {
+            alert("Vui lòng chọn bàn hợp lệ.");
+            return;
+        }
+
+        document.getElementById('reservationIdInput').value = reservationId;
+        document.getElementById('tableIdInput').value = tableId;
+
+        document.getElementById('tableForm').submit();
+    }
 </script>

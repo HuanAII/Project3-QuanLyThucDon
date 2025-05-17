@@ -285,7 +285,6 @@
     <div class="page-header">
         <div class="filter-bar">
             <form class="filter-form" method="get" action="${pageContext.request.contextPath}/admin/datmon">
-                <%-- <input type="text" name="keyword" placeholder="Tìm tên KH hoặc SĐT" value="${param.keyword}" /> --%>
                 <select name="status">
                     <option value="">Tất cả trạng thái</option>
                     <option value="CHO_XU_LY" ${param.status == 'CHO_XU_LY' ? 'selected' : ''}>Chờ xử lý</option>

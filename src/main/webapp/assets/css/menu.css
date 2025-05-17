@@ -22,15 +22,17 @@ body {
   width: 40px;
   height: 40px;
   padding: 0px;
+  visibility: hidden;
 }
 
 .logoM {
-  width: 60px;
-  height: 47px;
+  width: 80px;
+  height: 55px;
   padding: 0px;
   position: absolute;
-  top: 10px;
-  left: 18px;
+  top: 4px;
+  left: 4px;
+  border-radius: 999px;
 }
 
 .logo-text {

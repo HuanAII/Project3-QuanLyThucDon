@@ -49,13 +49,14 @@
 
         .image-section {
             flex: 1;
-            background: url('images/login-background.jpg') center/cover;
+            background: url('./assets/img/login.jpg') center/cover;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 30px;
         }
+
 
         .image-section::before {
             content: '';
@@ -64,7 +65,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(15, 15, 15, 0.8));
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(15, 15, 15, 0.4));
         }
 
         .image-text {

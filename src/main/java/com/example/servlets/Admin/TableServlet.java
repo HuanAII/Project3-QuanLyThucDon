@@ -1,6 +1,11 @@
 package com.example.servlets.Admin;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.example.dao.TableDAO;
+import com.example.models.Table;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,7 +18,11 @@ public class TableServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        req.setAttribute("contentPage", "/WEB-INF/pages/tables.jsp");
+        List<Table> tables = TableDAO.getAllTables();
+        System.out.println("Tables: " + tables.size());
+        req.setAttribute("tables", tables);
+        req.setAttribute("contentPage", "/WEB-INF/pages/list_table.jsp");
+
         req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
     }
 }

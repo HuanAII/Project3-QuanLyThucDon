@@ -36,47 +36,78 @@ public class Admin_add_thucdon extends HttpServlet {
         String id = req.getParameter("idMon");
         String name = req.getParameter("tenMon");
         String id_danhmuc = req.getParameter("idDanhMuc");
-        int gia = Integer.parseInt(req.getParameter("gia").trim());
         String mota = req.getParameter("mota");
         String donVi = req.getParameter("donViTinh");
 
-        // Lấy phần ảnh
+        int gia;
+        try {
+            gia = Integer.parseInt(req.getParameter("gia").trim());
+        } catch (NumberFormatException e) {
+            req.setAttribute("error", "Giá món ăn không hợp lệ!");
+            forwardWithProduct(req, resp, new Product(id, name, id_danhmuc, 0, "", mota, donVi));
+            return;
+        }
+
+        // Kiểm tra ID hợp lệ
+        if (id == null || id.length() != 6) {
+            req.setAttribute("error", "ID món ăn phải có đúng 6 ký tự!");
+            forwardWithProduct(req, resp, new Product(id, name, id_danhmuc, gia, "", mota, donVi));
+            return;
+        }
+
+        if (gia < 0) {
+            req.setAttribute("error", "Giá món ăn phải lớn hơn hoặc bằng 0!");
+            forwardWithProduct(req, resp, new Product(id, name, id_danhmuc, gia, "", mota, donVi));
+            return;
+        }
+
+        // Kiểm tra ID đã tồn tại chưa
+        Product existing = productsDAO.getProductByID(id);
+        if (existing != null) {
+            req.setAttribute("error", "ID món ăn đã tồn tại!");
+            forwardWithProduct(req, resp, new Product(id, name, id_danhmuc, gia, "", mota, donVi));
+            return;
+        }
+
+        // Xử lý ảnh
         Part filePart = req.getPart("hinhAnh");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        String uploadDir = "C:/PBL3/IMG/uploads";  // Đường dẫn tuyệt đối đến thư mục ảnh
 
-        // Đường dẫn cố định nơi lưu trữ ảnh (ví dụ: C:/project-images/uploads/)
-        String uploadDir = "D:PBL3/IMG/uploads"; // Đường dẫn đến thư mục uploads trên máy chủ
-        
-        // Tạo thư mục nếu chưa tồn tại
         File uploadsFolder = new File(uploadDir);
         if (!uploadsFolder.exists()) {
             uploadsFolder.mkdirs();
         }
 
         File imageFile = new File(uploadsFolder, fileName);
-
         try (InputStream input = filePart.getInputStream()) {
             Files.copy(input, imageFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("error", "Lỗi khi lưu ảnh: " + e.getMessage());
-            req.setAttribute("contentPage", "/WEB-INF/pages/add_thucdon.jsp");
-            req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
+            forwardWithProduct(req, resp, new Product(id, name, id_danhmuc, gia, "", mota, donVi));
             return;
         }
 
-        // Dùng đường dẫn tương đối để lưu trong DB (dùng cho hiển thị ảnh)
-        String img_path = "uploads/" + fileName; // Dùng "uploads/" để lưu trong DB và hiển thị
+        String img_path = "uploads/" + fileName;
 
+        // Thêm sản phẩm
         Product product = new Product(id, name, id_danhmuc, gia, img_path, mota, donVi);
         boolean result = productsDAO.addProduct(product);
 
-        if (!result) {
-            req.setAttribute("error", "Thêm món ăn thất bại!");
-        } else {
+        if (result) {
             req.setAttribute("success", "Thêm món ăn thành công!");
+        } else {
+            req.setAttribute("error", "Thêm món ăn thất bại!");
+            req.setAttribute("product", product);
         }
 
+        req.setAttribute("contentPage", "/WEB-INF/pages/add_thucdon.jsp");
+        req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
+    }
+
+    private void forwardWithProduct(HttpServletRequest req, HttpServletResponse resp, Product product) throws ServletException, IOException {
+        req.setAttribute("product", product);
         req.setAttribute("contentPage", "/WEB-INF/pages/add_thucdon.jsp");
         req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
     }

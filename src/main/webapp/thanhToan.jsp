@@ -10,7 +10,6 @@
   <body>
     <jsp:include page="menu.jsp" />
     <div class="container">
-      <!-- Form bên trái -->
       <div class="form-left">
         <form action="DatHangServlet" method="post">
           <h2>Thông tin nhận hàng</h2>
@@ -22,16 +21,10 @@
         session.removeAttribute("error"); 
         } 
         %>
-
-          <!-- Email: auto fill nếu có -->
-          <input type="email" name="email" placeholder="Email" 
-                 value="${userInfo.email}" />
-
-          <!-- Họ và tên: bắt buộc nhập -->
+        <% String success = (String) request.getAttribute("success"); %>
           <input type="text" name="hoTen" placeholder="Họ và tên" required 
                 value="${userInfo.hoVaTen}"/>
 
-          <!-- Số điện thoại: auto fill nếu có -->
           <input type="tel" name="soDienThoai" placeholder="Số điện thoại" 
                  value="${userInfo.sdt}" />
 

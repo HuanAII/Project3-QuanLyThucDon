@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.dao.CartDAO;
-import com.example.dao.productsDAO;
 import com.example.models.CartItem;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,7 +25,6 @@ public class CartServlet extends HttpServlet {
         String account_id = (String) session.getAttribute("account_id");
 
         if (user != null) {
-            // Người DÙNG đã đăng nhập — Lấy dữ liệu từ DB
             System.out.println(">> USER: " + user + " dang xem gio hang");
             List<CartItem> cartFromDB = CartDAO.getCartByUserId(account_id);
             System.out.println(">> So luong sp trong gio hang: " + cartFromDB.size());
@@ -34,7 +32,6 @@ public class CartServlet extends HttpServlet {
             session.setAttribute("cart", cartFromDB);
 
         } else {
-            // Người dùng KHÔNG đăng nhập — lấy giỏ hàng từ session
             System.out.println(">> KHACH chua dang nhap dang xem gio hang");
             List<CartItem> cartFromSession = (List<CartItem>) session.getAttribute("cart");
             if (cartFromSession == null) cartFromSession = new ArrayList<>();
@@ -43,19 +40,16 @@ public class CartServlet extends HttpServlet {
             session.setAttribute("cart", cartFromSession);
         }
 
-        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart"); // Lấy giỏ hàng từ session
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart"); 
         if (cart == null) {
-            cart = new ArrayList<>(); // Nếu giỏ hàng null, khởi tạo giỏ hàng rỗng
+            cart = new ArrayList<>(); 
         }
 
         CartItem cartItem = new CartItem();
         System.out.println(">> Cart: " + cart);
-        double tongTien = cartItem.tinhTongTien(cart); // Tính tổng tiền từ giỏ hàng
-        session.setAttribute("tongTien", tongTien); // Lưu tổng tiền vào session
+        int tongTien = cartItem.tinhTongTien(cart); 
+        session.setAttribute("tongTien", tongTien); 
         System.out.println(">> Tong tien: " + tongTien);
-
-
-        // Chuyển tới trang giỏ hàng JSP
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 

@@ -1,130 +1,184 @@
 package com.example.dao;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.utils.DBConnection;
-import com.example.models.Table;
+import com.example.models.ReservationItem;
 import com.example.models.reservation;
 
 public class reservationDAO {
+    public static boolean saveWaitingReservation(int account_id, String ten_khach, String sdt_khach,
+                                      String ngay_dat, String gio_dat, String ghi_chu,
+                                      String mon_an_kem, int so_khach) throws ClassNotFoundException, SQLException {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    try {
+        conn = DBConnection.getConnection();
 
-    public static boolean saveWaitingReservation(reservation res) throws SQLException {
-        Connection conn = null;
-        CallableStatement stmt = null;
-        try {
-            conn = DBConnection.getConnection();
-            if (conn == null) {
-                System.out.println("Ket noi database that bai");
-                return false;
-            }
-    
-            String sql = "{Call saveWaitingReservation(?, ?, ?, ?, ?, ?)}";
-            stmt = conn.prepareCall(sql);
-            stmt.setString(1, res.getName());
-            stmt.setString(2, res.getPhone());
-            stmt.setInt(3, res.getGuests());
-            stmt.setDate(4, java.sql.Date.valueOf(res.getDate()));
-    
-            String timeString = res.getTime();
-            if (timeString.length() == 5) { 
-                timeString = timeString + ":00";  
-            }
-            stmt.setTime(5, java.sql.Time.valueOf(timeString)); 
-            stmt.setString(6, res.getMessage());
-    
-            System.out.println("Name: " + res.getName());
-            System.out.println("Phone: " + res.getPhone());
-            System.out.println("Guests: " + res.getGuests());
-            System.out.println("Date: " + res.getDate());
-            System.out.println("Time: " + res.getTime());
-            System.out.println("Message: " + res.getMessage());
-    
-            stmt.execute();
-            return true;
-    
-        } catch (SQLException e) {
-            System.err.println("Loi sql: " + e.getMessage());
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            System.err.println("Loi gia tri null: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Loi : " + e.getMessage());
-            e.printStackTrace();
-        } finally {
-            if (stmt != null) stmt.close();
-            if (conn != null) conn.close();
+        String sql = "INSERT INTO waiting_table_reservation " +
+                     "(account_id, ten_khach, sdt_khach, ngay_dat, gio_dat, ghi_chu, mon_an_kem, so_khach) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        stmt = conn.prepareStatement(sql);
+
+        if (account_id == -1) {
+            stmt.setNull(1, java.sql.Types.INTEGER);
+        } else {
+            stmt.setInt(1, account_id);
         }
+
+        stmt.setString(2, ten_khach);
+        stmt.setString(3, sdt_khach);
+        stmt.setDate(4, java.sql.Date.valueOf(ngay_dat));
+        stmt.setString(5, gio_dat);
+        stmt.setString(6, ghi_chu);
+        stmt.setString(7, mon_an_kem);
+        stmt.setInt(8, so_khach);
+
+        int rowsInserted = stmt.executeUpdate();
+        return rowsInserted > 0;
+    } catch (SQLException e) {
+        System.err.println("Lỗi khi lưu đặt bàn: " + e.getMessage());
+        e.printStackTrace();
         return false;
+    } finally {
+        closeResources(stmt, conn);
     }
-    
+}
 
-    public boolean saveReservation(reservation res) throws ClassNotFoundException {
-        Connection conn = null;
-        PreparedStatement stmt = null;    
-        try {
-            conn = DBConnection.getConnection();
-            if (conn == null) {
-                return false;  
-            }
-            
-            String sql = "INSERT INTO reservations (name, phone, guests, date, time, message) VALUES (?, ?, ?, ?, ?, ?)";
-            stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, res.getName());
-            stmt.setString(2, res.getPhone());
-            stmt.setInt(3, res.getGuests());
-            stmt.setDate(4, java.sql.Date.valueOf(res.getDate())); 
-            stmt.setString(5, res.getTime());
-            stmt.setString(6, res.getMessage());
+   public static boolean saveReservation(int account_id, String ten_khach, String sdt_khach,
+                                      String ngay_dat, String gio_dat, String ghi_chu,
+                                      String mon_an_kem, int so_khach , String id_ban) throws ClassNotFoundException, SQLException {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    try {
+        conn = DBConnection.getConnection();
 
-            int rowsInserted = stmt.executeUpdate();
-            return rowsInserted > 0; 
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            closeResources(stmt, conn);
+        String sql = "INSERT INTO waiting_table_reservation " +
+                     "(account_id, ten_khach, sdt_khach,id_table, ngay_dat, gio_dat, ghi_chu, mon_an_kem, so_khach) " +
+                     "VALUES (?, ?, ?,?, ?, ?, ?, ?, ?)";
+        stmt = conn.prepareStatement(sql);
+
+        if (account_id == -1) {
+            stmt.setNull(1, java.sql.Types.INTEGER);
+        } else {
+            stmt.setInt(1, account_id);
         }
-    }
 
-    public static List<Table> getAllTables() {
-        List<Table> tables = new ArrayList<>();
+        stmt.setString(2, ten_khach);
+        stmt.setString(3, sdt_khach);
+        stmt.setString(4, id_ban);
+        stmt.setDate(5, java.sql.Date.valueOf(ngay_dat));
+        stmt.setString(6, gio_dat);
+        stmt.setString(7, ghi_chu);
+        stmt.setString(8, mon_an_kem);
+        stmt.setInt(9, so_khach);
+
+        int rowsInserted = stmt.executeUpdate();
+        return rowsInserted > 0;
+    } catch (SQLException e) {
+        System.err.println("Lỗi khi lưu đặt bàn: " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    } finally {
+        closeResources(stmt, conn);
+    }
+}
+
+
+public static int saveReservationReturnId(int account_id, String ten_khach, String sdt_khach,
+                                          String ngay_dat, String gio_dat, String ghi_chu,
+                                          String mon_an_kem, int so_khach)
+        throws ClassNotFoundException, SQLException {
+
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    try {
+        conn = DBConnection.getConnection();
+
+        String sql = "INSERT INTO waiting_table_reservation " +
+                     "(account_id, ten_khach, sdt_khach, ngay_dat, gio_dat, ghi_chu, mon_an_kem, so_khach) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+
+        if (account_id == -1) {
+            stmt.setNull(1, java.sql.Types.INTEGER);
+        } else {
+            stmt.setInt(1, account_id);
+        }
+
+        stmt.setString(2, ten_khach);
+        stmt.setString(3, sdt_khach);
+        stmt.setDate(4, java.sql.Date.valueOf(ngay_dat));
+        stmt.setString(5, gio_dat);
+        stmt.setString(6, ghi_chu);
+        stmt.setString(7, mon_an_kem);
+        stmt.setInt(8, so_khach);
+
+        int rowsInserted = stmt.executeUpdate();
+
+        if (rowsInserted > 0) {
+            try (java.sql.ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);  
+                }
+            }
+        }
+
+        return -1; 
+    } catch (SQLException e) {
+        System.err.println("Lỗi khi lưu đặt bàn: " + e.getMessage());
+        e.printStackTrace();
+        return -1;
+    } finally {
+        closeResources(stmt, conn);
+    }
+}
+
+
+
+    public static List<reservation> getAllWaitingReservations() {
+        List<reservation> reservations = new ArrayList<>();
         Connection conn = null;
         ResultSet rs = null;
-        CallableStatement stmt = null;
+        PreparedStatement stmt = null;
 
         try {
             conn = DBConnection.getConnection();
-            if (conn == null) return tables;
+            if (conn == null) return reservations;
 
-            stmt = conn.prepareCall("{CALL GetAllTables()}");
+            String sql = "SELECT id_waiting_reservation,account_id, ten_khach, sdt_khach, ngay_dat, gio_dat, ghi_chu, mon_an_kem,so_khach FROM waiting_table_reservation";
+            stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String idTable = rs.getObject("id_table") != null ? rs.getString("id_table") : "Unknown";
-                int tableNumber = rs.getInt("table_number");
-                String status = rs.getString("trang_thai") != null ? rs.getString("trang_thai") : "Unknown";
-                int seats = rs.getInt("so_cho_ngoi");
+                int  accountId = rs.getInt("account_id");
+                if (rs.wasNull()) {
+                    accountId = -1;
+                }
+                int id_reservation = rs.getInt("id_waiting_reservation");
+                System.out.println(">> id_reservation----: " + id_reservation);
+                String name = rs.getString("ten_khach");
+                String phone = rs.getString("sdt_khach");
+                int guests = rs.getInt("so_khach");
+                String date = rs.getString("ngay_dat");
+                String time = rs.getString("gio_dat");
+                String message = rs.getString("ghi_chu");
+                String foods = rs.getString("mon_an_kem");
 
-                Table table = new Table(idTable, tableNumber, seats, status);
-                tables.add(table); 
+                reservation res = new reservation(id_reservation,accountId, name, phone, guests, date, time, foods, message);
+                reservations.add(res);
             }
         } catch (Exception e) {
-            System.err.println("Lỗi khi lấy danh sách bàn: " + e.getMessage());
+            System.err.println("Lỗi khi lấy danh sách đặt bàn: " + e.getMessage());
         } finally {
             closeResources(rs, stmt, conn);
         }
-        return tables;
+        return reservations;
     }
 
-    
     private static void closeResources(AutoCloseable... resources) {
         for (AutoCloseable resource : resources) {
             if (resource != null) {
@@ -136,4 +190,168 @@ public class reservationDAO {
             }
         }
     }
+
+
+ 
+public static boolean deleteWaitingReservationById(int reservationId) {
+    Connection conn = null;
+    ResultSet rs = null;
+    PreparedStatement stmt = null;
+    try {
+        conn = DBConnection.getConnection();
+        String sql = "delete  FROM waiting_table_reservation where id_waiting_reservation = ?";
+        stmt = conn.prepareStatement(sql);
+        System.out.println(">> reservationId: " + reservationId);
+        stmt.setInt(1, reservationId);
+        int rowsDeleted = stmt.executeUpdate();
+        return rowsDeleted > 0;
+    } catch(ClassNotFoundException e){
+        e.printStackTrace();
+        System.err.println("Lỗi khi kết nối cơ sở dữ liệu: " + e.getMessage());
+    }
+    catch (SQLException e) {
+        System.err.println("Lỗi khi xóa đặt bàn: " + e.getMessage());
+        e.printStackTrace();
+      
+    } finally {
+        closeResources(rs, stmt, conn);
+    }
+    return false;
+}
+
+public static reservation getWaitingReservationByIdS(int reservationId) {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+        conn = DBConnection.getConnection();
+        if (conn == null) return null;
+
+        String sql = "SELECT id_waiting_reservation, account_id, ten_khach, sdt_khach, " +
+                     "ngay_dat, gio_dat, ghi_chu, mon_an_kem, so_khach " +
+                     "FROM waiting_table_reservation WHERE id_waiting_reservation = ?";
+        stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, reservationId);
+
+        rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            Integer accountId = rs.getInt("account_id");
+            if (rs.wasNull()) {
+                accountId = -1;  
+            }
+
+            int resId = rs.getInt("id_waiting_reservation");
+            String customerName = rs.getString("ten_khach");
+            String customerPhone = rs.getString("sdt_khach");
+            int numberOfGuests = rs.getInt("so_khach");
+            String reservationDate = rs.getString("ngay_dat");
+            String reservationTime = rs.getString("gio_dat");
+            String note = rs.getString("ghi_chu");
+            String attachedFoods = rs.getString("mon_an_kem");
+
+            return new reservation(resId, accountId, customerName, customerPhone,
+                                   numberOfGuests, reservationDate, reservationTime,
+                                   attachedFoods, note);
+        }
+
+    } catch (Exception e) {
+        System.err.println("Lỗi khi lấy đặt bàn theo ID: " + e.getMessage());
+        e.printStackTrace();
+    } finally {
+        closeResources(rs, stmt, conn);
+    }
+
+    return null;
+}
+
+
+
+public static List<ReservationItem> getReservationItemsById(int reservationId) {
+    List<ReservationItem> reservationItems = new ArrayList<>();
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+        conn = DBConnection.getConnection();
+        if (conn == null) return reservationItems;
+
+        String sql = "SELECT id, reservation_id, mon_an_id, ten_mon, so_luong, gia " +
+                     "FROM reservation_item WHERE reservation_id = ?";
+        stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, reservationId);
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int resId = rs.getInt("reservation_id");
+            String foodId = rs.getString("mon_an_id");
+            String foodName = rs.getString("ten_mon");
+            int quantity = rs.getInt("so_luong");
+            int price = rs.getInt("gia");
+
+            ReservationItem item = new ReservationItem(id, resId, foodId, foodName, quantity, price);
+            reservationItems.add(item);
+        }
+    } catch (Exception e) {
+        System.err.println("Lỗi khi lấy danh sách món ăn đặt bàn: " + e.getMessage());
+        e.printStackTrace();
+    } finally {
+        closeResources(rs, stmt, conn);
+    }
+
+    return reservationItems;
+}
+
+
+public static boolean saveReservationFromWaitingReservation(reservation res, String idBan) {
+     Connection conn = null;
+    PreparedStatement stmt = null;
+    try {
+        conn = DBConnection.getConnection();
+
+        String sql = "INSERT INTO dat_ban " +
+                     "(account_id, ten_khach, sdt_khach,id_table, ngay_dat, gio_dat, ghiChu, so_khach) " +
+                     "VALUES (?, ?, ?,?, ?, ?, ?, ?)";
+        stmt = conn.prepareStatement(sql);
+
+        int account_id = res.getIdAccount();
+        String ten_khach = res.getName();
+        String sdt_khach = res.getPhone();
+        String id_ban = idBan;
+        String ngay_dat = res.getDate();
+        String gio_dat = res.getTime();
+        String ghi_chu = res.getMessage();
+        int so_khach = res.getGuests();
+        
+        if (account_id == -1) {
+            stmt.setNull(1, java.sql.Types.INTEGER);
+        } else {
+            stmt.setInt(1, account_id);
+        }
+
+        stmt.setString(2, ten_khach);
+        stmt.setString(3, sdt_khach);
+        stmt.setString(4, id_ban);
+        stmt.setDate(5, java.sql.Date.valueOf(ngay_dat));
+        stmt.setString(6, gio_dat);
+        stmt.setString(7, ghi_chu)  ;
+        stmt.setInt(8, so_khach);
+
+        int rowsInserted = stmt.executeUpdate();
+        return rowsInserted > 0;
+    } catch(ClassNotFoundException e ){
+        e.printStackTrace();
+        return false;
+    }
+    catch (SQLException e) {
+        System.err.println("Lỗi khi lưu đặt bàn: " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    } finally {
+        closeResources(stmt, conn);
+    }
+}
 }

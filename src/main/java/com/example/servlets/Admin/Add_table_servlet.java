@@ -14,13 +14,14 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/admin/add-table")
 public class Add_table_servlet extends HttpServlet {
 
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String idTable = request.getParameter("idTable");
         int tableNumber = Integer.parseInt(request.getParameter("tableNumber"));
         int seats = Integer.parseInt(request.getParameter("seats"));
-        String status = request.getParameter("status");
-        Table newTable = new Table(idTable, tableNumber, seats, status);
+        Table newTable = new Table(idTable, tableNumber, seats);
         boolean result = TableDAO.addTable(newTable);
         if (result) {
             request.setAttribute("success", "Thêm bàn thành công!");

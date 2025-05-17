@@ -149,55 +149,6 @@ body {
   letter-spacing: 2px;
 }
 
-/* Filter Section */
-.filter-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-}
-
-.filter-label {
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-}
-
-.filter-label i {
-  margin-right: 8px;
-}
-
-.filter-options {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.filter-option {
-  background-color: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 20px;
-  padding: 8px 15px;
-  margin: 5px;
-  cursor: pointer;
-}
-
-.filter-option.active {
-  background-color: #333;
-}
-
-.dropdown-filter {
-  background-color: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 20px;
-  padding: 8px 15px;
-  margin: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  margin-bottom: 23px;
-}
-
 .dropdown-filter i {
   margin-left: 8px;
 }
@@ -256,7 +207,7 @@ body {
   justify-content: center;
   padding: 24px 24px 24px 0;
   flex: 1;
-  margin-left: 20px;
+  margin-left: 0px;
 }
 
 .product-title {

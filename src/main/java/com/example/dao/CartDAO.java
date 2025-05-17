@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Date;
+
 
 import com.example.models.CartItem;
 
@@ -16,7 +16,7 @@ public class CartDAO {
     public static void AddToCart(String idMon, String account_id, double soLuong) {
         try {
             Connection conn = DBConnection.getConnection();
-            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+ 
             String checkSql = "SELECT soLuong FROM gio_hang WHERE idMon = ? AND account_id = ?";
             PreparedStatement checkStmt = conn.prepareStatement(checkSql);
             checkStmt.setString(1, idMon);
@@ -68,7 +68,7 @@ public class CartDAO {
                         rs.getString("idMon"),
                         rs.getString("tenMon"),
                         rs.getString("hinhAnh"),
-                        rs.getDouble("gia"),
+                        rs.getInt("gia"),
                         rs.getInt("soLuong"));
                 productList.add(CartItem);
             }

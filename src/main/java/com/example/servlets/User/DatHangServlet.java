@@ -24,7 +24,6 @@ public class DatHangServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
         String hoVaTen = request.getParameter("hoTen");
         String soDienThoai = request.getParameter("soDienThoai");
         String diaChi = request.getParameter("diaChi");
@@ -63,12 +62,19 @@ public class DatHangServlet extends HttpServlet {
             account_id = Integer.parseInt(session.getAttribute("account_id").toString());
         }
 
-        // 🔧 DÙNG TỔNG TIỀN SAU GIẢM (nếu có)
-        Double tongTienSauGiam = (Double) session.getAttribute("tongTienSauGiam");
-        Double tongTien = (Double) session.getAttribute("tongTien");
-        double total = tongTienSauGiam != null ? tongTienSauGiam : (tongTien != null ? tongTien : 0.0);
+            double tongTienSauGiam = 0.0;
+            double tongTien = 0.0;
 
-        // Thêm đơn hàng
+            Object giam = session.getAttribute("tongTienSauGiam");
+            Object tong = session.getAttribute("tongTien");
+
+            if (giam instanceof Number) tongTienSauGiam = ((Number) giam).doubleValue();
+            if (tong instanceof Number) tongTien = ((Number) tong).doubleValue();
+
+            int total = (int) (tongTienSauGiam != 0.0 ? tongTienSauGiam : tongTien);
+
+
+
         int idDonHang = OrderDAO.addOrder(account_id, total, "Cho xu ly", null, hoVaTen, soDienThoai, diaChi);
 
         if (idDonHang == -1) {

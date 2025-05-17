@@ -1,6 +1,5 @@
 package com.example.servlets.User;
 import com.example.dao.OrderDAO;
-import com.example.dao.productsDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -19,16 +18,15 @@ public class DiscountServlet extends HttpServlet {
         String maGiamGia = request.getParameter("maGiamGia");
         HttpSession session = request.getSession();
 
-        double tongTien = session.getAttribute("tongTien") != null
-                ? (double) session.getAttribute("tongTien")
-                : 0.0;
+        int tongTien = (int) (session.getAttribute("tongTien") != null
+                ?  session.getAttribute("tongTien")
+                : 0.0);
 
-        productsDAO dao = new productsDAO();
         Integer discount = OrderDAO.getValidDiscount(maGiamGia);
 
         if (discount != null && discount > 0) {
-            double giamGia = tongTien * discount / 100.0;
-            double tongTienSauGiam = tongTien - giamGia;
+            int giamGia = (int) (tongTien * discount / 100.0);
+            int tongTienSauGiam = tongTien - giamGia;
 
             session.setAttribute("maGiamGia", maGiamGia);
             session.setAttribute("giamGia", giamGia);

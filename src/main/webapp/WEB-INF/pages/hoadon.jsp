@@ -171,7 +171,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${danhSachHoaDon}" var="hoaDon">
+                <c:forEach items="${hoaDonList}" var="hoaDon">
                     <tr>
                         <td><strong>#${hoaDon.idHoaDon}</strong></td>
                         <td>#${hoaDon.idDonHang}</td>
@@ -184,7 +184,7 @@
                         </td>
                     </tr>
                 </c:forEach>
-                <c:if test="${empty danhSachHoaDon}">
+                <c:if test="${empty hoaDonList}">
                     <tr>
                         <td colspan="6" class="no-records">Không có hóa đơn nào</td>
                     </tr>

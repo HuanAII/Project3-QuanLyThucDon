@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,7 +33,7 @@
         <div class="cart-container">
           <c:forEach items="${cart}" var="o">
             <div class="cart-item">
-              <img src="${o.hinhAnh}" alt="ảnh món ăn" />
+              <img src="http://localhost:8080/QuanLyThucDon/uploads/${o.hinhAnh}" alt="ảnh món ăn" />
               
               <div class="info">
                 <h3>${o.tenMon}</h3>
@@ -44,7 +45,7 @@
                 </span>
               </div>
 
-              <div class="price">${o.gia}</div>
+                <fmt:formatNumber value="${o.gia}" type="currency" currencyCode="VND" />
 
               <div class="quantity">
                 <form action="UpdateCartServlet" method="get" style="display:flex; align-items:center;">

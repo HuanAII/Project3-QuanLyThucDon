@@ -34,6 +34,7 @@ com\example\servlets\Admin\Edit_menu_servlet.class
 com\example\servlets\Admin\Waiting_booking_table.class
 com\example\servlets\Admin\Admin_delete_menu.class
 com\example\models\Category.class
+com\example\servlets\Admin\Filter_Table_Servlet.class
 com\example\servlets\LoginServlet.class
 com\example\models\Table.class
 com\example\servlets\User\DatHangServlet.class

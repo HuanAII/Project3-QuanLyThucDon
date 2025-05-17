@@ -1,5 +1,6 @@
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
   <head>
@@ -65,7 +66,9 @@
             <img src="http://localhost:8080/QuanLyThucDon/uploads/${o.hinhAnh}" alt="Món ăn" />
             <div class="item-info">
               <div class="item-name">${o.tenMon}</div>
-              <div class="item-price">Đơn giá: ${o.gia} đ</div>
+                <div class="item-price">
+                    Đơn giá: <fmt:formatNumber value="${o.gia}" type="number" groupingUsed="true"/> VNĐ
+                </div>
               <div class="item-quantity">Số lượng: ${o.soLuong}</div>
             </div>
           </div>
@@ -78,31 +81,36 @@
             <button type="submit" class="btn-apply-discount">Áp dụng</button>
           </form>
 
-          <div class="total">Tạm tính: <strong>${tongTien} đ</strong></div>
-          <div class="total">Đã giảm giá: 
-            <strong>
-              <c:choose>
-                <c:when test="${not empty giamGia}">
-                  ${giamGia} đ
-                </c:when>
-                <c:otherwise>
-                  0 đ
-                </c:otherwise>
-              </c:choose>
-            </strong>
-          </div>
-          <div class="total">Tổng cộng: 
-            <strong>
-              <c:choose>
-                <c:when test="${not empty tongTienSauGiam}">
-                  ${tongTienSauGiam} đ
-                </c:when>
-                <c:otherwise>
-                  ${tongTien} đ
-                </c:otherwise>
-              </c:choose>
-            </strong>
-          </div>
+            <div class="total">Tạm tính: 
+              <strong><fmt:formatNumber value="${tongTien}" type="number" groupingUsed="true"/> VNĐ</strong>
+            </div>
+
+            <div class="total">Đã giảm giá: 
+              <strong>
+                <c:choose>
+                  <c:when test="${not empty giamGia}">
+                    <fmt:formatNumber value="${giamGia}" type="number" groupingUsed="true"/> VNĐ
+                  </c:when>
+                  <c:otherwise>
+                    0 VNĐ
+                  </c:otherwise>
+                </c:choose>
+              </strong>
+            </div>
+
+            <div class="total">Tổng cộng: 
+              <strong>
+                <c:choose>
+                  <c:when test="${not empty tongTienSauGiam}">
+                    <fmt:formatNumber value="${tongTienSauGiam}" type="number" groupingUsed="true"/> VNĐ
+                  </c:when>
+                  <c:otherwise>
+                    <fmt:formatNumber value="${tongTien}" type="number" groupingUsed="true"/> VNĐ
+                  </c:otherwise>
+                </c:choose>
+              </strong>
+            </div>
+
         </div>
       </div>
     </div>

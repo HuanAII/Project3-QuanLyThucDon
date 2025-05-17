@@ -314,7 +314,7 @@ public static boolean saveReservationFromWaitingReservation(reservation res, Str
 
         String sql = "INSERT INTO dat_ban " +
                      "(account_id, ten_khach, sdt_khach,id_table, ngay_dat, gio_dat, ghiChu, so_khach) " +
-                     "VALUES (?, ?, ?,?, ?, ?, ?, ?, ?)";
+                     "VALUES (?, ?, ?,?, ?, ?, ?, ?)";
         stmt = conn.prepareStatement(sql);
 
         int account_id = res.getIdAccount();
@@ -337,7 +337,7 @@ public static boolean saveReservationFromWaitingReservation(reservation res, Str
         stmt.setString(4, id_ban);
         stmt.setDate(5, java.sql.Date.valueOf(ngay_dat));
         stmt.setString(6, gio_dat);
-        stmt.setString(7, ghi_chu);
+        stmt.setString(7, ghi_chu)  ;
         stmt.setInt(8, so_khach);
 
         int rowsInserted = stmt.executeUpdate();

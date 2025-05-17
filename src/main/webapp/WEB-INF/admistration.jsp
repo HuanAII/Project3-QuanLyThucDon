@@ -329,6 +329,13 @@
             </li>
 
              <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/admin/reservationHistory" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Khách hàng</span>
+                </a>
+            </li>
+
+             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/admin/logOut" class="nav-link">
                     <i class="fas fa-chair"></i>
                     <span>Đăng xuất</span>

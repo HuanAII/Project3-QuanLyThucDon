@@ -12,6 +12,23 @@ public class AdminDispatcher extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Kiểm tra phân quyền admin
+        jakarta.servlet.http.HttpSession session = request.getSession(false);
+        String username = null;
+        String role = null;
+        if (session != null) {
+            username = (String) session.getAttribute("user");
+            // Lấy role từ DB hoặc session (nếu đã lưu)
+            // Ở đây giả sử đã lưu role vào session khi đăng nhập
+            // Nếu chưa, cần lấy từ DB
+            // Ví dụ: session.setAttribute("role", user.getRole()); khi đăng nhập
+            role = (String) session.getAttribute("role");
+        }
+        if (username == null || role == null || !role.equals("Quản lý")) {
+            request.getRequestDispatcher("/WEB-INF/accessDenied.jsp").forward(request, response);
+            return;
+        }
+
         String path = request.getPathInfo(); 
 
         if (path == null || path.equals("/") || path.isEmpty()) {
@@ -33,8 +50,9 @@ public class AdminDispatcher extends HttpServlet {
                 page = "/WEB-INF/pages/nhanvien.jsp";
                 break;
             case "/khachhang":
-                page = "/WEB-INF/pages/khachhang.jsp";
-                break;
+                // Chuyển tiếp tới servlet quản lý khách hàng
+                request.getRequestDispatcher("/admin/khachhang").forward(request, response);
+                return;
             case "/hethong":
                 page = "/WEB-INF/pages/hethong.jsp";
                 break;

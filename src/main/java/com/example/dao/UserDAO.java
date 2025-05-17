@@ -237,7 +237,7 @@ public class UserDAO {
         return false;
     }
 
-    // Cập nhật thông tin người dùng
+    // Cập nhật thông tin người dùng (username, email, sdt, HoVaTen)
     public boolean updateUser(User user) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -245,11 +245,12 @@ public class UserDAO {
 
         try {
             connection = DBConnection.getConnection();
-            String sql = "UPDATE user_account SET username=?, role=?, email=? WHERE id=?";
+            String sql = "UPDATE user_account SET username=?, email=?, sdt=?, HoVaTen=? WHERE id=?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, user.getUsername());
-            statement.setString(2, user.getRole());
-            statement.setString(3, user.getEmail());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getSdt());
+            statement.setString(4, user.getHoVaTen());
             statement.setString(5, user.getId());
             int rowsUpdated = statement.executeUpdate();
             success = (rowsUpdated > 0);
@@ -269,7 +270,7 @@ public class UserDAO {
         return success;
     }
 
-    // Đổi mật khẩu
+    // Đổi mật khẩu (plain text)
     public boolean changePassword(String userId, String oldPassword, String newPassword) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -280,25 +281,20 @@ public class UserDAO {
             // Lấy kết nối database
             connection = DBConnection.getConnection();
 
-            // Mã hóa mật khẩu cũ và mới
-            String encryptedOldPassword = encryptPassword(oldPassword);
-            String encryptedNewPassword = encryptPassword(newPassword);
-
-            // Kiểm tra mật khẩu cũ
+            // Không mã hóa mật khẩu, so sánh trực tiếp plain text
             String checkSql = "SELECT * FROM user_account WHERE id = ? AND password = ?";
             statement = connection.prepareStatement(checkSql);
             statement.setString(1, userId);
-            statement.setString(2, encryptedOldPassword);
+            statement.setString(2, oldPassword);
 
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-
                 statement.close();
 
                 String updateSql = "UPDATE user_account SET password = ? WHERE id = ?";
                 statement = connection.prepareStatement(updateSql);
-                statement.setString(1, encryptedNewPassword);
+                statement.setString(1, newPassword);
                 statement.setString(2, userId);
 
                 int rowsUpdated = statement.executeUpdate();
@@ -322,24 +318,19 @@ public class UserDAO {
         return success;
     }
 
-
+    // Cập nhật mật khẩu plain text cho username (không mã hóa)
     public boolean updatePasswordToHash(String username, String plainPassword) {
         Connection connection = null;
         PreparedStatement statement = null;
         boolean success = false;
         try {
             connection = DBConnection.getConnection();
-
-            String hashedPassword = encryptPassword(plainPassword);
-
             String sql = "UPDATE user_account SET password = ? WHERE username = ?";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, hashedPassword);
+            statement.setString(1, plainPassword);
             statement.setString(2, username);
-
             int rowsUpdated = statement.executeUpdate();
             success = (rowsUpdated > 0);
-
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
@@ -351,7 +342,6 @@ public class UserDAO {
             }
             DBConnection.closeConnection(connection);
         }
-
         return success;
     }
 
@@ -373,6 +363,7 @@ public class UserDAO {
         }
     }
 
+    // Đặt lại mật khẩu bằng token (plain text)
     public boolean resetPassword(String token, String newPassword) throws ClassNotFoundException {
         String sql = "UPDATE user_account SET password = ?, reset_token = NULL, reset_token_expiry = NULL " +
                 "WHERE reset_token = ? AND reset_token_expiry > ?";
@@ -410,4 +401,144 @@ public class UserDAO {
     }
     return user;
 }
+
+    // Lấy danh sách tất cả khách hàng
+    public java.util.List<User> getAllCustomers() {
+        java.util.List<User> customers = new java.util.ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DBConnection.getConnection();
+            String sql = "SELECT * FROM user_account WHERE role = 'Khách hàng'";
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getString("id"));
+                user.setUsername(resultSet.getString("username"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRole(resultSet.getString("role"));
+                user.setEmail(resultSet.getString("email"));
+                user.setSdt(resultSet.getString("sdt"));
+                user.setHoVaTen(resultSet.getString("HoVaTen"));
+                customers.add(user);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+            } catch (SQLException e) { e.printStackTrace(); }
+            DBConnection.closeConnection(connection);
+        }
+        return customers;
+    }
+
+    // Thêm khách hàng mới (admin thêm)
+    public boolean addCustomer(User user) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        boolean success = false;
+        try {
+            connection = DBConnection.getConnection();
+            String sql = "INSERT INTO user_account (username, password, role, email, sdt, HoVaTen) VALUES (?, ?, 'Khách hàng', ?, ?, ?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getSdt());
+            statement.setString(5, user.getHoVaTen());
+            int rowsInserted = statement.executeUpdate();
+            success = (rowsInserted > 0);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
+            DBConnection.closeConnection(connection);
+        }
+        return success;
+    }
+
+    // Sửa thông tin khách hàng (admin sửa)
+    public boolean updateCustomer(User user) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        boolean success = false;
+        try {
+            connection = DBConnection.getConnection();
+            String sql = "UPDATE user_account SET username=?, password=?, email=?, sdt=?, HoVaTen=? WHERE id=? AND role='Khách hàng'";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getSdt());
+            statement.setString(5, user.getHoVaTen());
+            statement.setString(6, user.getId());
+            int rowsUpdated = statement.executeUpdate();
+            success = (rowsUpdated > 0);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
+            DBConnection.closeConnection(connection);
+        }
+        return success;
+    }
+
+    // Xóa khách hàng (admin xóa)
+    public boolean deleteCustomer(String id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        boolean success = false;
+        try {
+            connection = DBConnection.getConnection();
+            String sql = "DELETE FROM user_account WHERE id=? AND role='Khách hàng'";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, id);
+            int rowsDeleted = statement.executeUpdate();
+            success = (rowsDeleted > 0);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
+            DBConnection.closeConnection(connection);
+        }
+        return success;
+    }
+
+    // Lấy user theo id
+    public User getUserById(String id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        User user = null;
+        try {
+            connection = DBConnection.getConnection();
+            String sql = "SELECT * FROM user_account WHERE id = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, id);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getString("id"));
+                user.setUsername(resultSet.getString("username"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRole(resultSet.getString("role"));
+                user.setEmail(resultSet.getString("email"));
+                user.setSdt(resultSet.getString("sdt"));
+                user.setHoVaTen(resultSet.getString("HoVaTen"));
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+            } catch (SQLException e) { e.printStackTrace(); }
+            DBConnection.closeConnection(connection);
+        }
+        return user;
+    }
 }

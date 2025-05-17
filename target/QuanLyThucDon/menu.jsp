@@ -46,6 +46,7 @@
                 <li><a href="/QuanLyThucDon/user?page=booking" class="nav-item">ĐẶT BÀN</a></li>
                 <% if (user != null) { %>
                     <li><a href="${pageContext.request.contextPath}/DonHangServlet" class="nav-item">ĐƠN HÀNG CỦA BẠN</a></li>
+                    <li><a href="${pageContext.request.contextPath}/profile" class="nav-item">THÔNG TIN CÁ NHÂN</a></li>
                 <% } %>
             </ul>
 

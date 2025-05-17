@@ -27,11 +27,8 @@ com\example\servlets\Admin\Add_table_servlet.class
 com\example\servlets\Admin\Delete_table_servlet.class
 com\example\dao\reservationDAO.class
 com\example\servlets\Admin\Edit_table_servlet.class
-<<<<<<< HEAD
 com\example\servlets\User\bookingTableServlet.class
-=======
 com\example\servlets\User\ProfileServlet.class
->>>>>>> ThanhNhat
 com\example\servlets\User\DonHangServlet.class
 com\example\servlets\Admin\Edit_menu_servlet.class
 com\example\servlets\Admin\Waiting_booking_table.class
@@ -58,8 +55,5 @@ com\example\models\User.class
 com\example\servlets\User_Dispatcher.class
 com\example\servlets\LogoutServlet.class
 com\example\servlets\User\CartServlet.class
-<<<<<<< HEAD
 com\example\models\ReservationItem.class
-=======
 com\example\servlets\Admin\KhachHangServlet.class
->>>>>>> ThanhNhat

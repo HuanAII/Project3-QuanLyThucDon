@@ -32,7 +32,7 @@ public class AdminDispatcher extends HttpServlet {
         String path = request.getPathInfo(); 
 
         if (path == null || path.equals("/") || path.isEmpty()) {
-            path = "/thongke"; //mac dinh
+            path = "/thongke_thucdon.jsp"; //mac dinh
         }
 
         String page;

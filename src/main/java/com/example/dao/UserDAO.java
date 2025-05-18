@@ -461,6 +461,26 @@ public class UserDAO {
         return success;
     }
 
+    public static String getHoVaTenByID(int id) {
+        String hoVaTen = null;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DBConnection.getConnection();
+            String sql = "SELECT HoVaTen FROM user_account WHERE id = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                hoVaTen = resultSet.getString("HoVaTen");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return hoVaTen;
+    }
+
     // Sửa thông tin khách hàng (admin sửa)
     public boolean updateCustomer(User user) {
         Connection connection = null;
@@ -541,4 +561,5 @@ public class UserDAO {
         }
         return user;
     }
+
 }

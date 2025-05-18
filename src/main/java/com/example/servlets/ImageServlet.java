@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/uploads/*")
 public class ImageServlet extends HttpServlet {
-    private static final String IMAGE_DIR = "C:/PBL3/IMG/"; 
+    private static final String IMAGE_DIR = "D:/PBL3/IMG/"; 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

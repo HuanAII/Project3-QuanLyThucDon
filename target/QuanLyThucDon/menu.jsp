@@ -46,13 +46,12 @@
                 <li><a href="/QuanLyThucDon/user?page=booking" class="nav-item">ĐẶT BÀN</a></li>
                 <% if (user != null) { %>
                     <li><a href="${pageContext.request.contextPath}/DonHangServlet" class="nav-item">ĐƠN HÀNG CỦA BẠN</a></li>
-                    <li><a href="${pageContext.request.contextPath}/profile" class="nav-item">THÔNG TIN CÁ NHÂN</a></li>
                 <% } %>
             </ul>
 
             <div class="user-actions">
                 <% if (user != null) { %>
-                    <span class="welcome-text"><%= user %></span>
+                   <a href="${pageContext.request.contextPath}/profile"> <span class="welcome-text"><%= user %></span></a>
                     <a href="${pageContext.request.contextPath}/LogoutServlet" class="nav-item">Đăng xuất</a>
                 <% } else { %>
                     <a href="${pageContext.request.contextPath}/login.jsp" class="nav-item">Đăng nhập</a>

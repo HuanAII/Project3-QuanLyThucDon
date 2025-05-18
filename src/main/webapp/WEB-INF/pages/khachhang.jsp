@@ -32,7 +32,6 @@
             background-color: #F9FAFB;
             color: var(--gray-800);
             line-height: 1.5;
-            padding: 1.5rem;
         }
 
         .container {

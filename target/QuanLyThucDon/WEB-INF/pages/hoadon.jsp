@@ -156,7 +156,6 @@
     <div class="container">
         <div class="header">
             <h1>Danh sách Hóa Đơn</h1>
-            <a href="add" class="btn-add"><i class="fas fa-plus"></i> Thêm Hóa Đơn Mới</a>
         </div>
         
         <table>
@@ -179,7 +178,6 @@
                         <td>${hoaDon.ngayThanhToan}</td>
                         <td class="amount">${hoaDon.soTien} VNĐ</td>
                         <td>
-                            <a href="edit?id=${hoaDon.idHoaDon}" class="btn btn-edit"><i class="fas fa-edit"></i> Sửa</a>
                             <a href="delete?id=${hoaDon.idHoaDon}" class="btn btn-delete" onclick="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này?')"><i class="fas fa-trash"></i> Xóa</a>
                         </td>
                     </tr>

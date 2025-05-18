@@ -36,6 +36,78 @@
     <url-pattern>/uploads/*</url-pattern>
 </servlet-mapping>
 
+<servlet>
+    <servlet-name>ThongKeServlet</servlet-name>
+    <servlet-class>com.example.servlets.Admin.ThongKeServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>ThongKeServlet</servlet-name>
+    <url-pattern>/thongke</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>ThongKeServlet</servlet-name>
+    <servlet-class>com.example.servlets.Admin.ThongKeServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>ThongKeServlet</servlet-name>
+    <url-pattern>/admin/thongke</url-pattern>
+</servlet-mapping>
+
+<filter>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>com.example.filters.AuthenticationFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+</filter-mapping>
+
+<filter>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>com.example.filters.AuthenticationFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+</filter-mapping>
+
+<filter>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>com.example.filters.AuthenticationFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+    <url-pattern>/admin/thucdon/*</url-pattern>
+    <url-pattern>/admin/list-*</url-pattern>
+    <url-pattern>/admin/Waiting_*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+</filter-mapping>
+
+<error-page>
+    <error-code>403</error-code>
+    <location>/accessDenied.jsp</location>
+</error-page>
+
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>Admin Area</web-resource-name>
+        <url-pattern>/admin/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+        <role-name>admin</role-name>
+    </auth-constraint>
+</security-constraint>
+
 </web-app>
 
     

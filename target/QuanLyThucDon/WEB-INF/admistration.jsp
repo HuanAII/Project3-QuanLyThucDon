@@ -226,6 +226,29 @@
         
         /* Responsive Design */
 
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mobile-toggle {
+                display: flex;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .content-container {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -342,26 +365,6 @@
 
     <!-- Main Content -->
     <div class="main-content" id="main-content">
-        <div class="top-bar">
-            <div class="left-side">
-                <button class="toggle-sidebar" id="toggle-sidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h1 class="page-title">Bảng điều khiển</h1>
-            </div>
-
-            <div class="user-actions">
-                <button class="notification-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-count">3</span>
-                </button>
-
-                <button class="profile-btn">
-                    <img src="/api/placeholder/100/100" alt="Admin" class="profile-avatar">
-                </button>
-            </div>
-        </div>
-
         <div class="content-container">
             <jsp:include page="${contentPage}" />
         </div>

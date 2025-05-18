@@ -178,8 +178,15 @@
                         <td>${hoaDon.ngayThanhToan}</td>
                         <td class="amount">${hoaDon.soTien} VNĐ</td>
                         <td>
-                            <a href="delete?id=${hoaDon.idHoaDon}" class="btn btn-delete" onclick="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này?')"><i class="fas fa-trash"></i> Xóa</a>
+                            <form action="${pageContext.request.contextPath}/admin/list-hoadon" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này?');">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="id" value="${hoaDon.idHoaDon}">
+                                <button type="submit" class="btn btn-delete">
+                                    <i class="fas fa-trash"></i> Xóa
+                                </button>
+                            </form>
                         </td>
+
                     </tr>
                 </c:forEach>
                 <c:if test="${empty hoaDonList}">

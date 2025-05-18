@@ -1,3 +1,4 @@
+com\example\dao\ReceiptDAO.class
 com\example\servlets\Admin\ListHoaDonServlet.class
 com\example\servlets\UpdatePasswordsServlet.class
 com\example\models\Product.class
@@ -12,6 +13,7 @@ com\example\dao\productsDAO.class
 com\example\servlets\ResetPasswordServlet.class
 com\example\servlets\Admin\TableServlet.class
 com\example\servlets\User\FilterProductsServlet.class
+com\example\dao\DetailOrderDAO.class
 com\example\servlets\Admin\Amin_themdanhmuc.class
 com\example\dao\TableDAO.class
 com\example\servlets\Admin\Delete_category_servlet.class
@@ -43,13 +45,13 @@ com\example\servlets\Admin\Request_food_booking.class
 com\example\dao\CartDAO.class
 com\example\dao\OrderDAO.class
 com\example\servlets\Admin\AdminDispatcher.class
+com\example\servlets\Admin\AddDonHangServlet.class
 com\example\dao\UserDAO.class
 com\example\utils\EmailUtils.class
 com\example\servlets\Admin\category_list_servlet.class
 com\example\models\DonHang.class
 com\example\utils\DBConnection.class
 com\example\models\CartItem.class
-com\example\servlets\ThongKeServlet.class
 com\example\servlets\manage_reservation.class
 com\example\servlets\RegisterServlet.class
 com\example\servlets\User\AddToCartServlet.class

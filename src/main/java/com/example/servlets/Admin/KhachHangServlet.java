@@ -46,27 +46,25 @@ public class KhachHangServlet extends HttpServlet {
             request.setAttribute("editUser", new User());
         }
         
-        request.setAttribute("contentPage", "/WEB-INF/pages/khachhang.jsp.jsp");
-        request.getRequestDispatcher("/WEB-INF/pages/admistration.jsp").forward(request, response);
+         request.setAttribute("contentPage", "/WEB-INF/pages/khachhang.jsp");
+        request.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Kiểm tra phân quyền admin
         HttpSession session = request.getSession(false);
         String role = (session != null) ? (String) session.getAttribute("role") : null;
         if (role == null || !role.equals("Quản lý")) {
             request.getRequestDispatcher("/WEB-INF/accessDenied.jsp").forward(request, response);
             return;
         }
-        // Xử lý xóa khách hàng
+
         String deleteId = request.getParameter("deleteId");
         if (deleteId != null) {
             userDAO.deleteCustomer(deleteId);
             response.sendRedirect(request.getContextPath() + "/admin/khachhang");
             return;
         }
-        // Xử lý thêm/sửa khách hàng
         String id = request.getParameter("id");
         String username = request.getParameter("username");
         String password = request.getParameter("password");

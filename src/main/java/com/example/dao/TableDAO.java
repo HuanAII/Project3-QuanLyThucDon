@@ -150,13 +150,14 @@ public static List<Table> getAvailableTables() {
     }
 
     public static boolean updateTable(Table table) {
-        String sql = "UPDATE ban_an SET table_number = ?, so_cho_ngoi = ?, trang_thai = ? WHERE id_table = ?";
+        String sql = "UPDATE ban_an SET table_number = ?, so_cho_ngoi = ? WHERE id_table = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, table.getTableNumber());
             stmt.setInt(2, table.getSeats());
+            stmt.setString(3, table.getIdTable());
 
             return stmt.executeUpdate() > 0;
 
@@ -166,6 +167,34 @@ public static List<Table> getAvailableTables() {
 
         return false;
     }
+
+    public static List<Table> getAllTablesByDate(java.sql.Date date) {
+    List<Table> tables = new ArrayList<>();
+    String sql = "SELECT b.id_table, b.table_number, b.so_cho_ngoi " +
+                 "FROM ban_an b " +
+                 "LEFT JOIN dat_ban d ON b.id_table = d.id_table AND d.ngay_dat = ?";
+
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setDate(1, date);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Table table = new Table(
+                rs.getString("id_table"),
+                rs.getInt("table_number"),
+                rs.getInt("so_cho_ngoi")
+            );
+            tables.add(table);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return tables;
+}
 
    
     public static boolean deleteTable(String id) {

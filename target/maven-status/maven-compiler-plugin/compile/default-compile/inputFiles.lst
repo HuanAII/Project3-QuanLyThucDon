@@ -1,4 +1,5 @@
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\LogoutServlet.java
+C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\dao\DetailOrderDAO.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_add_thucdon.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Request_food_booking.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Edit_menu_servlet.java
@@ -45,7 +46,6 @@ C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servl
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\utils\EmailUtils.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Admin_delete_menu.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Amin_themdanhmuc.java
-C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\ThongKeServlet.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Filter_Table_Servlet.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\utils\DBConnection.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\HomeServlet.java
@@ -53,7 +53,9 @@ C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\dao\r
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\models\DonHang.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\dao\TableDAO.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\models\HoaDon.java
+C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\AddDonHangServlet.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\TableServlet.java
+C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\dao\ReceiptDAO.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\models\User.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\Delete_table_servlet.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\dao\OrderDAO.java

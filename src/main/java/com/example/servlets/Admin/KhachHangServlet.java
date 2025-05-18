@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin/khachhang")
+@WebServlet("/admin/customers")
 public class KhachHangServlet extends HttpServlet {
     private UserDAO userDAO;
 
@@ -30,10 +30,8 @@ public class KhachHangServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/accessDenied.jsp").forward(request, response);
             return;
         }
-        // Lấy danh sách khách hàng
         List<User> customerList = userDAO.getAllCustomers();
         request.setAttribute("customerList", customerList);
-        // Nếu có editId thì lấy thông tin khách hàng để sửa
         String editId = request.getParameter("editId");
         if (editId != null) {
             User editUser = null;
@@ -47,7 +45,9 @@ public class KhachHangServlet extends HttpServlet {
         } else {
             request.setAttribute("editUser", new User());
         }
-        request.getRequestDispatcher("/WEB-INF/pages/khachhang.jsp").forward(request, response);
+        
+        request.setAttribute("contentPage", "/WEB-INF/pages/khachhang.jsp.jsp");
+        request.getRequestDispatcher("/WEB-INF/pages/admistration.jsp").forward(request, response);
     }
 
     @Override

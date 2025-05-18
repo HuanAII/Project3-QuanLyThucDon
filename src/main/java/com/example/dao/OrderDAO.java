@@ -338,38 +338,38 @@ public static List<DonHang> getAllOrders() {
             }
             return false;
         }
-                public static boolean deleteFullOrder(String orderId) {
-                    System.out.println( "Deleting order with ID: " + orderId);
-            String sqlDeleteDetails = "DELETE FROM chitietdonhang WHERE idDonHang = ?";
-            String sqlDeleteHoaDon = "DELETE FROM hoa_don WHERE idDonHang = ?";
-            String sqlDeleteOrder = "DELETE FROM donhang WHERE idDonHang = ?";
-            try (Connection conn = DBConnection.getConnection()) {
-                conn.setAutoCommit(false); // Bắt đầu transaction
-                
-                try (PreparedStatement psDetails = conn.prepareStatement(sqlDeleteDetails);
-                    PreparedStatement psHoaDon = conn.prepareStatement(sqlDeleteHoaDon);
-                    PreparedStatement psOrder = conn.prepareStatement(sqlDeleteOrder)) {
+        public static boolean deleteFullOrder(String orderId) {
+            System.out.println( "Deleting order with ID: " + orderId);
+    String sqlDeleteDetails = "DELETE FROM chitietdonhang WHERE idDonHang = ?";
+    String sqlDeleteHoaDon = "DELETE FROM hoa_don WHERE idDonHang = ?";
+    String sqlDeleteOrder = "DELETE FROM donhang WHERE idDonHang = ?";
+    try (Connection conn = DBConnection.getConnection()) {
+        conn.setAutoCommit(false); // Bắt đầu transaction
+        
+        try (PreparedStatement psDetails = conn.prepareStatement(sqlDeleteDetails);
+             PreparedStatement psHoaDon = conn.prepareStatement(sqlDeleteHoaDon);
+             PreparedStatement psOrder = conn.prepareStatement(sqlDeleteOrder)) {
 
-                    psDetails.setString(1, orderId);
-                    psDetails.executeUpdate();
+            psDetails.setString(1, orderId);
+            psDetails.executeUpdate();
 
-                    psHoaDon.setString(1, orderId);
-                    psHoaDon.executeUpdate();
+            psHoaDon.setString(1, orderId);
+            psHoaDon.executeUpdate();
 
-                    psOrder.setString(1, orderId);
-                    psOrder.executeUpdate();
+            psOrder.setString(1, orderId);
+            psOrder.executeUpdate();
 
-                    conn.commit(); // commit nếu cả 3 lệnh thành công
-                    return true;
-                } catch (Exception e) {
-                    System.out.println("Error during deleteFullOrder: " + e.getMessage());
-                    e.printStackTrace();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return false;
+            conn.commit(); // commit nếu cả 3 lệnh thành công
+            return true;
+        } catch (Exception e) {
+            System.out.println();
+            e.printStackTrace();
         }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
 
 
         public static boolean updateOrderStatus(String orderId , String status) {

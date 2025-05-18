@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 
             // Chuyển hướng dựa trên vai trò của người dùng
             if ("Quản lý".equals(user.getRole())) {
-                response.sendRedirect(request.getContextPath() + "/admin");
+                response.sendRedirect(request.getContextPath() + "/admin/thongke_thucdon");
             } else {
                 // Người dùng thông thường
                 response.sendRedirect("index.jsp");

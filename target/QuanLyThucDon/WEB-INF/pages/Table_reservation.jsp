@@ -291,14 +291,6 @@
 </style>
 <div class="page-header">
     <h1 class="page-title">Danh Sách Đặt Bàn Chờ</h1>
-    
-    <div class="filter-bar">
-        <form class="filter-form" method="get" action="datban">
-            <input type="text" name="keyword" placeholder="SĐT" value="${param.keyword}" />
-            <input type="date" name="date" placeholder="Ngày đặt" value="${param.date}" />
-            <button type="submit" class="btn btn-primary">Lọc</button>
-        </form>
-    </div>
 </div>
 
 <c:if test="${not empty message}">
@@ -366,14 +358,14 @@
                                 <div style="display: flex; gap: 5px;">
                                     <button type="button" 
                                         class="btn btn-primary" 
-                                        style="padding: 6px 10px; font-size: 12px;"
+                                        style="padding: 0px 0px; font-size: 12px; height: 32px; width: 65px;"
                                         onclick="openTableSelection('${item.id_reservation}', ${item.guests})">
                                         Xác nhận
                                     </button>
                                     <form method="post" action="${pageContext.request.contextPath}/admin/Waiting_booking_table" style="margin:0;">
                                         <input type="hidden" name="reservationId" value="${item.id_reservation}" />
                                         <button type="submit" name="action" value="delete" 
-                                            class="btn btn-danger" style="padding: 6px 10px; font-size: 12px; background-color: #dc3545;"
+                                            class="btn btn-danger" style="padding: 6px 10px; font-size: 12px; background-color: #dc3545; height: 32px;"
                                             onclick="return confirm('Bạn có chắc muốn hủy đặt bàn này?')">
                                             Hủy
                                         </button>

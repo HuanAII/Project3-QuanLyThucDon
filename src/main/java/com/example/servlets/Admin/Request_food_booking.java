@@ -46,6 +46,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 
     if (action != null && orderId != null) { 
         if (action.equals("delete")) { 
+        
             boolean result = OrderDAO.deleteOrder(orderId); 
             message = result ? "Xóa đơn hàng thành công!" : "Xóa đơn hàng thất bại."; 
         } else if (action.equals("UpdateStatus")) { 

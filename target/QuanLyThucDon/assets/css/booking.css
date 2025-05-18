@@ -324,56 +324,32 @@ body {
   z-index: 15;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
-
-/* Responsive */
-@media (max-width: 992px) {
-  .horizontal-nav {
-    padding: 10px 0;
-    overflow-x: auto;
-  }
-
-  .nav-item {
-    padding: 0 15px;
-    font-size: 14px;
-  }
+#toast-notification {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  background-color: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  font-weight: bold;
 }
 
-@media (max-width: 768px) {
-  .mobile-menu-toggle {
-    display: block;
-  }
-
-  .horizontal-nav {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background-color: #111;
-    z-index: 101;
-  }
-
-  .horizontal-nav.active {
-    display: flex;
-  }
-
-  .nav-item {
-    padding: 15px 20px;
-    text-align: center;
-    border-bottom: 1px solid #333;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .booking-form {
-    padding: 25px;
-  }
-
-  .booking-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
+#toast-notification-error {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  background-color: #ff3131;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  font-weight: bold;
 }

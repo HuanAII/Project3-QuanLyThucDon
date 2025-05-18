@@ -17,11 +17,13 @@ public class ThongKeServlet extends HttpServlet {
     private ThongKeDAO thongKeDAO;
     private Gson gson;
 
-    public void init() {
+    @Override
+    public void init() throws ServletException {
         thongKeDAO = new ThongKeDAO();
         gson = new Gson();
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
@@ -35,57 +37,98 @@ public class ThongKeServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try {
+            List<Map<String, Object>> result = null;
+            
             switch (pathInfo) {
                 case "/ngay":
                     String startDate = request.getParameter("startDate");
                     String endDate = request.getParameter("endDate");
                     if (startDate == null || endDate == null) {
-                        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Thiếu ngày bắt đầu hoặc ngày kết thúc");
+                        sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Thiếu ngày bắt đầu hoặc ngày kết thúc");
                         return;
                     }
-                    List<Map<String, Object>> doanhThuNgay = thongKeDAO.getDoanhThuTheoNgay(
-                        Date.valueOf(startDate), Date.valueOf(endDate)
-                    );
-                    response.getWriter().write(gson.toJson(doanhThuNgay));
+                    try {
+                        result = thongKeDAO.getDoanhThuTheoNgay(
+                            Date.valueOf(startDate), Date.valueOf(endDate)
+                        );
+                    } catch (IllegalArgumentException e) {
+                        sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Định dạng ngày không hợp lệ");
+                        return;
+                    }
                     break;
 
                 case "/thang":
                     String namStr = request.getParameter("nam");
                     if (namStr == null) {
-                        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Thiếu năm");
+                        sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Thiếu năm");
                         return;
                     }
-                    int nam = Integer.parseInt(namStr);
-                    List<Map<String, Object>> doanhThuThang = thongKeDAO.getDoanhThuTheoThang(nam);
-                    response.getWriter().write(gson.toJson(doanhThuThang));
+                    try {
+                        int nam = Integer.parseInt(namStr);
+                        result = thongKeDAO.getDoanhThuTheoThang(nam);
+                    } catch (NumberFormatException e) {
+                        sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Năm không hợp lệ");
+                        return;
+                    }
                     break;
 
                 case "/nam":
-                    List<Map<String, Object>> doanhThuNam = thongKeDAO.getDoanhThuTheoNam();
-                    response.getWriter().write(gson.toJson(doanhThuNam));
+                    result = thongKeDAO.getDoanhThuTheoNam();
+                    break;
+
+                case "/phuong-thuc-thanh-toan":
+                    result = thongKeDAO.getThongKeTheoHinhThucThanhToan();
                     break;
 
                 case "/top-mon":
                     String limitMonStr = request.getParameter("limit");
-                    int limitMon = limitMonStr != null ? Integer.parseInt(limitMonStr) : 10;
-                    List<Map<String, Object>> topMon = thongKeDAO.getTopMonAnBanChay(limitMon);
-                    response.getWriter().write(gson.toJson(topMon));
+                    int limitMon = 10;
+                    try {
+                        if (limitMonStr != null) {
+                            limitMon = Integer.parseInt(limitMonStr);
+                        }
+                        result = thongKeDAO.getTopMonAnBanChay(limitMon);
+                    } catch (NumberFormatException e) {
+                        sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Số lượng không hợp lệ");
+                        return;
+                    }
                     break;
 
                 case "/top-khach-hang":
                     String limitKHStr = request.getParameter("limit");
-                    int limitKH = limitKHStr != null ? Integer.parseInt(limitKHStr) : 10;
-                    List<Map<String, Object>> topKH = thongKeDAO.getTopKhachHang(limitKH);
-                    response.getWriter().write(gson.toJson(topKH));
+                    int limitKH = 10;
+                    try {
+                        if (limitKHStr != null) {
+                            limitKH = Integer.parseInt(limitKHStr);
+                        }
+                        result = thongKeDAO.getTopKhachHang(limitKH);
+                    } catch (NumberFormatException e) {
+                        sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Số lượng không hợp lệ");
+                        return;
+                    }
                     break;
 
                 default:
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Không tìm thấy endpoint");
-                    break;
+                    sendError(response, HttpServletResponse.SC_NOT_FOUND, "Không tìm thấy endpoint");
+                    return;
             }
+
+            if (result != null) {
+                String jsonResponse = gson.toJson(result);
+                response.getWriter().write(jsonResponse);
+            } else {
+                sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Không thể lấy dữ liệu");
+            }
+
         } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi server: " + e.getMessage());
             e.printStackTrace();
+            sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi server: " + e.getMessage());
         }
+    }
+
+    private void sendError(HttpServletResponse response, int status, String message) throws IOException {
+        response.setStatus(status);
+        Map<String, String> errorResponse = Map.of("error", message);
+        response.getWriter().write(gson.toJson(errorResponse));
     }
 } 

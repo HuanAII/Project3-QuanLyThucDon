@@ -1,84 +1,79 @@
 package com.example.dao;
-
-import com.example.models.*;
 import com.example.utils.DBConnection;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 public class ThongKeDAO {
-    private Connection conn = null;
-    private PreparedStatement ps = null;
-    private ResultSet rs = null;
-
-    // Thống kê doanh thu theo ngày
-    public List<Map<String, Object>> getDoanhThuTheoNgay(Date startDate, Date endDate) {
+    
+    public List<Map<String, Object>> getDoanhThuTheoNgay(Date startDate, Date endDate) throws ClassNotFoundException {
         List<Map<String, Object>> result = new ArrayList<>();
-        String query = "SELECT DATE(NgayLap) as Ngay, SUM(TongTien) as DoanhThu " +
-                      "FROM HoaDon " +
-                      "WHERE NgayLap BETWEEN ? AND ? " +
-                      "GROUP BY DATE(NgayLap) " +
+        String query = "SELECT DATE(ngayThanhToan) as Ngay, SUM(soTien) as DoanhThu " +
+                      "FROM hoa_don " +
+                      "WHERE DATE(ngayThanhToan) BETWEEN ? AND ? " +
+                      "GROUP BY DATE(ngayThanhToan) " +
                       "ORDER BY Ngay";
-        try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(query);
+                      
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
             ps.setDate(1, startDate);
             ps.setDate(2, endDate);
-            rs = ps.executeQuery();
             
-            while (rs.next()) {
-                Map<String, Object> item = new HashMap<>();
-                item.put("ngay", rs.getDate("Ngay"));
-                item.put("doanhThu", rs.getDouble("DoanhThu"));
-                result.add(item);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("ngay", rs.getDate("Ngay"));
+                    item.put("doanhThu", rs.getDouble("DoanhThu"));
+                    result.add(item);
+                }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeResources();
+            throw new RuntimeException("Lỗi khi thống kê doanh thu theo ngày", e);
         }
         return result;
     }
 
-    // Thống kê doanh thu theo tháng
-    public List<Map<String, Object>> getDoanhThuTheoThang(int nam) {
+    public List<Map<String, Object>> getDoanhThuTheoThang(int nam) throws ClassNotFoundException {
         List<Map<String, Object>> result = new ArrayList<>();
-        String query = "SELECT MONTH(NgayLap) as Thang, SUM(TongTien) as DoanhThu " +
-                      "FROM HoaDon " +
-                      "WHERE YEAR(NgayLap) = ? " +
-                      "GROUP BY MONTH(NgayLap) " +
+        String query = "SELECT MONTH(ngayThanhToan) as Thang, SUM(soTien) as DoanhThu " +
+                      "FROM hoa_don " +
+                      "WHERE YEAR(ngayThanhToan) = ? " +
+                      "GROUP BY MONTH(ngayThanhToan) " +
                       "ORDER BY Thang";
-        try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, nam);
-            rs = ps.executeQuery();
+                      
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
             
-            while (rs.next()) {
-                Map<String, Object> item = new HashMap<>();
-                item.put("thang", rs.getInt("Thang"));
-                item.put("doanhThu", rs.getDouble("DoanhThu"));
-                result.add(item);
+            ps.setInt(1, nam);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("thang", rs.getInt("Thang"));
+                    item.put("doanhThu", rs.getDouble("DoanhThu"));
+                    result.add(item);
+                }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeResources();
+            throw new RuntimeException("Lỗi khi thống kê doanh thu theo tháng", e);
         }
         return result;
     }
 
-    // Thống kê doanh thu theo năm
-    public List<Map<String, Object>> getDoanhThuTheoNam() {
+    public List<Map<String, Object>> getDoanhThuTheoNam() throws ClassNotFoundException {
         List<Map<String, Object>> result = new ArrayList<>();
-        String query = "SELECT YEAR(NgayLap) as Nam, SUM(TongTien) as DoanhThu " +
-                      "FROM HoaDon " +
-                      "GROUP BY YEAR(NgayLap) " +
+        String query = "SELECT YEAR(ngayThanhToan) as Nam, SUM(soTien) as DoanhThu " +
+                      "FROM hoa_don " +
+                      "GROUP BY YEAR(ngayThanhToan) " +
                       "ORDER BY Nam";
-        try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
+                      
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
             
             while (rs.next()) {
                 Map<String, Object> item = new HashMap<>();
@@ -86,84 +81,111 @@ public class ThongKeDAO {
                 item.put("doanhThu", rs.getDouble("DoanhThu"));
                 result.add(item);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            closeResources();
-        }
-        return result;
-    }
-
-    // Thống kê top món ăn bán chạy
-    public List<Map<String, Object>> getTopMonAnBanChay(int limit) {
-        List<Map<String, Object>> result = new ArrayList<>();
-        String query = "SELECT p.TenSanPham, SUM(ct.SoLuong) as SoLuongBan, " +
-                      "SUM(ct.SoLuong * ct.DonGia) as DoanhThu " +
-                      "FROM ChiTietDonHang ct " +
-                      "JOIN Product p ON ct.MaSanPham = p.MaSanPham " +
-                      "GROUP BY p.MaSanPham, p.TenSanPham " +
-                      "ORDER BY DoanhThu DESC " +
-                      "LIMIT ?";
-        try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, limit);
-            rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                Map<String, Object> item = new HashMap<>();
-                item.put("tenSanPham", rs.getString("TenSanPham"));
-                item.put("soLuongBan", rs.getInt("SoLuongBan"));
-                item.put("doanhThu", rs.getDouble("DoanhThu"));
-                result.add(item);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            closeResources();
-        }
-        return result;
-    }
-
-    // Thống kê top khách hàng
-    public List<Map<String, Object>> getTopKhachHang(int limit) {
-        List<Map<String, Object>> result = new ArrayList<>();
-        String query = "SELECT u.HoTen, COUNT(h.MaHoaDon) as SoDonHang, " +
-                      "SUM(h.TongTien) as TongChiTieu " +
-                      "FROM HoaDon h " +
-                      "JOIN User u ON h.MaKhachHang = u.MaUser " +
-                      "GROUP BY u.MaUser, u.HoTen " +
-                      "ORDER BY TongChiTieu DESC " +
-                      "LIMIT ?";
-        try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, limit);
-            rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                Map<String, Object> item = new HashMap<>();
-                item.put("hoTen", rs.getString("HoTen"));
-                item.put("soDonHang", rs.getInt("SoDonHang"));
-                item.put("tongChiTieu", rs.getDouble("TongChiTieu"));
-                result.add(item);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            closeResources();
-        }
-        return result;
-    }
-
-    // Đóng tài nguyên
-    private void closeResources() {
-        try {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Lỗi khi thống kê doanh thu theo năm", e);
         }
+        return result;
+    }
+
+    public List<Map<String, Object>> getThongKeTheoHinhThucThanhToan() throws ClassNotFoundException {
+        List<Map<String, Object>> result = new ArrayList<>();
+        String query = "SELECT tenPhuonThucThanhToan, " +
+                      "COUNT(*) as SoLuongHoaDon, " +
+                      "SUM(soTien) as TongTien " +
+                      "FROM hoa_don " +
+                      "WHERE tenPhuonThucThanhToan IS NOT NULL " + 
+                      "GROUP BY tenPhuonThucThanhToan " +
+                      "ORDER BY TongTien DESC";
+                      
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                Map<String, Object> item = new HashMap<>();
+                item.put("phuongThuc", rs.getString("tenPhuonThucThanhToan"));
+                item.put("soLuong", rs.getInt("SoLuongHoaDon"));
+                item.put("tongTien", rs.getDouble("TongTien"));
+                result.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Lỗi khi thống kê theo phương thức thanh toán", e);
+        }
+        return result;
+    }
+
+    public List<Map<String, Object>> getTopMonAnBanChay(int limit) throws ClassNotFoundException {
+        List<Map<String, Object>> result = new ArrayList<>();
+        String query = "SELECT p.tenSanPham, " +
+                      "COUNT(DISTINCT hd.idHoaDon) as SoLuongHoaDon, " +  // Đếm số hóa đơn riêng biệt
+                      "SUM(ct.soLuong) as SoLuongBan, " +  // Thêm tổng số lượng bán
+                      "SUM(ct.soLuong * ct.donGia) as DoanhThu " +  // Tính doanh thu chính xác hơn
+                      "FROM hoa_don hd " +
+                      "JOIN don_hang dh ON hd.idDonHang = dh.idDonHang " +
+                      "JOIN chi_tiet_don_hang ct ON dh.idDonHang = ct.idDonHang " +
+                      "JOIN san_pham p ON ct.idSanPham = p.idSanPham " +
+                      "WHERE hd.ngayThanhToan IS NOT NULL " +  // Chỉ tính các hóa đơn đã thanh toán
+                      "GROUP BY p.idSanPham, p.tenSanPham " +
+                      "ORDER BY DoanhThu DESC " +
+                      "LIMIT ?";
+                      
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setInt(1, limit);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("tenSanPham", rs.getString("tenSanPham"));
+                    item.put("soLuongHoaDon", rs.getInt("SoLuongHoaDon"));
+                    item.put("soLuongBan", rs.getInt("SoLuongBan"));
+                    item.put("doanhThu", rs.getDouble("DoanhThu"));
+                    result.add(item);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Lỗi khi thống kê top món ăn bán chạy", e);
+        }
+        return result;
+    }
+
+    public List<Map<String, Object>> getTopKhachHang(int limit) throws ClassNotFoundException {
+        List<Map<String, Object>> result = new ArrayList<>();
+        String query = "SELECT u.hoTen, " +
+                      "COUNT(DISTINCT hd.idHoaDon) as SoDonHang, " +  // Đếm số hóa đơn riêng biệt
+                      "SUM(hd.soTien) as TongChiTieu, " +
+                      "MAX(hd.ngayThanhToan) as LanMuaCuoi " +  // Thêm thông tin lần mua cuối
+                      "FROM hoa_don hd " +
+                      "JOIN don_hang dh ON hd.idDonHang = dh.idDonHang " +
+                      "JOIN user u ON dh.idUser = u.idUser " +
+                      "WHERE hd.ngayThanhToan IS NOT NULL " +  // Chỉ tính các hóa đơn đã thanh toán
+                      "GROUP BY u.idUser, u.hoTen " +
+                      "ORDER BY TongChiTieu DESC " +
+                      "LIMIT ?";
+                      
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setInt(1, limit);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("hoTen", rs.getString("hoTen"));
+                    item.put("soDonHang", rs.getInt("SoDonHang"));
+                    item.put("tongChiTieu", rs.getDouble("TongChiTieu"));
+                    item.put("lanMuaCuoi", rs.getTimestamp("LanMuaCuoi"));
+                    result.add(item);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Lỗi khi thống kê top khách hàng", e);
+        }
+        return result;
     }
 } 

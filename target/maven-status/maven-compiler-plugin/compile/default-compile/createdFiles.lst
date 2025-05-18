@@ -20,6 +20,7 @@ com\example\models\HoaDon.class
 com\example\servlets\HomeServlet.class
 com\example\utils\MessagingException.class
 com\example\utils\Session.class
+com\example\dao\ThongKeDAO.class
 com\example\servlets\User\UpdateCartServlet.class
 com\example\servlets\User\DiscountServlet.class
 com\example\dao\reservation_item_DAO.class
@@ -48,6 +49,7 @@ com\example\servlets\Admin\category_list_servlet.class
 com\example\models\DonHang.class
 com\example\utils\DBConnection.class
 com\example\models\CartItem.class
+com\example\servlets\ThongKeServlet.class
 com\example\servlets\manage_reservation.class
 com\example\servlets\RegisterServlet.class
 com\example\servlets\User\AddToCartServlet.class

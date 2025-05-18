@@ -5,9 +5,6 @@ import com.example.utils.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 public class TableDAO {
 
     public static List<Table> getAllTables() {

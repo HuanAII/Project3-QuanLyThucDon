@@ -144,72 +144,24 @@
             transition: var(--transition);
         }
         
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding: 15px;
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-        
-        .page-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--dark-color);
-        }
-        
-        .toggle-sidebar {
+        /* Mobile Toggle Button */
+        .mobile-toggle {
             display: none;
-            background: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: white;
             border: none;
-            font-size: 1.5rem;
-            color: var(--dark-color);
-            cursor: pointer;
-        }
-        
-        .user-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .notification-btn, .profile-btn {
-            background: none;
-            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             font-size: 1.2rem;
             color: var(--dark-color);
             cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-        }
-        
-        .notification-btn:hover, .profile-btn:hover {
-            color: var(--primary-color);
-        }
-        
-        .notification-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--primary-color);
-            color: white;
-            font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
+            box-shadow: var(--box-shadow);
+            z-index: 90;
             align-items: center;
             justify-content: center;
-        }
-        
-        .profile-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            object-fit: cover;
         }
         
         /* Content Container */
@@ -235,20 +187,14 @@
                 margin-left: 0;
             }
             
-            .toggle-sidebar {
-                display: block;
+            .mobile-toggle {
+                display: flex;
             }
         }
         
         @media (max-width: 576px) {
-            .top-bar {
-                flex-wrap: wrap;
-            }
-            
-            .user-actions {
-                margin-top: 10px;
-                width: 100%;
-                justify-content: flex-end;
+            .content-container {
+                padding: 15px;
             }
         }
     </style>
@@ -327,44 +273,31 @@
                     <span>Khách hàng</span>
                 </a>
             </li>
-
+<!-- 
              <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/admin/reservationHistory" class="nav-link">
                     <i class="fas fa-users"></i>
                     <span>Khách hàng</span>
                 </a>
-            </li>
+            </li> -->
 
              <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/logOut" class="nav-link">
-                    <i class="fas fa-chair"></i>
+                <a href="javascript:void(0)" onclick="logout()" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i>
                     <span>Đăng xuất</span>
                 </a>
             </li>
         </ul>
     </div>
     
+    <!-- Mobile Toggle Button -->
+    <button class="mobile-toggle" id="mobile-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
     <!-- Main Content -->
     <div class="main-content" id="main-content">
-        <div class="top-bar">
-            <div class="left-side">
-                <button class="toggle-sidebar" id="toggle-sidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h1 class="page-title">Bảng điều khiển</h1>
-            </div>
-            
-            <div class="user-actions">
-                <button class="notification-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-count">3</span>
-                </button>
-                
-                <button class="profile-btn">
-                    <img src="/api/placeholder/100/100" alt="Admin" class="profile-avatar">
-                </button>
-            </div>
-        </div>
+        <!-- Đã xóa hoàn toàn phần user-profile có biểu tượng thông báo và Admin -->
         
         <div class="content-container">
             <jsp:include page="${contentPage}" />
@@ -373,7 +306,6 @@
     
     <!-- JavaScript -->
     <script>
-
         document.getElementById('thucdon-toggle').addEventListener('click', function() {
             this.classList.toggle('active');
             const submenu = document.getElementById('thucdon-submenu');
@@ -381,7 +313,7 @@
         });
         
         // Toggle sidebar on mobile
-        document.getElementById('toggle-sidebar').addEventListener('click', function() {
+        document.getElementById('mobile-toggle').addEventListener('click', function() {
             document.getElementById('sidebar').classList.toggle('active');
         });
         
@@ -408,6 +340,28 @@
                 }
             });
         });
+
+        function logout() {
+            if(confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+                // Xóa cache và chuyển hướng
+                fetch('${pageContext.request.contextPath}/admin/logout', {
+                    method: 'GET',
+                    cache: 'no-cache',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Pragma': 'no-cache',
+                        'Cache-Control': 'no-cache'
+                    }
+                }).then(function() {
+                    // Xóa session storage và local storage
+                    sessionStorage.clear();
+                    localStorage.clear();
+                    // Chuyển hướng về trang index
+                    window.location.href = '${pageContext.request.contextPath}/index.jsp';
+                });
+                return false;
+            }
+        }
     </script>
 </body>
 </html>

@@ -8,13 +8,28 @@
         h1 { color: #c82333; }
         a { color: #0056b3; text-decoration: none; }
         a:hover { text-decoration: underline; }
+        .error-code { font-size: 72px; color: #dc3545; margin: 0; }
+        .message { margin: 20px 0; }
+        .back-btn { 
+            display: inline-block;
+            padding: 10px 20px;
+            background: #0056b3;
+            color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .back-btn:hover {
+            background: #003d82;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
     <div class="box">
+        <p class="error-code">403</p>
         <h1>Truy cập bị từ chối</h1>
-        <p>Bạn không có quyền truy cập chức năng này!</p>
-        <a href="${pageContext.request.contextPath}/login.jsp">Quay về trang đăng nhập</a>
+        <p class="message">Bạn không có quyền truy cập trang này.<br>Vui lòng đăng nhập với tài khoản có quyền phù hợp.</p>
+        <a href="${pageContext.request.contextPath}/" class="back-btn">Về trang chủ</a>
     </div>
 </body>
-</html> 
+</html>

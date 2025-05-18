@@ -171,7 +171,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${danhSachHoaDon}" var="hoaDon">
+                <c:forEach items="${hoaDonList}" var="hoaDon">
                     <tr>
                         <td><strong>#${hoaDon.idHoaDon}</strong></td>
                         <td>#${hoaDon.idDonHang}</td>

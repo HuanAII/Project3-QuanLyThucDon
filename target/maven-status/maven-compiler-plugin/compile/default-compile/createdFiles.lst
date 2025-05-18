@@ -29,9 +29,11 @@ com\example\dao\reservationDAO.class
 com\example\servlets\Admin\Edit_table_servlet.class
 com\example\servlets\User\bookingTableServlet.class
 com\example\servlets\User\ProfileServlet.class
+com\example\models\ThongKeData.class
 com\example\servlets\User\DonHangServlet.class
 com\example\servlets\Admin\Edit_menu_servlet.class
 com\example\servlets\Admin\Waiting_booking_table.class
+com\example\filters\AuthenticationFilter.class
 com\example\servlets\Admin\Admin_delete_menu.class
 com\example\models\Category.class
 com\example\servlets\LoginServlet.class
@@ -46,6 +48,7 @@ com\example\utils\EmailUtils.class
 com\example\servlets\Admin\category_list_servlet.class
 com\example\models\DonHang.class
 com\example\utils\DBConnection.class
+com\example\dao\HoaDonDAO.class
 com\example\models\CartItem.class
 com\example\servlets\manage_reservation.class
 com\example\servlets\RegisterServlet.class
@@ -54,6 +57,9 @@ com\example\servlets\Admin\Admin_add_thucdon.class
 com\example\models\User.class
 com\example\servlets\User_Dispatcher.class
 com\example\servlets\LogoutServlet.class
+com\example\servlets\Admin\ThongKeServlet.class
 com\example\servlets\User\CartServlet.class
 com\example\models\ReservationItem.class
+com\example\models\ThongKeSummary.class
 com\example\servlets\Admin\KhachHangServlet.class
+com\example\servlets\Admin\LogoutServlet.class

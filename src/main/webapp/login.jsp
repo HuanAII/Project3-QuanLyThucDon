@@ -311,8 +311,6 @@
     <div class="container">
         <div class="image-section">
             <div class="image-text">
-                <h2>Chào mừng trở lại!</h2>
-                <p>Đăng nhập để tiếp tục khám phá những trải nghiệm tuyệt vời trên nền tảng của chúng tôi.</p>
             </div>
         </div>
         <div class="form-section">

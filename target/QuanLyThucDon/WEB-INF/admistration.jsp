@@ -131,6 +131,9 @@
             transition: var(--transition);
         }
         
+        .menu-item {
+            text-decoration: none;
+        }
         .submenu-item:hover {
             color: var(--primary-color);
             background-color: #f0f2f5;
@@ -222,35 +225,7 @@
         }
         
         /* Responsive Design */
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            
-            .sidebar.active {
-                transform: translateX(0);
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .toggle-sidebar {
-                display: block;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .top-bar {
-                flex-wrap: wrap;
-            }
-            
-            .user-actions {
-                margin-top: 10px;
-                width: 100%;
-                justify-content: flex-end;
-            }
-        }
+
     </style>
 </head>
 <body>
@@ -265,11 +240,32 @@
         
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/thongke" class="nav-link active">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Thống kê</span>
-                </a>
+                <div class="nav-link toggle-submenu" id="thucdon-toggle">
+                    <a href="${pageContext.request.contextPath}/admin/thongke_thucdon" class="menu-item">
+                        <i class="fas fa-book-open"></i>
+                        <span>Thống kê</span>
+                    </a>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="submenu" id="thucdon-submenu">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/thongke_account" class="submenu-item">
+                            Thống kê tài khoản
+                        </a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/thongke_thucdon" class="submenu-item">
+                            Thống kê thực đơn
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="${pageContext.request.contextPath}/admin/thongke_doanhthu_theongay" class="submenu-item">
+                            Thống kê doanh thu
+                        </a>
+                    </li>
+                </ul>
             </li>
+            
             
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/admin/datmon" class="nav-link">
@@ -320,9 +316,10 @@
                     <span>Bàn ăn</span>
                 </a>
             </li>
+
             
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/khachhang" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/customers" class="nav-link">
                     <i class="fas fa-users"></i>
                     <span>Khách hàng</span>
                 </a>

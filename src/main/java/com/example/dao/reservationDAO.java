@@ -154,9 +154,9 @@ public static int saveReservationReturnId(int account_id, String ten_khach, Stri
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Integer accountId = rs.getInt("account_id");
+                int  accountId = rs.getInt("account_id");
                 if (rs.wasNull()) {
-                    accountId = null;
+                    accountId = -1;
                 }
                 int id_reservation = rs.getInt("id_waiting_reservation");
                 System.out.println(">> id_reservation----: " + id_reservation);
@@ -219,7 +219,7 @@ public static boolean deleteWaitingReservationById(int reservationId) {
     return false;
 }
 
-public static reservation getWaitingReservationByIdS(int reservationId2) {
+public static reservation getWaitingReservationByIdS(int reservationId) {
     Connection conn = null;
     PreparedStatement stmt = null;
     ResultSet rs = null;
@@ -232,17 +232,17 @@ public static reservation getWaitingReservationByIdS(int reservationId2) {
                      "ngay_dat, gio_dat, ghi_chu, mon_an_kem, so_khach " +
                      "FROM waiting_table_reservation WHERE id_waiting_reservation = ?";
         stmt = conn.prepareStatement(sql);
-        stmt.setInt(1, reservationId2);
+        stmt.setInt(1, reservationId);
 
         rs = stmt.executeQuery();
 
         if (rs.next()) {
             Integer accountId = rs.getInt("account_id");
             if (rs.wasNull()) {
-                accountId = null;
+                accountId = -1;  
             }
 
-            int reservationId = rs.getInt("id_waiting_reservation");
+            int resId = rs.getInt("id_waiting_reservation");
             String customerName = rs.getString("ten_khach");
             String customerPhone = rs.getString("sdt_khach");
             int numberOfGuests = rs.getInt("so_khach");
@@ -251,7 +251,7 @@ public static reservation getWaitingReservationByIdS(int reservationId2) {
             String note = rs.getString("ghi_chu");
             String attachedFoods = rs.getString("mon_an_kem");
 
-            return new reservation(reservationId, accountId, customerName, customerPhone,
+            return new reservation(resId, accountId, customerName, customerPhone,
                                    numberOfGuests, reservationDate, reservationTime,
                                    attachedFoods, note);
         }
@@ -265,6 +265,7 @@ public static reservation getWaitingReservationByIdS(int reservationId2) {
 
     return null;
 }
+
 
 
 public static List<ReservationItem> getReservationItemsById(int reservationId) {
@@ -302,5 +303,55 @@ public static List<ReservationItem> getReservationItemsById(int reservationId) {
     }
 
     return reservationItems;
+}
+
+
+public static boolean saveReservationFromWaitingReservation(reservation res, String idBan) {
+     Connection conn = null;
+    PreparedStatement stmt = null;
+    try {
+        conn = DBConnection.getConnection();
+
+        String sql = "INSERT INTO dat_ban " +
+                     "(account_id, ten_khach, sdt_khach,id_table, ngay_dat, gio_dat, ghiChu, so_khach) " +
+                     "VALUES (?, ?, ?,?, ?, ?, ?, ?)";
+        stmt = conn.prepareStatement(sql);
+
+        int account_id = res.getIdAccount();
+        String ten_khach = res.getName();
+        String sdt_khach = res.getPhone();
+        String id_ban = idBan;
+        String ngay_dat = res.getDate();
+        String gio_dat = res.getTime();
+        String ghi_chu = res.getMessage();
+        int so_khach = res.getGuests();
+        
+        if (account_id == -1) {
+            stmt.setNull(1, java.sql.Types.INTEGER);
+        } else {
+            stmt.setInt(1, account_id);
+        }
+
+        stmt.setString(2, ten_khach);
+        stmt.setString(3, sdt_khach);
+        stmt.setString(4, id_ban);
+        stmt.setDate(5, java.sql.Date.valueOf(ngay_dat));
+        stmt.setString(6, gio_dat);
+        stmt.setString(7, ghi_chu)  ;
+        stmt.setInt(8, so_khach);
+
+        int rowsInserted = stmt.executeUpdate();
+        return rowsInserted > 0;
+    } catch(ClassNotFoundException e ){
+        e.printStackTrace();
+        return false;
+    }
+    catch (SQLException e) {
+        System.err.println("Lỗi khi lưu đặt bàn: " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    } finally {
+        closeResources(stmt, conn);
+    }
 }
 }

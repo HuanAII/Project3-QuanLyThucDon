@@ -51,7 +51,7 @@
 
             <div class="user-actions">
                 <% if (user != null) { %>
-                    <span class="welcome-text"><%= user %></span>
+                   <a href="${pageContext.request.contextPath}/profile"> <span class="welcome-text"><%= user %></span></a>
                     <a href="${pageContext.request.contextPath}/LogoutServlet" class="nav-item">Đăng xuất</a>
                 <% } else { %>
                     <a href="${pageContext.request.contextPath}/login.jsp" class="nav-item">Đăng nhập</a>

@@ -2,7 +2,7 @@ package com.example.models;
 
 public class reservation {
     private int id_reservation;
-    private Integer idAccount;
+    private int idAccount;
     private String name;
     private String phone;
     private int guests;
@@ -13,7 +13,7 @@ public class reservation {
     private String message;
 
     public reservation(){}
-    public reservation(int id_reservation, Integer idAccount,String name, String phone,String idTable, int guests, String date, String time, String foods,String message){
+    public reservation(int id_reservation, int idAccount,String name, String phone,String idTable, int guests, String date, String time, String foods,String message){
         this.id_reservation = id_reservation;
         this.idAccount=idAccount;
         this.name= name;
@@ -26,7 +26,7 @@ public class reservation {
         this.message=message;
     }
 
-    public reservation(int id_reservation, Integer idAccount,String name, String phone, int guests, String date, String time, String foods,String message){
+    public reservation(int id_reservation, int idAccount,String name, String phone, int guests, String date, String time, String foods,String message){
         this.id_reservation = id_reservation;
         this.idAccount=idAccount;
         this.name= name;
@@ -51,8 +51,8 @@ public class reservation {
     public void setId_reservation(int id_reservation) {
         this.id_reservation = id_reservation;
     }
-    public Integer getIdAccount() { return idAccount; }
-    public void setIdAccount( Integer idAccount) { this.idAccount = idAccount; }
+    public int getIdAccount() { return idAccount; }
+    public void setIdAccount( int idAccount) { this.idAccount = idAccount; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 

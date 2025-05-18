@@ -23,6 +23,8 @@
         } 
         %>
         <% String success = (String) request.getAttribute("success"); %>
+
+        
           <input type="text" name="hoTen" placeholder="Họ và tên" required 
                 value="${userInfo.hoVaTen}"/>
 

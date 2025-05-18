@@ -20,11 +20,14 @@
     String bookingMessage = (String) session.getAttribute("bookingMessage");
     if (bookingMessage != null) {
       %>
-          <div class="alert alert-info"><%= bookingMessage %></div>
+          <div id="toast-notification"><%= bookingMessage %></div>
       <%
               session.removeAttribute("bookingMessage"); 
           }
       %>
+
+
+      
 
       <div class="breadcrumb">
         <a href="index.html">Trang chủ</a> <span>/</span> Đặt bàn

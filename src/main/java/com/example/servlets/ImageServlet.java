@@ -12,13 +12,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/uploads/*")
 public class ImageServlet extends HttpServlet {
-    private static final String IMAGE_DIR = "D:/PBL3/IMG/";  // Thư mục lưu ảnh
+    private static final String IMAGE_DIR = "D:/PBL3/IMG/"; 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String fileName = request.getPathInfo().substring(1);  // Lấy tên file từ URL
+        String fileName = request.getPathInfo().substring(1);  
 
-        // Đảm bảo fileName không trống
         if (fileName == null || fileName.trim().isEmpty()) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "File name is missing");
             return;

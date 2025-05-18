@@ -24,64 +24,81 @@ public class Waiting_booking_table extends HttpServlet {
             throws ServletException, IOException {
 
         List<reservation> list = reservationDAO.getAllWaitingReservations();
+        System.out.println("reservation_list" + list.size());
         req.setAttribute("listReservation", list);
 
         List<Table> listTable = TableDAO.getAllTables();
         req.setAttribute("listTable", listTable);
-
+        System.out.println("Table size : "+ listTable.size());
         req.setAttribute("contentPage", "/WEB-INF/pages/Table_reservation.jsp");
         req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
 
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
+    String message = null;
 
+    try {
         int reservationId = Integer.parseInt(request.getParameter("reservationId"));
         String action = request.getParameter("action");
-        String message = null;
 
         if (action != null && !action.isEmpty()) {
-            if (action.equals("delete")) {
-                System.out.println("Delete reservation with ID: " + reservationId);
-                boolean result = reservationDAO.deleteWaitingReservationById(reservationId);
-                message = result ? "Xóa yêu cầu thành công!" : "Xóa yêu cầu thất bại.";
-            } 
-            else if (action.equals("Confirm")) {
-                reservation reservation = reservationDAO.getWaitingReservationByIdS(reservationId);
-                String idban = request.getParameter("idTable");
+            switch (action) {
+                case "delete":
+                    System.out.println("Deleting reservation with ID: " + reservationId);
+                    boolean deleteResult = reservationDAO.deleteWaitingReservationById(reservationId);
+                    message = deleteResult ? "Xóa yêu cầu thành công!" : "Xóa yêu cầu thất bại.";
+                    break;
 
-                if (reservation != null && idban != null && !idban.isEmpty()) {
-                    List<ReservationItem> listReservationItem = reservationDAO.getReservationItemsById(reservationId);
-                    
-                    boolean orderResult = OrderDAO.addOrderFromWaitingReservation(reservation, listReservationItem, idban);
+                case "confirm":
+                    reservation reservation = reservationDAO.getWaitingReservationByIdS(reservationId);
+                    String tableId = request.getParameter("tableId");
 
-                    if (orderResult) {
-                        boolean deleteResult = reservationDAO.deleteWaitingReservationById(reservationId);
-                        message = deleteResult 
-                            ? "Cập nhật và tạo đơn hàng thành công!" 
-                            : "Tạo đơn hàng thành công nhưng xóa yêu cầu thất bại.";
+                    if (reservation != null && tableId != null && !tableId.isEmpty()) {
+                        List<ReservationItem> listReservationItem = reservationDAO.getReservationItemsById(reservationId);
+
+                        boolean orderResult = OrderDAO.addOrderFromWaitingReservation(reservation, listReservationItem, tableId);
+                        if (orderResult) {
+                            boolean deleteWaitingRes = reservationDAO.deleteWaitingReservationById(reservationId);
+                            boolean saveReservation = reservationDAO.saveReservationFromWaitingReservation(reservation, tableId);
+                            System.out.println(saveReservation);
+                            message = deleteWaitingRes && saveReservation
+                                ? "Cập nhật và tạo đơn hàng thành công!" 
+                                : "Xác nhận không thành công !";
+                        } else {
+                            message = "Tạo đơn hàng thất bại.";
+                        }
                     } else {
-                        message = "Tạo đơn hàng thất bại.";
+                        message = "Không tìm thấy yêu cầu hoặc chưa chọn bàn.";
                     }
+                    break;
 
-                } else {
-                    message = "Không tìm thấy yêu cầu hoặc chưa chọn bàn.";
-                }
+                default:
+                    message = "Hành động không hợp lệ.";
+                    break;
             }
+        } else {
+            message = "Thiếu hành động.";
         }
-
-        List<reservation> list = reservationDAO.getAllWaitingReservations();
-        request.setAttribute("listReservation", list);
-
-        List<Table> listTable = TableDAO.getAllTables();
-        request.setAttribute("listTable", listTable);
-
-        request.setAttribute("message", message);
-        request.setAttribute("contentPage", "/WEB-INF/pages/Table_reservation.jsp");
-        request.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(request, response);
+    } catch (NumberFormatException e) {
+        message = "ID đặt bàn không hợp lệ.";
+        e.printStackTrace();
+    } catch (Exception e) {
+        message = "Lỗi xử lý yêu cầu: " + e.getMessage();
+        e.printStackTrace();
     }
+    List<reservation> listReservation = reservationDAO.getAllWaitingReservations();
+    request.setAttribute("listReservation", listReservation);
+
+    List<Table> listTable = TableDAO.getAllTables();
+    request.setAttribute("listTable", listTable);
+
+    request.setAttribute("message", message);
+    request.setAttribute("contentPage", "/WEB-INF/pages/Table_reservation.jsp");
+    request.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(request, response);
+}
 }

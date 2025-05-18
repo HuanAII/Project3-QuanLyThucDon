@@ -50,6 +50,7 @@ public class LoginServlet extends HttpServlet {
             String userId = user.getId().toString();
             session.setAttribute("user", username);
             session.setAttribute("account_id", userId);
+            session.setAttribute("role", user.getRole());
 
             // Nếu "Ghi nhớ đăng nhập" được chọn, tạo cookie
             if (rememberMe != null) {
@@ -71,11 +72,8 @@ public class LoginServlet extends HttpServlet {
             }
 
             // Chuyển hướng dựa trên vai trò của người dùng
-            if ("Quan lý".equals(user.getRole())) {
-                response.sendRedirect(request.getContextPath() + "/admin");
-
-            } else if ("Quan lý".equals(user.getRole())) {
-                response.sendRedirect("manager/dashboard.jsp");
+            if ("Quản lý".equals(user.getRole())) {
+                response.sendRedirect(request.getContextPath() + "/admin/thongke_thucdon");
             } else {
                 // Người dùng thông thường
                 response.sendRedirect("index.jsp");

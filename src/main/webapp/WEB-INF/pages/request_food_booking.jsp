@@ -126,7 +126,7 @@
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">
-            <form id="addOrderForm" method="post" action="${pageContext.request.contextPath}/admin/datmon">
+            <form id="addOrderForm" method="post" action="${pageContext.request.contextPath}/admin/addOrder">
                 <input type="hidden" name="action" value="add">
 
                 <div class="form-group">
@@ -241,15 +241,16 @@
             newItem.innerHTML = `
                 <div class="form-group">
                     <label>Tên món:</label>
-                    <input type="text" name="tenMon[]" class="form-control" required>
+                    <select name="tenMon[]" class="form-control" required>
+                        <option value="" disabled selected>Chọn món</option>
+                        <c:forEach var="mon" items="${listMon}">
+                            <option value="${mon.idMon}">${mon.tenMon}</option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Số lượng:</label>
                     <input type="number" name="soLuong[]" class="form-control" min="1" value="1" required>
-                </div>
-                <div class="form-group">
-                    <label>Giá:</label>
-                    <input type="number" name="gia[]" class="form-control" min="0" required>
                 </div>
                 <button type="button" class="btn btn-danger remove-item"><i class="fas fa-trash"></i></button>
             `;

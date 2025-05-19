@@ -14,8 +14,6 @@ import com.example.models.User;
 import com.example.utils.DBConnection;
 
 public class UserDAO {
-
-    // Hàm mã hóa mật khẩu với SHA-256
     private String encryptPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -34,7 +32,6 @@ public class UserDAO {
         }
     }
 
-    // Tạo ID ngẫu nhiên cho user mới
     private String generateUniqueId() {
         return UUID.randomUUID().toString().substring(0, 20);
     }

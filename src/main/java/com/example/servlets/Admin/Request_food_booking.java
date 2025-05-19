@@ -3,12 +3,16 @@ package com.example.servlets.Admin;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.example.dao.DetailOrderDAO;
 import com.example.dao.OrderDAO;
 import com.example.dao.TableDAO;
+import com.example.dao.productsDAO;
 import com.example.models.DonHang;
+import com.example.models.Product;
 import com.example.models.Table;
 
 import jakarta.servlet.ServletException;
@@ -22,7 +26,6 @@ public class Request_food_booking extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Set encoding để tránh lỗi font chữ
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
@@ -36,17 +39,18 @@ public class Request_food_booking extends HttpServlet {
         }
         req.setAttribute("listDH", list);
 
-        // Lấy ngày hiện tại dạng java.sql.Date
         Date today = Date.valueOf(LocalDate.now());
 
         try {
             List<Table> emptyTables = TableDAO.getAllTablesByDate(today);
-            req.setAttribute("listTable", emptyTables);
+            System.out.println("Kich thuoc emptytable "+emptyTables.size());
+            req.setAttribute("emptyTable", emptyTables);
         } catch (Exception e) {
             e.printStackTrace();
-            req.setAttribute("listTable", Collections.emptyList());
+            req.setAttribute("emptyTable", new ArrayList<>());
         }
-
+        List<Product> listMon = productsDAO.getAllProducts();
+        req.setAttribute("listMon", listMon);
         req.setAttribute("contentPage", "/WEB-INF/pages/request_food_booking.jsp");
         req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
     }
@@ -68,6 +72,8 @@ public class Request_food_booking extends HttpServlet {
             } else if (action.equals("UpdateStatus")) {
                 boolean result = OrderDAO.updateOrderStatus(orderId, status);
                 message = result ? "Cập nhật trạng thái thành công!" : "Cập nhật trạng thái thất bại.";
+            } else if (action.equals("add")){
+                addOrder(req, resp);
             }
         }
 
@@ -88,4 +94,64 @@ public class Request_food_booking extends HttpServlet {
         req.setAttribute("contentPage", "/WEB-INF/pages/request_food_booking.jsp");
         req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
     }
+private void addOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    try {
+        String tenKH = request.getParameter("tenKH");
+        String sdt = request.getParameter("sdt");
+        String idTable = request.getParameter("idTable");
+        String diaChi = request.getParameter("diaChi");
+        String status = request.getParameter("status");
+
+        String[] tenMonArr = request.getParameterValues("tenMon[]");
+        String[] soLuongArr = request.getParameterValues("soLuong[]");
+
+        double total = 0;
+        if (tenMonArr != null && soLuongArr != null) {
+            for (int i = 0; i < tenMonArr.length; i++) {
+                String idMon = tenMonArr[i];
+                int soLuong = Integer.parseInt(soLuongArr[i]);
+
+                Product monAn = productsDAO.getProductByID(idMon);
+                double gia = monAn.getGia();
+                total += soLuong * gia;
+            }
+        }
+
+        int idDonHang = OrderDAO.addOrder(null, total, status, idTable, tenKH, sdt, diaChi);
+
+        if (idDonHang > 0) {
+            boolean allDetailsSaved = true;
+
+            for (int i = 0; i < tenMonArr.length; i++) {
+                String idMon = tenMonArr[i];
+                int soLuong = Integer.parseInt(soLuongArr[i]);
+
+                Product monAn = productsDAO.getProductByID(idMon);
+                String tenMon = monAn.getTenMon();
+
+                boolean success = DetailOrderDAO.addOrderDetails(idDonHang, tenMon, soLuong);
+                if (!success) {
+                    allDetailsSaved = false;
+                    break;
+                }
+            }
+
+            if (allDetailsSaved) {
+                response.sendRedirect(request.getContextPath() + "/admin/datmon?msg=add_success");
+            } else {
+                request.setAttribute("error", "Lưu chi tiết đơn hàng thất bại!");
+                request.getRequestDispatcher("/admin/datmon").forward(request, response);
+            }
+        } else {
+            request.setAttribute("error", "Thêm đơn hàng thất bại!");
+            request.getRequestDispatcher("/admin/datmon").forward(request, response);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        request.setAttribute("error", "Lỗi xử lý đơn hàng: " + e.getMessage());
+        request.getRequestDispatcher("/admin/datmon").forward(request, response);
+    }
 }
+}
+

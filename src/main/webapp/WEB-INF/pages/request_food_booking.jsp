@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 
 <!DOCTYPE html>
@@ -138,14 +139,17 @@
                     <input type="text" id="sdt" name="sdt" class="form-control" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="idTable">Bàn:</label>
-                    <select id="idTable" name="idTable" class="form-control" required>
-                        <c:forEach var="table" items="${listTable}">
-                            <option value="${table.idTable}">${table.numberTable}</option>
+                <select id="idTable" name="idTable" class="form-control" required>
+                    <c:if test="${not empty emptyTable}">
+                        <c:forEach var="table" items="${emptyTable}">
+                            <option value="${table.idTable}">${table. tableNumber}</option>
                         </c:forEach>
-                    </select>
-                </div>
+                    </c:if>
+                    <c:if test="${empty emptyTable}">
+                        <option disabled>Không có bàn trống</option>
+                    </c:if>
+                </select>
+
 
                 <input type="hidden" name="diaChi" value="Tại chỗ">
 
@@ -160,26 +164,32 @@
                 </div>
 
                 <div class="food-items-section">
-                    <h3>Danh sách món</h3>
-                    <div id="foodItemsList">
-                        <div class="food-item">
-                            <div class="form-group">
-                                <label>Tên món:</label>
-                                <input type="text" name="tenMon[]" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Số lượng:</label>
-                                <input type="number" name="soLuong[]" class="form-control" min="1" value="1" required>
-                            </div>
-                            <button type="button" class="btn btn-danger remove-item">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <button type="button" id="addFoodItemBtn" class="btn btn-secondary">
-                        <i class="fas fa-plus"></i> Thêm món
-                    </button>
-                </div>
+    <h3>Danh sách món</h3>
+    <div id="foodItemsList">
+        <div class="food-item">
+            <div class="form-group">
+                <label>Tên món:</label>
+                <select name="tenMon[]" class="form-control" required>
+                    <option value="" disabled selected>Chọn món</option>
+                    <c:forEach var="mon" items="${listMon}">
+                        <option value="${mon.idMon}">${mon.tenMon}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Số lượng:</label>
+                <input type="number" name="soLuong[]" class="form-control" min="1" value="1" required>
+            </div>
+            <button type="button" class="btn btn-danger remove-item">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    </div>
+    <button type="button" id="addFoodItemBtn" class="btn btn-secondary">
+        <i class="fas fa-plus"></i> Thêm món
+    </button>
+</div>
+
 
                 <div class="form-footer">
                     <button type="submit" class="btn btn-primary">Thêm đơn hàng</button>

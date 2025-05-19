@@ -72,7 +72,7 @@ public class Admin_add_thucdon extends HttpServlet {
         // Xử lý ảnh
         Part filePart = req.getPart("hinhAnh");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        String uploadDir = "D:/PBL3/IMG/uploads";  // Đường dẫn tuyệt đối đến thư mục ảnh
+        String uploadDir = "C:/PBL3/IMG/uploads";  // Đường dẫn tuyệt đối đến thư mục ảnh
 
         File uploadsFolder = new File(uploadDir);
         if (!uploadsFolder.exists()) {

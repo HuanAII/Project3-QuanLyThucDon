@@ -19,11 +19,14 @@ public class Amin_themdanhmuc extends HttpServlet{
         String name_danhmuc = request.getParameter("name_danhmuc");
         if (id_danhmuc == null || id_danhmuc.length() != 6) {
             request.setAttribute("error", "ID danh mục phải đúng 6 ký tự.");
+            request.setAttribute("contentPage", "/WEB-INF/pages/danhmuc.jsp");
             request.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(request, response);
             return;
         }
         if (!id_danhmuc.matches("DM\\d{4}")) {
+            
             request.setAttribute("error", "ID phải có định dạng DMxxxx (4 chữ số).");
+            request.setAttribute("contentPage", "/WEB-INF/pages/danhmuc.jsp");
             request.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(request, response);
             return;
         }
@@ -31,7 +34,7 @@ public class Amin_themdanhmuc extends HttpServlet{
         
         Boolean result = categoryDAO.addCategory(category);
         if (!result) {
-            request.setAttribute("error", "Thêm danh mục thất bại!");
+            request.setAttribute("error", "ID danh mục đã tồn tại !!");
         } else {
             request.setAttribute("success", "Thêm danh mục thành công!");
         }

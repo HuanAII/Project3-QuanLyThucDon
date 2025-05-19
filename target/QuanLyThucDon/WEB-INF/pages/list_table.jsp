@@ -412,8 +412,7 @@
                 </div>
                 <div class="table-details">
                     <div class="detail-item"><span class="detail-icon">👥</span> Sức chứa: <%= table.getSeats() %> người</div>
-                    <div class="detail-item"><span class="detail-icon">📍</span> Vị trí: Khu vực chính</div>
-                    <div class="detail-item"><span class="detail-icon">📋</span> Đặt bàn: Đã có</div>
+                    <div class="detail-item"><span class="detail-icon">📋</span> Đặt bàn: Đã được đặt</div>
                 </div>
                 <div class="table-actions">
                     <!-- Form Sửa -->
@@ -461,7 +460,6 @@
                 </div>
                 <div class="table-details">
                     <div class="detail-item"><span class="detail-icon">👥</span> Sức chứa: <%= table.getSeats() %> người</div>
-                    <div class="detail-item"><span class="detail-icon">📍</span> Vị trí: Khu vực chính</div>
                     <div class="detail-item"><span class="detail-icon">📋</span> Chưa được đặt</div>
                 </div>
                 <div class="table-actions">

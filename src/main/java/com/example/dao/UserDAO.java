@@ -36,7 +36,7 @@ public class UserDAO {
         return UUID.randomUUID().toString().substring(0, 20);
     }
 
-    // Kiểm tra đăng nhập bằng username và password
+  
     public User checkLoginByUsername(String username, String password) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -44,10 +44,10 @@ public class UserDAO {
         User user = null;
 
         try {
-            // Lấy kết nối database
+      
             connection = DBConnection.getConnection();
 
-            // SQL truy vấn - so sánh trực tiếp với mật khẩu không mã hóa
+    
             String sql = "SELECT * FROM user_account WHERE username = ? AND password = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);

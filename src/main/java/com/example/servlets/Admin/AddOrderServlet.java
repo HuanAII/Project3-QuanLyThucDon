@@ -24,7 +24,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     String tenKH = request.getParameter("tenKH");
     String sdt = request.getParameter("sdt");
     String idTable = request.getParameter("idTable");
-    String diaChi = "Tại chỗ"; 
+    String diaChi = "Tại Nhà Hàng"; 
     String status = request.getParameter("status");
 
     double total = 0.0;

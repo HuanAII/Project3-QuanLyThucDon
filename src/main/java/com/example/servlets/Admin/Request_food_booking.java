@@ -9,9 +9,11 @@ import java.util.List;
 
 import com.example.dao.DetailOrderDAO;
 import com.example.dao.OrderDAO;
+import com.example.dao.ReceiptDAO;
 import com.example.dao.TableDAO;
 import com.example.dao.productsDAO;
 import com.example.models.DonHang;
+import com.example.models.HoaDon;
 import com.example.models.Product;
 import com.example.models.Table;
 
@@ -69,6 +71,9 @@ public class Request_food_booking extends HttpServlet {
                 boolean result = OrderDAO.deleteOrder(orderId);
                 message = result ? "Xóa đơn hàng thành công!" : "Xóa đơn hàng thất bại.";
             } else if (action.equals("UpdateStatus")) {
+                if (status == "DA_HOAN_THANH"){
+  
+                }
                 boolean result = OrderDAO.updateOrderStatus(orderId, status);
                 message = result ? "Cập nhật trạng thái thành công!" : "Cập nhật trạng thái thất bại.";
             } 

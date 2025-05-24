@@ -24,8 +24,10 @@
                     <select name="status">
                         <option value="">Tất cả trạng thái</option>
                         <option value="CHO_XU_LY" ${param.status == 'CHO_XU_LY' ? 'selected' : ''}>Chờ xử lý</option>
+                        <option value="DANG_TIEN_HANH" ${param.status == 'DANG_TIEN_HANH' ? 'selected' : ''}>Đang tiến hành</option>
                         <option value="DANG_CHUAN_BI" ${param.status == 'DANG_CHUAN_BI' ? 'selected' : ''}>Đang chuẩn bị</option>
-                        <option value="CHO_THANH_TOAN" ${param.status == 'CHO_THANH_TOAN' ? 'selected' : ''}>Chờ thanh toán</option>
+                        <option value="CHO_PHUC_VU" ${param.status == 'CHO_PHUC_VU' ? 'selected' : ''}>Đang phục vụ</option>
+                        <option value="DON_HANG_CHO" ${param.status == 'DON_HANG_CHO' ? 'selected' : ''}>Chờ phục vụ</option>
                         <option value="DA_HOAN_THANH" ${param.status == 'DA_HOAN_THANH' ? 'selected' : ''}>Hoàn thành</option>
                     </select>
                     <button type="submit" class="btn btn-primary">Lọc</button>
@@ -74,8 +76,10 @@
                                     <span class="status-tag status-${dh.status}">
                                         <c:choose>
                                             <c:when test="${dh.status == 'CHO_XU_LY'}">Chờ xử lý</c:when>
+                                            <c:when test="${dh.status == 'DANG_TIEN_HANH'}">Đang tiến hành</c:when>
                                             <c:when test="${dh.status == 'DANG_CHUAN_BI'}">Đang chuẩn bị</c:when>
-                                            <c:when test="${dh.status == 'CHO_THANH_TOAN'}">Chờ thanh toán</c:when>
+                                            <c:when test="${dh.status == 'CHO_PHUC_VU'}">Đang phục vụ</c:when>
+                                            <c:when test="${dh.status == 'DON_HANG_CHO'}">Chờ phục vụ</c:when>
                                             <c:when test="${dh.status == 'DA_HOAN_THANH'}">Hoàn thành</c:when>
                                             <c:otherwise>${dh.status}</c:otherwise>
                                         </c:choose>
@@ -97,14 +101,21 @@
                                     <input type="hidden" name="orderId" value="${dh.idDonHang}" />
                                     <select name="status">
                                         <option value="CHO_XU_LY" ${dh.status == 'CHO_XU_LY' ? 'selected' : ''}>Chờ xử lý</option>
+                                        <option value="DANG_TIEN_HANH" ${dh.status == 'DANG_TIEN_HANH' ? 'selected' : ''}>Đang tiến hành</option>
                                         <option value="DANG_CHUAN_BI" ${dh.status == 'DANG_CHUAN_BI' ? 'selected' : ''}>Đang chuẩn bị</option>
-                                        <option value="CHO_THANH_TOAN" ${dh.status == 'CHO_THANH_TOAN' ? 'selected' : ''}>Chờ thanh toán</option>
+                                        <option value="CHO_PHUC_VU" ${dh.status == 'CHO_PHUC_VU' ? 'selected' : ''}>Đang phục vụ</option>
+                                        <option value="DON_HANG_CHO" ${dh.status == 'DON_HANG_CHO' ? 'selected' : ''}>Chờ phục vụ</option>
                                         <option value="DA_HOAN_THANH" ${dh.status == 'DA_HOAN_THANH' ? 'selected' : ''}>Hoàn thành</option>
                                     </select>
                                     <button type="submit" name="action" value="UpdateStatus" class="btn btn-success">Cập nhật trạng thái</button>
                                 </form>
                                 
                                 <div class="action-row">
+                                    <c:if test="${dh.status == 'CHO_PHUC_VU'}">
+                                        <button type="button" class="btn btn-primary payment-btn" data-order-id="${dh.idDonHang}" data-total="${dh.total}">
+                                            <i class="fas fa-money-bill-wave"></i> Thanh toán
+                                        </button>
+                                    </c:if>
                                     <form class="action-form" action="${pageContext.request.contextPath}/admin/datmon" method="post">
                                         <input type="hidden" name="orderId" value="${dh.idDonHang}" />
                                         <button type="submit" name="action" value="delete" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa đơn hàng này?')">Xóa đơn hàng</button>
@@ -154,13 +165,7 @@
                 <input type="hidden" name="diaChi" value="Tại chỗ">
 
                 <div class="form-group">
-                    <label for="status">Trạng thái:</label>
-                    <select id="status" name="status" class="form-control" required>
-                        <option value="CHO_XU_LY">Chờ xử lý</option>
-                        <option value="DANG_CHUAN_BI">Đang chuẩn bị</option>
-                        <option value="CHO_THANH_TOAN">Chờ thanh toán</option>
-                        <option value="DA_HOAN_THANH">Hoàn thành</option>
-                    </select>
+                    <input type="hidden" name="status" value="DANG_CHUAN_BI">
                 </div>
 
                 <div class="food-items-section">
@@ -200,40 +205,68 @@
     </div>
 </div>
 
+
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Thanh toán đơn hàng</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="paymentForm" method="post" action="${pageContext.request.contextPath}/admin/payment">
+                <input type="hidden" name="orderId" id="paymentOrderId">
+                <input type="hidden" name="total" id="paymentTotal">
+                
+                <div class="form-group">
+                    <label for="paymentMethod">Phương thức thanh toán:</label>
+                    <select id="paymentMethod" name="paymentMethod" class="form-control" required>
+                        <option value="TIEN_MAT">Tiền mặt</option>
+                        <option value="CHUYEN_KHOAN">Chuyển khoản</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Tổng tiền:</label>
+                    <span id="paymentAmount"></span> đ
+                </div>
+
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-primary">Xác nhận thanh toán</button>
+                    <button type="button" class="btn btn-secondary" id="cancelPayment">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
     <script>
-        // Lấy modal
+
         var modal = document.getElementById("addOrderModal");
-        
-        // Nút để mở modal
         var btn = document.getElementById("openAddOrderModal");
         
-        // Nút đóng modal
         var span = document.getElementsByClassName("close")[0];
         var cancelBtn = document.getElementById("cancelAddOrder");
         
-        // Khi người dùng nhấn vào nút, mở modal
+ 
         btn.onclick = function() {
             modal.style.display = "block";
         }
         
-        // Khi người dùng nhấn vào nút đóng (x), đóng modal
         span.onclick = function() {
             modal.style.display = "none";
         }
         
-        // Khi người dùng nhấn vào nút hủy, đóng modal
         cancelBtn.onclick = function() {
             modal.style.display = "none";
         }
-        
-        // Khi người dùng nhấn ra ngoài modal, đóng modal
+    
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
         
-        // Thêm món mới
+
         document.getElementById('addFoodItemBtn').addEventListener('click', function() {
             var foodItemsList = document.getElementById('foodItemsList');
             var newItem = document.createElement('div');
@@ -255,12 +288,10 @@
                 <button type="button" class="btn btn-danger remove-item"><i class="fas fa-trash"></i></button>
             `;
             foodItemsList.appendChild(newItem);
-            
-            // Thêm sự kiện xóa món
             attachRemoveEvent(newItem.querySelector('.remove-item'));
         });
         
-        // Xóa món
+
         function attachRemoveEvent(button) {
             button.addEventListener('click', function() {
                 var parentItem = this.parentElement;
@@ -271,6 +302,37 @@
         document.querySelectorAll('.remove-item').forEach(function(button) {
             attachRemoveEvent(button);
         });
+
+        var paymentModal = document.getElementById("paymentModal");
+        var paymentBtns = document.getElementsByClassName("payment-btn");
+        var cancelPaymentBtn = document.getElementById("cancelPayment");
+
+        Array.from(paymentBtns).forEach(function(btn) {
+            btn.onclick = function() {
+                var orderId = this.getAttribute("data-order-id");
+                var total = this.getAttribute("data-total");
+                
+                document.getElementById("paymentOrderId").value = orderId;
+                document.getElementById("paymentTotal").value = total;
+                document.getElementById("paymentAmount").textContent = total;
+                
+                paymentModal.style.display = "block";
+            }
+        });
+
+        cancelPaymentBtn.onclick = function() {
+            paymentModal.style.display = "none";
+        }
+
+        document.querySelector("#paymentModal .close").onclick = function() {
+            paymentModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == paymentModal) {
+                paymentModal.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>

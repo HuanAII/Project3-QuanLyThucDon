@@ -1,6 +1,7 @@
 com\example\dao\ReceiptDAO.class
 com\example\servlets\Admin\ListHoaDonServlet.class
 com\example\servlets\Admin\ThongKe_DoanhThu_TheoNgay_Servlet.class
+com\example\servlets\Admin\PaymentServlet.class
 com\example\servlets\UpdatePasswordsServlet.class
 com\example\models\Product.class
 com\example\servlets\ImageServlet.class

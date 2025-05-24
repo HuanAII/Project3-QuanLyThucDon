@@ -310,7 +310,7 @@ public static List<DonHang> getAllOrders() {
 }
 
 
-        public static boolean updateOrderStatus(String orderId , String status) {
+        public static boolean updateOrderStatus(String orderId, String status) {
             String sql = "UPDATE donhang SET status = ? WHERE idDonHang = ?";
             try (Connection conn = DBConnection.getConnection();
                     PreparedStatement ps = conn.prepareStatement(sql)) {

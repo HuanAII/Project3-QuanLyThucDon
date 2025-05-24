@@ -9,7 +9,7 @@
     <title>Thống kê doanh thu</title>
     <style>
         :root {
-            --primary: #007BFF;
+            --primary:rgb(249, 108, 27);
             --light: #f8f9fa;
             --dark: #343a40;
             --gray: #6c757d;
@@ -18,7 +18,6 @@
         body {
             font-family: 'Segoe UI', sans-serif;
             background-color: var(--light);
-            padding: 30px;
             margin: 0;
             color: var(--dark);
         }

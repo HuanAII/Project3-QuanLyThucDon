@@ -8,12 +8,16 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
-            padding: 40px;
         }
 
         h2, h3 {
             color: #333;
         }
+        h3 {
+            
+            margin-top: 20px;
+        }
+
 
         table {
             width: 100%;

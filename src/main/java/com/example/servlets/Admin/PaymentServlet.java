@@ -21,12 +21,12 @@ public class PaymentServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        // Lấy thông tin từ form
+  
         String orderId = request.getParameter("orderId");
         String paymentMethod = request.getParameter("paymentMethod");
         double total = Double.parseDouble(request.getParameter("total"));
 
-        // Tạo hóa đơn mới
+
         HoaDon hoaDon = new HoaDon(
             Integer.parseInt(orderId),
             paymentMethod,

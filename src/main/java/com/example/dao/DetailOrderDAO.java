@@ -2,6 +2,7 @@ package com.example.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.example.utils.DBConnection;
 
@@ -38,5 +39,20 @@ public class DetailOrderDAO {
     }
 }
 
+public static boolean isProductInOrder(int orderId, String productId) {
+    String sql = "SELECT COUNT(*) FROM chitietdonhang WHERE idDonHang = ? AND idMon = ?";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, orderId);
+        ps.setString(2, productId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
 
 }

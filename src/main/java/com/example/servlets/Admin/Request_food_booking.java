@@ -6,14 +6,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.example.dao.DetailOrderDAO;
 import com.example.dao.OrderDAO;
-import com.example.dao.ReceiptDAO;
 import com.example.dao.TableDAO;
 import com.example.dao.productsDAO;
 import com.example.models.DonHang;
-import com.example.models.HoaDon;
 import com.example.models.Product;
 import com.example.models.Table;
 
@@ -77,6 +73,7 @@ public class Request_food_booking extends HttpServlet {
                 boolean result = OrderDAO.updateOrderStatus(orderId, status);
                 message = result ? "Cập nhật trạng thái thành công!" : "Cập nhật trạng thái thất bại.";
             } 
+
         }
         List<DonHang> list = OrderDAO.getAllOrders();
         req.setAttribute("listDH", list);
@@ -91,6 +88,8 @@ public class Request_food_booking extends HttpServlet {
             e.printStackTrace();
             req.setAttribute("listTable", Collections.emptyList());
         }
+        List<Product> listMon = productsDAO.getAllProducts();
+         req.setAttribute("listMon", listMon);
 
         req.setAttribute("contentPage", "/WEB-INF/pages/request_food_booking.jsp");
         req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);

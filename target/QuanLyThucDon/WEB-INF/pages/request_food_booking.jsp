@@ -115,6 +115,9 @@
                                         <button type="button" class="btn btn-primary payment-btn" data-order-id="${dh.idDonHang}" data-total="${dh.total}">
                                             <i class="fas fa-money-bill-wave"></i> Thanh toán
                                         </button>
+                                        <button type="button" class="btn btn-success add-food-btn" data-order-id="${dh.idDonHang}">
+                                            <i class="fas fa-plus"></i> Thêm món
+                                        </button>
                                     </c:if>
                                     <form class="action-form" action="${pageContext.request.contextPath}/admin/datmon" method="post">
                                         <input type="hidden" name="orderId" value="${dh.idDonHang}" />
@@ -153,7 +156,7 @@
                 <select id="idTable" name="idTable" class="form-control" required>
                     <c:if test="${not empty emptyTable}">
                         <c:forEach var="table" items="${emptyTable}">
-                            <option value="${table.idTable}">${table. tableNumber}</option>
+                            <option value="${table.idTable}">${table.tableNumber}</option>
                         </c:forEach>
                     </c:if>
                     <c:if test="${empty emptyTable}">
@@ -165,7 +168,6 @@
                 <input type="hidden" name="diaChi" value="Tại chỗ">
 
                 <div class="form-group">
-                    <label for="status">Trạng thái:</label>
                     <input type="hidden" name="status" value="DANG_CHUAN_BI">
                 </div>
 
@@ -234,6 +236,53 @@
                 <div class="form-footer">
                     <button type="submit" class="btn btn-primary">Xác nhận thanh toán</button>
                     <button type="button" class="btn btn-secondary" id="cancelPayment">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thêm món cho đơn hàng -->
+<div id="addFoodModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Thêm món cho đơn hàng</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="addFoodForm" method="post" action="${pageContext.request.contextPath}/admin/addMoreFood">
+                <input type="hidden" name="orderId" id="addFoodOrderId">
+                
+                <div class="food-items-section">
+                    <h3>Danh sách món thêm</h3>
+                    <div id="addFoodItemsList">
+                        <div class="food-item">
+                            <div class="form-group">
+                                <label>Tên món:</label>
+                                <select name="tenMon[]" class="form-control" required>
+                                    <option value="" disabled selected>Chọn món</option>
+                                    <c:forEach var="mon" items="${listMon}">
+                                        <option value="${mon.idMon}">${mon.tenMon}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Số lượng:</label>
+                                <input type="number" name="soLuong[]" class="form-control" min="1" value="1" required>
+                            </div>
+                            <button type="button" class="btn btn-danger remove-item">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" id="addMoreFoodItemBtn" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Thêm món
+                    </button>
+                </div>
+
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-primary">Xác nhận thêm món</button>
+                    <button type="button" class="btn btn-secondary" id="cancelAddFood">Hủy</button>
                 </div>
             </form>
         </div>
@@ -334,6 +383,52 @@
                 paymentModal.style.display = "none";
             }
         }
+
+        // Thêm món cho đơn hàng
+        var addFoodModal = document.getElementById("addFoodModal");
+        var addFoodBtns = document.getElementsByClassName("add-food-btn");
+        var cancelAddFoodBtn = document.getElementById("cancelAddFood");
+
+        Array.from(addFoodBtns).forEach(function(btn) {
+            btn.onclick = function() {
+                var orderId = this.getAttribute("data-order-id");
+                document.getElementById("addFoodOrderId").value = orderId;
+                addFoodModal.style.display = "block";
+            }
+        });
+
+        cancelAddFoodBtn.onclick = function() {
+            addFoodModal.style.display = "none";
+        }
+
+        document.querySelector("#addFoodModal .close").onclick = function() {
+            addFoodModal.style.display = "none";
+        }
+
+        // Thêm món mới trong modal thêm món
+        document.getElementById('addMoreFoodItemBtn').addEventListener('click', function() {
+            var foodItemsList = document.getElementById('addFoodItemsList');
+            var newItem = document.createElement('div');
+            newItem.className = 'food-item';
+            newItem.innerHTML = `
+                <div class="form-group">
+                    <label>Tên món:</label>
+                    <select name="tenMon[]" class="form-control" required>
+                        <option value="" disabled selected>Chọn món</option>
+                        <c:forEach var="mon" items="${listMon}">
+                            <option value="${mon.idMon}">${mon.tenMon}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Số lượng:</label>
+                    <input type="number" name="soLuong[]" class="form-control" min="1" value="1" required>
+                </div>
+                <button type="button" class="btn btn-danger remove-item"><i class="fas fa-trash"></i></button>
+            `;
+            foodItemsList.appendChild(newItem);
+            attachRemoveEvent(newItem.querySelector('.remove-item'));
+        });
     </script>
 </body>
 </html>

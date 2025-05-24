@@ -43,13 +43,13 @@ public class productsDAO {
     }
 
     
-    public static Product getProductByID(String id) {
+    public static Product getProductByID(String monId) {
         Product product = null;
         String query = "SELECT * FROM thucdon WHERE idMon = ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query)) {
 
-            ps.setString(1, id);
+            ps.setString(1, monId);
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {

@@ -65,6 +65,7 @@ com\example\servlets\User\AddToCartServlet.class
 com\example\servlets\Admin\Admin_add_thucdon.class
 com\example\models\User.class
 com\example\servlets\Admin\ThongKe_ThucDon_Servlet$ThongKeMonAn.class
+com\example\servlets\Admin\Add_more_food.class
 com\example\servlets\User_Dispatcher.class
 com\example\servlets\LogoutServlet.class
 com\example\servlets\Admin\ThongKeAccountServlet$ThongKe.class

@@ -1,15 +1,9 @@
 package com.example.servlets.Admin;
-
 import java.io.IOException;
 import java.util.List;
-
-import com.example.dao.CartDAO;
 import com.example.dao.DetailOrderDAO;
-import com.example.dao.OrderDAO;
 import com.example.dao.ReceiptDAO;
-import com.example.dao.TableDAO;
 import com.example.models.HoaDon;
-import com.example.models.Table;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

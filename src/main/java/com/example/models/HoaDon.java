@@ -9,11 +9,8 @@ public class HoaDon {
     private Date ngayThanhToan;
     private double soTien;
 
-    // Constructor mặc định
     public HoaDon() {
     }
-
-    // Constructors, getters và setters
     public HoaDon(int idDonHang, String tenPhuongThucThanhToan, Date ngayThanhToan, double soTien) {
         this.idDonHang = idDonHang;
         this.tenPhuongThucThanhToan = tenPhuongThucThanhToan;
@@ -21,7 +18,6 @@ public class HoaDon {
         this.soTien = soTien;
     }
 
-    // Getters và Setters (có thể dùng Lombok nếu bạn muốn gọn hơn)
     public int getIdHoaDon() {
         return idHoaDon;
     }

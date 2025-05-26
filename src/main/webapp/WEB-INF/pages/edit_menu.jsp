@@ -56,59 +56,98 @@
     <!-- Nút Lưu -->
     <button type="submit">Lưu thay đổi</button>
 </form>
-
 <style>
-    .form-group {
-        margin-bottom: 15px;
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
     }
 
-    .form-group input,
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-top: 30px;
+        font-size: 28px;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 30px auto;
+        background-color: #ffffff;
+        padding: 25px 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: #555;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group input[type="file"],
     .form-group textarea {
         width: 100%;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        font-size: 14px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #4CAF50;
+        outline: none;
     }
 
     .readonly-value {
         display: inline-block;
         padding: 8px 12px;
-        background-color: #e8e8e8;
-        border-radius: 6px;
+        background-color: #eee;
+        border-radius: 8px;
         font-weight: bold;
-    }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 24px;
-    }
-
-    button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-weight: bold;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    button:hover {
-        background-color: #45a049;
+        font-size: 15px;
     }
 
     .note {
         font-size: 12px;
-        color: #666;
+        color: #777;
+        margin-top: 4px;
     }
 
     .image-preview {
-        margin-top: 8px;
-        margin-bottom: 8px;
+        margin-top: 10px;
+    }
+
+    .image-preview img {
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #43a047;
     }
 </style>

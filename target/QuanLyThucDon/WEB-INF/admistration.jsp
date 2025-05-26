@@ -220,7 +220,6 @@
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 25px;
             margin-bottom: 20px;
         }
         

@@ -9,9 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý thực đơn</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assests/css/list_menu.css">
-
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/list_menu.css">
 </head>
 <body>
     <div class="container">
@@ -27,15 +25,15 @@
                 <table>
                     <thead>
                         <tr>
-                            <th width="5%">STT</th>
-                            <th width="10%">Mã Món</th>
-                            <th width="20%">Tên Món</th>
-                            <th width="10%">Danh Mục</th>
-                            <th width="10%">Giá</th>
-                            <th width="12%">Hình Ảnh</th> <!-- Thêm cột hình ảnh -->
-                            <th width="22%">Mô Tả</th>
-                            <th width="10%">Đơn Vị Tính</th>
-                            <th width="13%">Hành động</th>
+                            <th>STT</th>
+                            <th>Mã Món</th>
+                            <th>Tên Món</th>
+                            <th>Danh Mục</th>
+                            <th>Giá</th>
+                            <th>Hình Ảnh</th>
+                            <th>Mô Tả</th>
+                            <th>Đơn Vị Tính</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,11 +47,11 @@
                             <td><%= stt++ %></td>
                             <td class="product-id"><%= a.getIdMon() %></td>
                             <td class="text-left product-name"><%= a.getTenMon() %></td>
-                            <td><span class="badge badge-primary"><%= a.getIdDanhMuc() %></span></td>
-                            <td class="price"><%= String.format("%,d", a.getGia()) %> đ</td>
+                            <td><%= a.getIdDanhMuc() %></td>
+                            <td class="price"><%= String.format("%,d", a.getGia()) %> VNĐ</td>
                             <td>
                                 <% if (a.getHinhAnh() != null && !a.getHinhAnh().isEmpty()) { %>
-                                    <img src="http://localhost:8080/QuanLyThucDon/uploads/<%=a.getHinhAnh() %>" alt="Hình ảnh" style="width:70px; height:50px; object-fit:cover; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.13);">
+                                    <img src="http://localhost:8080/QuanLyThucDon/uploads/<%= a.getHinhAnh() %>" alt="Hình ảnh" style="width:70px; height:50px; object-fit:cover; border-radius:6px;">
                                 <% } else { %>
                                     <span style="color:#888;">Không có ảnh</span>
                                 <% } %>
@@ -91,13 +89,5 @@
             </div>
         </div>
     </div>
-    
-    <script>
-        // JavaScript pour ajouter des fonctionnalités supplémentaires si nécessaire
-        document.addEventListener('DOMContentLoaded', function() {
-            // Vérifier s'il y a des messages de succès ou d'erreur à afficher
-            // (Vous pouvez implémenter cette partie selon vos besoins)
-        });
-    </script>
 </body>
 </html>

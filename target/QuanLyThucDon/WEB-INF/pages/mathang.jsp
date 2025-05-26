@@ -12,6 +12,17 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/list_menu.css">
 </head>
 <body>
+
+    <%
+        String addedMsg = (String) request.getAttribute("addedMsg");
+        if (addedMsg != null) {
+    %>
+        <div id="toast-notification"><%= addedMsg %></div>
+    <%
+            session.removeAttribute("addedMsg");
+        }
+    %>
+
     <div class="container">
         <div class="card">
             <div class="card-header">
@@ -89,5 +100,14 @@
             </div>
         </div>
     </div>
+        <script>
+            // Tự động ẩn thông báo sau 3 giây
+            setTimeout(function () {
+                var toast = document.getElementById('toast-notification');
+                if (toast) {
+                    toast.style.display = 'none';
+                }
+            }, 3000);
+        </script>
 </body>
 </html>

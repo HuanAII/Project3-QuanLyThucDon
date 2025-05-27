@@ -92,7 +92,9 @@
                                 <h4>Danh sách món</h4>
                                 <ul>
                                     <c:forEach var="ct" items="${dh.chiTietList}">
-                                        <li>${ct.tenMon} - SL: ${ct.soLuong} - ${ct.gia} đ</li>
+                                        <li>${ct.tenMon} - SL: ${ct.soLuong} - 
+                                            <fmt:formatNumber value="${ct.gia}" type="number" groupingUsed="true"/> VNĐ
+                                        </li>
                                     </c:forEach>
                                 </ul>
                             </div>

@@ -18,10 +18,20 @@
     </div>
 
     <!-- ID danh mục -->
-    <div class="form-group">
-        <label for="idDanhMuc">ID danh mục:</label>
-        <input type="text" id="idDanhMuc" name="idDanhMuc" value="${product.idDanhMuc}" placeholder="Nhập ID danh mục" required>
-    </div>
+<!-- Danh mục -->
+<div class="form-group">
+    <label for="idDanhMuc">Danh mục:</label>
+    <select id="idDanhMuc" name="idDanhMuc" required>
+        <option value="" disabled>-- Chọn danh mục --</option>
+        <c:forEach var="category" items="${categories}">
+            <option value="${category.id_danhmuc}" 
+                ${category.id_danhmuc == product.idDanhMuc ? "selected" : ""}>
+                ${category.name_danhmuc}
+            </option>
+        </c:forEach>
+    </select>
+</div>
+
 
     <!-- Giá -->
     <div class="form-group">
@@ -36,7 +46,7 @@
         <input type="hidden" name="currentImage" value="${product.hinhAnh}">
         <c:if test="${not empty product.hinhAnh}">
             <div class="image-preview">
-                <img src="${pageContext.request.contextPath}/${product.hinhAnh}" alt="Hình ảnh sản phẩm" style="max-width:120px;max-height:120px;">
+                <img src="http://localhost:8080/QuanLyThucDon/uploads/${product.hinhAnh}" alt="Hình ảnh sản phẩm" style="max-width:120px;max-height:120px;">
             </div>
         </c:if>
     </div>

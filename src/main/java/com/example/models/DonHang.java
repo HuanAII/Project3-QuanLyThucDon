@@ -1,10 +1,12 @@
 package com.example.models;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
 public class DonHang {
     private int idDonHang;
     private Date date;
+    private Time time;
     private double total;
     private String status;
     private String idTable;
@@ -13,6 +15,8 @@ public class DonHang {
     private String sdt;
     private String diaChi;
     private List<ChiTietDonHang> chiTietList;
+    public DonHang() {}
+    
     public int getIdDonHang() {
         return idDonHang;
     }
@@ -23,6 +27,14 @@ public class DonHang {
 
     public Date getDate() {
         return date;
+    }
+
+
+    public Time getTime() {
+        return time;
+    }
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     public void setDate(Date date) {

@@ -79,36 +79,14 @@ public static List<Table> getAvailableTables() {
     return tables;
 }
 
-public static List<Table> getBookedTablesByDate(java.sql.Date date) {
-    List<Table> bookedTables = new ArrayList<>();
-    String sql = "SELECT * FROM ban_an WHERE id_table IN (SELECT id_table FROM dat_ban WHERE ngay_dat = ?)";
 
-    try (Connection conn = DBConnection.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-        stmt.setDate(1, date);
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-            Table table = new Table(
-                rs.getString("id_table"),
-                rs.getInt("table_number"),
-                rs.getInt("so_cho_ngoi")
-            );
-            bookedTables.add(table);
-        }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    return bookedTables;
-}
 
 // Thêm hàm lấy bàn còn trống theo ngày
 public static List<Table> getAvailableTablesByDate(java.sql.Date date) {
     List<Table> availableTables = new ArrayList<>();
-    String sql = "SELECT * FROM ban_an WHERE id_table NOT IN (SELECT id_table FROM dat_ban WHERE ngay_dat = ?)";
+    String sql = "SELECT * FROM ban_an WHERE id_table NOT IN ("
+               + "SELECT id_table FROM dat_ban WHERE ngay_dat = ? AND trang_thai IN ('DA_DAT', 'DANG_SU_DUNG')"
+               + ")";
 
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -132,6 +110,46 @@ public static List<Table> getAvailableTablesByDate(java.sql.Date date) {
     return availableTables;
 }
 
+public static List<Table> getBookedTablesByDate(java.sql.Date date) {
+        List<Table> bookedTables = new ArrayList<>();
+    String sql = "SELECT * FROM ban_an WHERE id_table IN ("
+               + "SELECT id_table FROM dat_ban WHERE ngay_dat = ? AND trang_thai IN ('DA_DAT', 'DANG_SU_DUNG')"
+               + ")";
+
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setDate(1, date);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Table table = new Table(
+                rs.getString("id_table"),
+                rs.getInt("table_number"),
+                rs.getInt("so_cho_ngoi")
+            );
+            bookedTables.add(table);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return bookedTables;
+}
+
+
+public static boolean isTableAvailableOnDate(String tableId, java.sql.Date date) {
+    List<Table> availableTables = getAvailableTablesByDate(date);
+
+    for (Table table : availableTables) {
+        if (table.getIdTable().equals(tableId)) {
+            return true;
+        }
+    }
+
+    return false; 
+}
 
 
 

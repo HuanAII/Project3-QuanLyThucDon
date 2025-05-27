@@ -16,7 +16,6 @@ import java.time.format.DateTimeParseException;
 import com.example.dao.TableDAO;
 import com.example.dao.reservationDAO;
 import com.example.models.Table;
-import com.example.models.reservation;
 
 @WebServlet("/Filter_Table_Servlet")
 public class Filter_Table_Servlet extends HttpServlet {
@@ -40,17 +39,8 @@ public class Filter_Table_Servlet extends HttpServlet {
             dateParam = new SimpleDateFormat("yyyy-MM-dd").format(date);
         }
 
-        // Lấy danh sách ID bàn đã đặt theo ngày
-        List<String> IDbookedTables = reservationDAO.getIDBookedTablesByDate(date);
-
         // Lấy đối tượng bàn đã đặt
-        List<Table> bookedTables = new ArrayList<>();
-        for (String idTable : IDbookedTables) {
-            Table table = TableDAO.getTableById(idTable);
-            if (table != null) {
-                bookedTables.add(table);
-            }
-        }
+        List<Table> bookedTables = TableDAO.getBookedTablesByDate(date);
 
         // Lấy bàn còn trống theo ngày đó
         List<Table> availableTables = TableDAO.getAvailableTablesByDate(date);

@@ -45,6 +45,7 @@ com\example\servlets\Admin\Admin_delete_menu.class
 com\example\models\Category.class
 com\example\servlets\Admin\Filter_Table_Servlet.class
 com\example\servlets\LoginServlet.class
+com\example\dao\DatBanDAO.class
 com\example\models\Table.class
 com\example\servlets\User\DatHangServlet.class
 com\example\dao\KhuyenMaiDAO.class

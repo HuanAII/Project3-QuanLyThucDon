@@ -250,7 +250,7 @@
         <!-- Form thêm/sửa khách hàng -->
         <div class="form-section">
             <h3 class="form-title">${editUser.id == null ? 'Thêm mới khách hàng' : 'Cập nhật thông tin khách hàng'}</h3>
-            <form action="${pageContext.request.contextPath}/admin/khachhang" method="post">
+            <form action="${pageContext.request.contextPath}/admin/customers" method="post">
                 <input type="hidden" name="id" value="${editUser.id}" />
                 
                 <div class="form-grid">

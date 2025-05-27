@@ -51,7 +51,7 @@ public class AdminDispatcher extends HttpServlet {
                 break;
             case "/khachhang":
                 // Chuyển tiếp tới servlet quản lý khách hàng
-                request.getRequestDispatcher("/admin/khachhang").forward(request, response);
+                request.getRequestDispatcher("/admin/customers").forward(request, response);
                 return;
             case "/hethong":
                 page = "/WEB-INF/pages/hethong.jsp";

@@ -2,8 +2,6 @@ package com.example.servlets.Admin;
 
 import com.example.dao.KhuyenMaiDAO;
 import com.example.models.KhuyenMai;
-
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 

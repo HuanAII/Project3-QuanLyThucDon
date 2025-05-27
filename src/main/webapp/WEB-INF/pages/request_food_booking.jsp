@@ -1,5 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="com.example.dao.reservationDAO" %>
+<%@ page import="java.sql.Time" %>  
+<%@ page import="java.util.Date" %>
+<%@ page import="com.example.models.DonHang" %>
+<%@ page import="com.example.models.ChiTietDonHang" %>
+
 
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 
@@ -27,8 +33,8 @@
                         <option value="CHO_XU_LY" ${param.status == 'CHO_XU_LY' ? 'selected' : ''}>Chờ xử lý</option>
                         <option value="DANG_TIEN_HANH" ${param.status == 'DANG_TIEN_HANH' ? 'selected' : ''}>Đang tiến hành</option>
                         <option value="DANG_CHUAN_BI" ${param.status == 'DANG_CHUAN_BI' ? 'selected' : ''}>Đang chuẩn bị</option>
-                        <option value="CHO_PHUC_VU" ${param.status == 'CHO_PHUC_VU' ? 'selected' : ''}>Đang phục vụ</option>
-                        <option value="DON_HANG_CHO" ${param.status == 'DON_HANG_CHO' ? 'selected' : ''}>Chờ phục vụ</option>
+                        <option value="CHO_PHUC_VU" ${param.status == 'CHO_PHUC_VU' ? 'selected' : ''}>Chờ phục vụ</option>
+                        <option value="DANG_PHUC_VU" ${param.status == 'DANG_PHUC_VU' ? 'selected' : ''}>Đang phục vụ</option>
                         <option value="DA_HOAN_THANH" ${param.status == 'DA_HOAN_THANH' ? 'selected' : ''}>Hoàn thành</option>
                     </select>
                     <button type="submit" class="btn btn-primary">Lọc</button>
@@ -45,10 +51,18 @@
             <c:otherwise>
                 <div class="order-grid">
                     <c:forEach var="dh" items="${listDH}">
+
                         <div class="order-card">
                             <div class="order-header">
                                 <h3 class="order-id">Đơn #${dh.idDonHang}</h3>
-                                <span class="order-date">${dh.date}</span>
+                                <c:choose>
+                                <c:when test="${dh.status == 'CHO_PHUC_VU'}">
+                                    <span class="order-time">${dh.date} - ${dh.time}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="order-time">${dh.date}</span>
+                                </c:otherwise>
+                            </c:choose>
                             </div>
                             
                             <div class="order-info">
@@ -79,8 +93,8 @@
                                             <c:when test="${dh.status == 'CHO_XU_LY'}">Chờ xử lý</c:when>
                                             <c:when test="${dh.status == 'DANG_TIEN_HANH'}">Đang tiến hành</c:when>
                                             <c:when test="${dh.status == 'DANG_CHUAN_BI'}">Đang chuẩn bị</c:when>
-                                            <c:when test="${dh.status == 'CHO_PHUC_VU'}">Đang phục vụ</c:when>
-                                            <c:when test="${dh.status == 'DON_HANG_CHO'}">Chờ phục vụ</c:when>
+                                            <c:when test="${dh.status == 'CHO_PHUC_VU'}">Chờ phục vụ</c:when>
+                                            <c:when test="${dh.status == 'DANG_PHUC_VU'}">Đang phục vụ</c:when>
                                             <c:when test="${dh.status == 'DA_HOAN_THANH'}">Hoàn thành</c:when>
                                             <c:otherwise>${dh.status}</c:otherwise>
                                         </c:choose>
@@ -92,7 +106,9 @@
                                 <h4>Danh sách món</h4>
                                 <ul>
                                     <c:forEach var="ct" items="${dh.chiTietList}">
-                                        <li>${ct.tenMon} - SL: ${ct.soLuong} - ${ct.gia} đ</li>
+                                        <li>${ct.tenMon} - SL: ${ct.soLuong} - 
+                                            <fmt:formatNumber value="${ct.gia}" type="number" groupingUsed="true"/> VNĐ
+                                        </li>
                                     </c:forEach>
                                 </ul>
                             </div>
@@ -104,16 +120,16 @@
                                         <option value="CHO_XU_LY" ${dh.status == 'CHO_XU_LY' ? 'selected' : ''}>Chờ xử lý</option>
                                         <option value="DANG_TIEN_HANH" ${dh.status == 'DANG_TIEN_HANH' ? 'selected' : ''}>Đang tiến hành</option>
                                         <option value="DANG_CHUAN_BI" ${dh.status == 'DANG_CHUAN_BI' ? 'selected' : ''}>Đang chuẩn bị</option>
-                                        <option value="CHO_PHUC_VU" ${dh.status == 'CHO_PHUC_VU' ? 'selected' : ''}>Đang phục vụ</option>
-                                        <option value="DON_HANG_CHO" ${dh.status == 'DON_HANG_CHO' ? 'selected' : ''}>Chờ phục vụ</option>
+                                        <option value="CHO_PHUC_VU" ${dh.status == 'CHO_PHUC_VU' ? 'selected' : ''}>Chờ phục vụ</option>
+                                        <option value="DANG_PHUC_VU" ${dh.status == 'DANG_PHUC_VU' ? 'selected' : ''}>Đang phục vụ</option>
                                         <option value="DA_HOAN_THANH" ${dh.status == 'DA_HOAN_THANH' ? 'selected' : ''}>Hoàn thành</option>
                                     </select>
                                     <button type="submit" name="action" value="UpdateStatus" class="btn btn-success">Cập nhật trạng thái</button>
                                 </form>
                                 
                                 <div class="action-row">
-                                    <c:if test="${dh.status == 'CHO_PHUC_VU'}">
-                                        <button type="button" class="btn btn-primary payment-btn" data-order-id="${dh.idDonHang}" data-total="${dh.total}">
+                                    <c:if test="${dh.status == 'DANG_PHUC_VU'}">
+                                        <button type="button" class="btn btn-primary payment-btn" data-idtable="${dh.idTable}" data-order-id="${dh.idDonHang}" data-total="${dh.total}">
                                             <i class="fas fa-money-bill-wave"></i> Thanh toán
                                         </button>
                                         <button type="button" class="btn btn-success add-food-btn" data-order-id="${dh.idDonHang}">
@@ -153,7 +169,7 @@
                     <label for="sdt">Số điện thoại:</label>
                     <input type="text" id="sdt" name="sdt" class="form-control" required>
                 </div>
-
+                <label for="idTable">Bàn : </label>
                 <select id="idTable" name="idTable" class="form-control" required>
                     <c:if test="${not empty emptyTable}">
                         <c:forEach var="table" items="${emptyTable}">
@@ -218,6 +234,7 @@
         </div>
         <div class="modal-body">
             <form id="paymentForm" method="post" action="${pageContext.request.contextPath}/admin/payment">
+                 <input type="hidden" name="idTable" id="paymentIdTable">
                 <input type="hidden" name="orderId" id="paymentOrderId">
                 <input type="hidden" name="total" id="paymentTotal">
                 
@@ -431,5 +448,41 @@
             attachRemoveEvent(newItem.querySelector('.remove-item'));
         });
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lấy tất cả button Thanh toán
+        const paymentButtons = document.querySelectorAll('.payment-btn');
+
+        paymentButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Lấy data attributes
+                const idTable = this.getAttribute('data-idtable');
+                const orderId = this.getAttribute('data-order-id');
+                const total = this.getAttribute('data-total');
+
+                // Gán giá trị vào các input ẩn trong modal
+                document.getElementById('paymentIdTable').value = idTable;
+                document.getElementById('paymentOrderId').value = orderId;
+                document.getElementById('paymentTotal').value = total;
+
+                // Hiển thị số tiền trong modal
+                document.getElementById('paymentAmount').textContent = total.toLocaleString('vi-VN') + " VNĐ";
+
+                // Mở modal thanh toán
+                const paymentModal = document.getElementById('paymentModal');
+                paymentModal.style.display = 'block';
+            });
+        });
+
+        // Đóng modal khi bấm nút Hủy hoặc dấu X
+        document.getElementById('cancelPayment').addEventListener('click', function() {
+            document.getElementById('paymentModal').style.display = 'none';
+        });
+        document.querySelector('#paymentModal .close').addEventListener('click', function() {
+            document.getElementById('paymentModal').style.display = 'none';
+        });
+    });
+</script>
+
 </body>
 </html>

@@ -362,7 +362,7 @@
 
             <!-- Đăng xuất -->
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/admin/logOut" class="nav-link">
+                <a href="${pageContext.request.contextPath}/admin/logout" class="nav-link">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Đăng xuất</span>
                 </a>

@@ -1,10 +1,17 @@
 package com.example.servlets.Admin;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
 import com.example.dao.OrderDAO;
+import com.example.dao.TableDAO;
+import com.example.dao.productsDAO;
 import com.example.models.DonHang;
+import com.example.models.Product;
+import com.example.models.Table;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,49 +26,73 @@ public class Request_food_booking extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        String status = req.getParameter("status");  
+
+        String status = req.getParameter("status");
         List<DonHang> list;
-        if (status!=null && !status.trim().isEmpty()) {
-            System.out.println("Status: " + status);
+
+        if (status != null && !status.trim().isEmpty()) {
             list = OrderDAO.getOdersByStatus(status);
-            System.out.println("List size: " + list.size());
         } else {
             list = OrderDAO.getAllOrders();
         }
         req.setAttribute("listDH", list);
+
+        Date today = Date.valueOf(LocalDate.now());
+
+        try {
+            List<Table> emptyTables = TableDAO.getAllTablesByDate(today);
+            System.out.println("Kich thuoc emptytable "+emptyTables.size());
+            req.setAttribute("emptyTable", emptyTables);
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("emptyTable", new ArrayList<>());
+        }
+        List<Product> listMon = productsDAO.getAllProducts();
+        req.setAttribute("listMon", listMon);
         req.setAttribute("contentPage", "/WEB-INF/pages/request_food_booking.jsp");
         req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
     }
 
-@Override 
-protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
-    req.setCharacterEncoding("UTF-8"); 
-    resp.setCharacterEncoding("UTF-8"); 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        String orderId = req.getParameter("orderId");
+        String action = req.getParameter("action");
+        String status = req.getParameter("status");
+        String message = null;
 
-    String orderId = req.getParameter("orderId"); 
-    String action = req.getParameter("action"); 
-    String status = req.getParameter("status"); 
+        if (action != null && orderId != null) {
+            if (action.equals("delete")) {
+                boolean result = OrderDAO.deleteOrder(orderId);
+                message = result ? "Xóa đơn hàng thành công!" : "Xóa đơn hàng thất bại.";
+            } else if (action.equals("UpdateStatus")) {
+                if (status == "DA_HOAN_THANH"){
+  
+                }
+                boolean result = OrderDAO.updateOrderStatus(orderId, status);
+                message = result ? "Cập nhật trạng thái thành công!" : "Cập nhật trạng thái thất bại.";
+            } 
 
-    String message = null; 
+        }
+        List<DonHang> list = OrderDAO.getAllOrders();
+        req.setAttribute("listDH", list);
+        req.setAttribute("message", message);
 
-    if (action != null && orderId != null) { 
-        if (action.equals("delete")) { 
-        
-            boolean result = OrderDAO.deleteOrder(orderId); 
-            message = result ? "Xóa đơn hàng thành công!" : "Xóa đơn hàng thất bại."; 
-        } else if (action.equals("UpdateStatus")) { 
-            boolean result = OrderDAO.updateOrderStatus(orderId , status); 
-            System.out.println("orderId: " + orderId); 
-            System.out.println("status: " + status); 
-            message = result ? "Cập nhật trạng thái thành công!" : "Cập nhật trạng thái thất bại."; 
-        } 
-    } 
+        Date today = Date.valueOf(LocalDate.now());
 
-    List<DonHang> list = OrderDAO.getAllOrders(); 
-    req.setAttribute("listDH", list); 
-    req.setAttribute("message", message); 
+        try {
+            List<Table> emptyTables = TableDAO.getAllTablesByDate(today);
+            req.setAttribute("listTable", emptyTables);
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("listTable", Collections.emptyList());
+        }
+        List<Product> listMon = productsDAO.getAllProducts();
+         req.setAttribute("listMon", listMon);
 
-    req.setAttribute("contentPage", "/WEB-INF/pages/request_food_booking.jsp"); 
-    req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp); 
-} 
+        req.setAttribute("contentPage", "/WEB-INF/pages/request_food_booking.jsp");
+        req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
+    }
 }
+

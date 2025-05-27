@@ -2,8 +2,9 @@ package com.example.servlets.User;
 
 
 import com.example.dao.CartDAO;
+import com.example.dao.DetailOrderDAO;
 import com.example.dao.OrderDAO;
-
+import com.example.dao.ReceiptDAO;
 import com.example.models.CartItem;
 import com.example.models.HoaDon;
 
@@ -75,7 +76,7 @@ public class DatHangServlet extends HttpServlet {
 
 
 
-        int idDonHang = OrderDAO.addOrder(account_id, total, "Cho xu ly", null, hoVaTen, soDienThoai, diaChi);
+        int idDonHang = OrderDAO.addOrder(account_id, total, "CHO_XU_LY", null, hoVaTen, soDienThoai, diaChi);
 
         if (idDonHang == -1) {
             request.setAttribute("error", "Không thể thêm đơn hàng. Vui lòng thử lại!");
@@ -86,7 +87,7 @@ public class DatHangServlet extends HttpServlet {
                     // Thêm hóa đơn
 
         HoaDon hoaDon = new HoaDon(idDonHang, phuongThucThanhToan, new java.sql.Date(System.currentTimeMillis()), total);
-        if (!OrderDAO.addHoaDon(hoaDon)) {
+        if (!ReceiptDAO.addHoaDon(hoaDon)) {
             request.setAttribute("error", "Lỗi khi thêm hóa đơn. Vui lòng thử lại!");
             request.getRequestDispatcher("thanhToan.jsp").forward(request, response);
             return;
@@ -95,7 +96,7 @@ public class DatHangServlet extends HttpServlet {
 
         boolean isOrderDetailsAdded = true;
         for (CartItem item : cart) {
-            if (!OrderDAO.addOrderDetails(idDonHang, item.getIdMon(), item.getSoLuong())) {
+            if (!DetailOrderDAO.addOrderDetails(idDonHang, item.getIdMon(), item.getSoLuong())) {
                 isOrderDetailsAdded = false;
                 break;
             }

@@ -68,8 +68,8 @@
               style="font-size: 28px; color: #ff1236"
             ></i>
           </div>
-          <div class="overlay-title">HNK</div>
-          <h1 class="restaurant-name">Nhà hàng HNK</h1>
+          <div class="overlay-title">23T_Nhat2</div>
+          <h1 class="restaurant-name">Nhà hàng 23T_Nhat2</h1>
           <button class="about-btn"><a href="about.jsp"  style="text-decoration: none; color:white ">VỀ CHÚNG TÔI</a></button>
 
           <!-- Footer -->
@@ -80,6 +80,43 @@
       </div>
 
     </main>
-      <script src="./assets/js/main.js"></script>
+      <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Biến lưu các slide
+    const slides = document.querySelectorAll('.slide');
+    
+    // Hàm chuyển sang slide tiếp theo
+    function nextSlide() {
+      // Tìm slide đang hiển thị
+      const activeSlide = document.querySelector('.slide.active');
+      // Xóa class active
+      activeSlide.classList.remove('active');
+      
+      // Tìm slide tiếp theo (hoặc quay lại slide đầu tiên)
+      let nextSlide;
+      if (activeSlide.nextElementSibling && activeSlide.nextElementSibling.classList.contains('slide')) {
+        nextSlide = activeSlide.nextElementSibling;
+      } else {
+        nextSlide = slides[0];
+      }
+      
+      // Kích hoạt slide tiếp theo
+      nextSlide.classList.add('active');
+      
+      // Cập nhật dots
+      updateDots(Array.from(slides).indexOf(nextSlide));
+    }
+    
+    // Hàm cập nhật chỉ báo dots
+    function updateDots(index) {
+      const dots = document.querySelectorAll('.slide-dot');
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[index].classList.add('active');
+    }
+    
+    // Thiết lập tự động chuyển slide sau mỗi 5 giây
+    setInterval(nextSlide, 5000);
+  });
+</script>
   </body>
 </html>

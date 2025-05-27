@@ -220,12 +220,34 @@
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 25px;
             margin-bottom: 20px;
         }
         
         /* Responsive Design */
 
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mobile-toggle {
+                display: flex;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .content-container {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -237,17 +259,18 @@
                 <span>Nhà Hàng</span>
             </div>
         </div>
-        
+
         <ul class="nav-menu">
+            <!-- Thống kê -->
             <li class="nav-item">
-                <div class="nav-link toggle-submenu" id="thucdon-toggle">
-                    <a href="${pageContext.request.contextPath}/admin/thongke_thucdon" class="menu-item">
+                <div class="nav-link toggle-submenu" id="thongke-toggle">
+                    <div class="menu-item">
                         <i class="fas fa-book-open"></i>
                         <span>Thống kê</span>
-                    </a>
+                    </div>
                     <i class="fas fa-chevron-down"></i>
                 </div>
-                <ul class="submenu" id="thucdon-submenu">
+                <ul class="submenu" id="thongke-submenu">
                     <li>
                         <a href="${pageContext.request.contextPath}/admin/thongke_account" class="submenu-item">
                             Thống kê tài khoản
@@ -258,36 +281,39 @@
                             Thống kê thực đơn
                         </a>
                     </li>
-                                        <li>
-                        <a href="${pageContext.request.contextPath}/admin/thongke_doanhthu_theongay" class="submenu-item">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/thongke_doanhthu" class="submenu-item">
                             Thống kê doanh thu
                         </a>
                     </li>
                 </ul>
             </li>
-            
-            
+
+            <!-- Yêu cầu đặt món -->
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/admin/datmon" class="nav-link">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Yêu cầu đặt món</span>
                 </a>
             </li>
-            
+
+            <!-- Yêu cầu đặt bàn -->
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/admin/Waiting_booking_table" class="nav-link">
                     <i class="fas fa-calendar-check"></i>
                     <span>Yêu cầu đặt bàn</span>
                 </a>
             </li>
-            
+
+            <!-- Hóa đơn -->
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/admin/list-hoadon" class="nav-link">
                     <i class="fas fa-file-invoice"></i>
                     <span>Hóa đơn</span>
                 </a>
             </li>
-            
+
+            <!-- Thực đơn -->
             <li class="nav-item">
                 <div class="nav-link toggle-submenu" id="thucdon-toggle">
                     <div>
@@ -309,7 +335,8 @@
                     </li>
                 </ul>
             </li>
-            
+
+            <!-- Bàn ăn -->
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/admin/tables" class="nav-link">
                     <i class="fas fa-chair"></i>
@@ -317,7 +344,7 @@
                 </a>
             </li>
 
-            
+            <!-- Khách hàng -->
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/admin/customers" class="nav-link">
                     <i class="fas fa-users"></i>
@@ -325,79 +352,67 @@
                 </a>
             </li>
 
-             <li class="nav-item">
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/admin/list-khuyenmai" class="nav-link">
+                    <i class="fa-solid fa-ticket"></i>
+                    <span>Khuyến Mãi</span>
+                </a>
+            </li>
+
+
+            <!-- Đăng xuất -->
+            <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/admin/logOut" class="nav-link">
-                    <i class="fas fa-chair"></i>
+                    <i class="fas fa-sign-out-alt"></i>
                     <span>Đăng xuất</span>
                 </a>
             </li>
         </ul>
     </div>
-    
+
     <!-- Main Content -->
     <div class="main-content" id="main-content">
-        <div class="top-bar">
-            <div class="left-side">
-                <button class="toggle-sidebar" id="toggle-sidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h1 class="page-title">Bảng điều khiển</h1>
-            </div>
-            
-            <div class="user-actions">
-                <button class="notification-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-count">3</span>
-                </button>
-                
-                <button class="profile-btn">
-                    <img src="/api/placeholder/100/100" alt="Admin" class="profile-avatar">
-                </button>
-            </div>
-        </div>
-        
         <div class="content-container">
             <jsp:include page="${contentPage}" />
         </div>
     </div>
-    
+
     <!-- JavaScript -->
     <script>
-
-        document.getElementById('thucdon-toggle').addEventListener('click', function() {
+        // Toggle từng submenu
+        document.getElementById('thongke-toggle').addEventListener('click', function () {
             this.classList.toggle('active');
-            const submenu = document.getElementById('thucdon-submenu');
-            submenu.classList.toggle('active');
+            document.getElementById('thongke-submenu').classList.toggle('active');
         });
-        
-        // Toggle sidebar on mobile
-        document.getElementById('toggle-sidebar').addEventListener('click', function() {
+
+        document.getElementById('thucdon-toggle').addEventListener('click', function () {
+            this.classList.toggle('active');
+            document.getElementById('thucdon-submenu').classList.toggle('active');
+        });
+
+        // Toggle sidebar
+        document.getElementById('toggle-sidebar').addEventListener('click', function () {
             document.getElementById('sidebar').classList.toggle('active');
         });
-        
-        // Initialize active menu item based on current URL
-        document.addEventListener('DOMContentLoaded', function() {
+
+        // Active menu highlight
+        document.addEventListener('DOMContentLoaded', function () {
             const currentPath = window.location.pathname;
-            const navLinks = document.querySelectorAll('.nav-link');
-            
+            const navLinks = document.querySelectorAll('.nav-link a, .submenu-item');
+
             navLinks.forEach(link => {
-                if (link.getAttribute('href') && currentPath.includes(link.getAttribute('href'))) {
+                const href = link.getAttribute('href');
+                if (href && currentPath.includes(href)) {
                     link.classList.add('active');
-                    
-                    // If it's a submenu item, expand the parent menu
-                    const parentToggle = link.closest('.nav-item').querySelector('.toggle-submenu');
-                    if (parentToggle) {
-                        parentToggle.classList.add('active');
-                        const submenu = link.closest('.submenu');
-                        if (submenu) {
-                            submenu.classList.add('active');
-                        }
+
+                    const submenu = link.closest('.submenu');
+                    if (submenu) {
+                        submenu.classList.add('active');
+                        const toggle = submenu.previousElementSibling;
+                        if (toggle) toggle.classList.add('active');
                     }
-                } else if (!link.classList.contains('toggle-submenu')) {
-                    link.classList.remove('active');
                 }
             });
         });
     </script>
 </body>
-</html>

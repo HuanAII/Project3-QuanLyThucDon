@@ -12,12 +12,13 @@ import java.util.List;
 
 import com.example.models.ChiTietDonHang;
 import com.example.models.DonHang;
-import com.example.models.HoaDon;
 import com.example.models.ReservationItem;
 import com.example.models.reservation;
 import com.example.utils.DBConnection;
 
 public class OrderDAO {
+
+
         public static int addOrder(Integer account_id, double total, String status, String id_table, String name, String sdt,
             String address) {
         String sql = "INSERT INTO donhang (date, total, status, account_id, id_table, name, sdt, address) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)";
@@ -82,7 +83,7 @@ public static boolean addOrderFromWaitingReservation(reservation reservation, Li
             if (rs.next()) {
                 int idDonHang = rs.getInt(1);
                 for (ReservationItem item : listItems) {
-                    addOrderDetails(idDonHang, item.getMonAnId(), item.getSoLuong());
+                    DetailOrderDAO.addOrderDetails(idDonHang, item.getMonAnId(), item.getSoLuong());
                 }
                 return true;
             }
@@ -93,69 +94,6 @@ public static boolean addOrderFromWaitingReservation(reservation reservation, Li
     return false;
 }
 
-
-
-    public static boolean addOrderDetails(int idDonHang, String idMon, int soLuong) {
-        String sql = "INSERT INTO chitietdonhang (idDonHang, idMon, soLuong) VALUES (?, ?, ?)";
-        try (Connection conn = DBConnection.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idDonHang);
-            ps.setString(2, idMon);
-            ps.setInt(3, soLuong);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-
-
-  public static boolean addHoaDon(HoaDon hoaDon) {
-        String sql = "INSERT INTO hoa_don (idDonHang, tenPhuonThucThanhToan, ngayThanhToan, soTien) VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, hoaDon.getIdDonHang());
-            ps.setString(2, hoaDon.getTenPhuongThucThanhToan());
-            ps.setDate(3, hoaDon.getNgayThanhToan());
-            ps.setDouble(4, hoaDon.getSoTien());
-
-            ps.executeUpdate();
-            return true;
-
-        } catch (Exception e) {
-            e.printStackTrace(); // Có thể thay bằng logging
-            return false;
-        }
-    }
-
-    public static List<HoaDon> getAllHoaDon() {
-        List<HoaDon> list = new ArrayList<>();
-        String sql = "SELECT * FROM hoa_don";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                HoaDon hoaDon = new HoaDon();
-                hoaDon.setIdHoaDon(rs.getInt("idHoaDon"));
-                hoaDon.setIdDonHang(rs.getInt("idDonHang"));
-                hoaDon.setTenPhuongThucThanhToan(rs.getString("tenPhuonThucThanhToan"));
-                hoaDon.setNgayThanhToan(rs.getDate("ngayThanhToan"));
-                hoaDon.setSoTien(rs.getDouble("soTien"));
-                list.add(hoaDon);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace(); // Hoặc log lỗi
-        }
-
-        return list;
-    }
 
         public static Integer getValidDiscount(String maGiamGia) {
             Integer discount = null;
@@ -372,7 +310,7 @@ public static List<DonHang> getAllOrders() {
 }
 
 
-        public static boolean updateOrderStatus(String orderId , String status) {
+        public static boolean updateOrderStatus(String orderId, String status) {
             String sql = "UPDATE donhang SET status = ? WHERE idDonHang = ?";
             try (Connection conn = DBConnection.getConnection();
                     PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -435,6 +373,63 @@ public static List<DonHang> getOdersByStatus(String status) {
     }
 
     return list;
+}
+
+public static Double getTotalByOrderId(int orderId) {
+    String sql = "SELECT total FROM donhang WHERE idDonHang = ?";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, orderId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getDouble("total");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return null; 
+
+}
+
+public static boolean updateTotal(int  orderId, double newTotal) {
+    String sql = "UPDATE donhang SET total = ? WHERE idDonHang = ?";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setDouble(1, newTotal);
+        ps.setInt(2, orderId);
+
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected > 0; 
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false; 
+}
+
+public static DonHang getOrderById(int orderId) {
+    String sql = "SELECT * FROM donhang WHERE idDonHang = ?";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, orderId);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            DonHang dh = new DonHang();
+            dh.setIdDonHang(rs.getInt("idDonHang"));
+            dh.setDate(rs.getDate("date"));
+            dh.setTotal(rs.getDouble("total"));
+            dh.setStatus(rs.getString("status"));
+            dh.setIdTable(rs.getString("id_table"));
+            dh.setAccountId(rs.getInt("account_id"));
+            dh.setTenKH(rs.getString("name"));
+            dh.setSdt(rs.getString("sdt"));
+            dh.setDiaChi(rs.getString("address"));
+            return dh;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return null;
 }
 
 }

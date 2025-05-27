@@ -1,11 +1,8 @@
 package com.example.servlets.Admin;
-
 import java.io.IOException;
 import java.util.List;
-
-import org.eclipse.tags.shaded.org.apache.xpath.operations.Or;
-
-import com.example.dao.OrderDAO;
+import com.example.dao.DetailOrderDAO;
+import com.example.dao.ReceiptDAO;
 import com.example.models.HoaDon;
 
 import jakarta.servlet.ServletException;
@@ -18,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ListHoaDonServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
-        List<HoaDon> hoaDonList = OrderDAO.getAllHoaDon(); 
+        List<HoaDon> hoaDonList = ReceiptDAO.getAllHoaDon(); 
         System.out.println("size : "+hoaDonList.size());
         request.setAttribute("hoaDonList", hoaDonList);
         System.out.println("hoaDonList : "+hoaDonList);
@@ -26,21 +23,44 @@ public class ListHoaDonServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(request, response);
     }
 
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        if ("delete".equals(action)) {
-            
-            String id = req.getParameter("id");
-            
-            OrderDAO.deleteFullOrder(id);
-            
-            
-            System.out.println("Deleted order with ID: " + id);
-            resp.sendRedirect(req.getContextPath() + "/admin/list-hoadon");
+protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    req.setCharacterEncoding("UTF-8");
+    resp.setContentType("text/html;charset=UTF-8");
+
+    String action = req.getParameter("action");
+    String message = null;
+
+    try {
+        if (action == null) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Thiếu thông tin action");
             return;
         }
-        super.doPost(req, resp);
+
+        switch (action) {
+            case "delete":
+                int deleteId = Integer.parseInt(req.getParameter("id"));
+                boolean deletedDetail = DetailOrderDAO.deleteOrderDetailsByOrderId(deleteId);
+                boolean deleted = ReceiptDAO.deleteHoaDon(deleteId);
+                message = deleted && deletedDetail ? "Xóa hóa đơn thành công!" : "Xóa hóa đơn không thành công!";
+                break;
+            default:
+                message = "Hành động không hợp lệ!";
+                break;
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        message = "Đã xảy ra lỗi trong quá trình xử lý!";
     }
+
+     List<HoaDon> hoaDonList = ReceiptDAO.getAllHoaDon(); 
+        System.out.println("size : "+hoaDonList.size());
+        req.setAttribute("hoaDonList", hoaDonList);
+    req.setAttribute("message",message );
+    req.setAttribute("contentPage", "/WEB-INF/pages/hoadon.jsp");
+    req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
+}
 }
 

@@ -36,6 +36,7 @@
         .card {
             flex: 1;
             background: linear-gradient(135deg, #ff9966, #ff5e62);
+            background: rgb(232, 108, 42);
             color: white;
             padding: 20px;
             border-radius: 8px;
@@ -44,13 +45,13 @@
             text-align: center;
         }
         .card:nth-child(1) {
-            background: linear-gradient(135deg, #42b3f5, #4a90e2);
+            background: rgb(232, 108, 42);
         }
         .card:nth-child(2) {
-            background: linear-gradient(135deg, #ff9966, #ff5e62);
+            background: rgb(232 108 42);
         }
         .card:nth-child(3) {
-            background: linear-gradient(135deg, #56ab2f, #a8e063);
+            background: rgb(232 108 42);
         }
         .card h3 {
             font-size: 16px;
@@ -112,19 +113,6 @@
             text-align: center;
             color: #333;
             margin-bottom: 20px;
-        }
-        .back-button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #e67e22;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        .back-button:hover {
-            background-color: #d35400;
         }
         .food-name {
             font-weight: bold;
@@ -275,7 +263,7 @@
             </tbody>
         </table>
         
-        <a href="${pageContext.request.contextPath}/admin/dashboard" class="back-button">Quay lại Dashboard</a>
+
         
         <!-- Thêm biểu đồ -->
         <div class="charts-row">

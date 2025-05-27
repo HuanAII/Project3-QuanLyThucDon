@@ -93,5 +93,14 @@
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
      <%-- <script src="${pageContext.request.contextPath}/assets/js/products.js"></script> --%>
+     <script>
+    // Tự động ẩn thông báo sau 3 giây
+    setTimeout(function () {
+        var toast = document.getElementById('toast-notification');
+        if (toast) {
+            toast.style.display = 'none';
+        }
+    }, 3000);
+</script>
 </body>
 </html>

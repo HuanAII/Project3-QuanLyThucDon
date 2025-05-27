@@ -128,8 +128,6 @@
             <p>Tổng số đơn hàng: ${totalOrders}</p>
             <p>Tổng doanh thu: <fmt:formatNumber value="${totalAmount}" pattern="#,##0 ₫" /></p>
         </div>
-        
-        <a href="${pageContext.request.contextPath}/admin/dashboard" class="back-link">← Quay lại Trang Quản Trị</a>
     </div>
 </body>
 </html>

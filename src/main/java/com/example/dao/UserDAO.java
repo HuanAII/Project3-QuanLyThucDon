@@ -14,8 +14,6 @@ import com.example.models.User;
 import com.example.utils.DBConnection;
 
 public class UserDAO {
-
-    // Hàm mã hóa mật khẩu với SHA-256
     private String encryptPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -34,12 +32,11 @@ public class UserDAO {
         }
     }
 
-    // Tạo ID ngẫu nhiên cho user mới
     private String generateUniqueId() {
         return UUID.randomUUID().toString().substring(0, 20);
     }
 
-    // Kiểm tra đăng nhập bằng username và password
+  
     public User checkLoginByUsername(String username, String password) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -47,10 +44,10 @@ public class UserDAO {
         User user = null;
 
         try {
-            // Lấy kết nối database
+      
             connection = DBConnection.getConnection();
 
-            // SQL truy vấn - so sánh trực tiếp với mật khẩu không mã hóa
+    
             String sql = "SELECT * FROM user_account WHERE username = ? AND password = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);

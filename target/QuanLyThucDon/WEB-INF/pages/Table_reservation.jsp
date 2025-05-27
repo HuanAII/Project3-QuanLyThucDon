@@ -176,15 +176,19 @@
     }
 
     .note-text {
-        max-width: 200px;
+        max-width: 150px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
     }
 
     .note-text.expanded {
         white-space: normal;
         word-wrap: break-word;
+        max-width: 350px;
     }
     
     /* Modal Styles */

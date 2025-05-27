@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.time.LocalDate;
@@ -49,8 +50,8 @@ public class OrderDAO {
     }
 
 
-public static boolean addOrderFromWaitingReservation(reservation reservation, List<ReservationItem> listItems, String idban) {
-    String sql = "INSERT INTO donhang (date, total, status, account_id, id_table, name, sdt, address) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)";
+public static boolean addOrderFromWaitingReservation(reservation reservation, List<ReservationItem> listItems, String idban , java.sql.Date date) {
+    String sql = "INSERT INTO donhang (date, total, status, account_id, id_table, name, sdt, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     String status = "CHO_PHUC_VU";
     int account_id = reservation.getIdAccount();
     String id_table = idban;
@@ -63,20 +64,24 @@ public static boolean addOrderFromWaitingReservation(reservation reservation, Li
         total += item.getGia() * item.getSoLuong();
     }
 
-    try (Connection conn = DBConnection.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+    try (Connection conn = DBConnection.getConnection()){
+         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-        ps.setDouble(1, total);
-        ps.setString(2, status);
-        if (account_id != -1) {
-            ps.setInt(3, account_id);
-        } else {
-            ps.setNull(3, Types.INTEGER);
-        }
-        ps.setString(4, id_table);
-        ps.setString(5, name);
-        ps.setString(6, sdt);
-        ps.setString(7, address);
+            ps.setDate(1, date);                 
+            ps.setDouble(2, total);
+            ps.setString(3, status);
+
+            if (account_id != -1) {
+                ps.setInt(4, account_id);
+            } else {
+                ps.setNull(4, Types.INTEGER);
+            }
+
+            ps.setString(5, id_table);
+            ps.setString(6, name);
+            ps.setString(7, sdt);
+            ps.setString(8, address);
+
         ps.executeUpdate();
 
         try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -129,6 +134,35 @@ public static boolean addOrderFromWaitingReservation(reservation reservation, Li
 
             return discount;
         }
+
+public static Date getDateOfOrderById(int idDonHang) {
+    String sql = "SELECT date FROM donhang WHERE idDonHang = ?";
+    Date ngayDat = null;
+
+    try (Connection conn = DBConnection.getConnection()) {
+        if (conn == null) {
+            System.out.println("Không thể kết nối tới CSDL");
+            return null;
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idDonHang);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ngayDat = rs.getDate("date");
+                }
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Lỗi khi truy vấn ngày đặt đơn hàng: " + e.getMessage());
+    } catch (ClassNotFoundException e1) {
+        System.err.println("Lỗi không tìm thấy lớp kết nối CSDL: " + e1.getMessage());
+        e1.printStackTrace();
+    }
+
+    return ngayDat;
+}
+
  
 public static List<DonHang> getAllOrders() {
     List<DonHang> list = new ArrayList<>();
@@ -425,6 +459,22 @@ public static DonHang getOrderById(int orderId) {
             dh.setSdt(rs.getString("sdt"));
             dh.setDiaChi(rs.getString("address"));
             return dh;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+
+public static String getIdTableByOrderId(String orderId) {
+    String sql = "SELECT id_table FROM donhang WHERE idDonHang = ?";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, orderId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getString("id_table");
         }
     } catch (Exception e) {
         e.printStackTrace();

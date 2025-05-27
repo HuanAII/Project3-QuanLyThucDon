@@ -22,7 +22,10 @@
     </style>
 </head>
 <body>
-<div class="profile-container">
+
+        <jsp:include page="menu.jsp" />
+        
+    <div class="profile-container">
     <h2>Thông tin cá nhân</h2>
     <% if (message != null && !message.isEmpty()) { %>
         <div class="<%= message.contains("thất bại") || message.contains("không khớp") || message.contains("không đúng") ? "error" : "message" %>"><%= message %></div>

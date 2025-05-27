@@ -46,7 +46,7 @@
         <input type="hidden" name="currentImage" value="${product.hinhAnh}">
         <c:if test="${not empty product.hinhAnh}">
             <div class="image-preview">
-                <img src="${pageContext.request.contextPath}/${product.hinhAnh}" alt="Hình ảnh sản phẩm" style="max-width:120px;max-height:120px;">
+                <img src="http://localhost:8080/QuanLyThucDon/uploads/${product.hinhAnh}" alt="Hình ảnh sản phẩm" style="max-width:120px;max-height:120px;">
             </div>
         </c:if>
     </div>

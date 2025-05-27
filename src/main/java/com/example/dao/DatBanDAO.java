@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.Time;
 import java.time.LocalTime;
 
+import com.example.models.reservation;
 import com.example.utils.DBConnection;
 
 public class DatBanDAO {
@@ -43,5 +44,9 @@ public class DatBanDAO {
         e.printStackTrace();
         return false;
     }
+    }
+    public static reservation getReservationByOrderId(String orderId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getReservationByOrderId'");
     }
 }

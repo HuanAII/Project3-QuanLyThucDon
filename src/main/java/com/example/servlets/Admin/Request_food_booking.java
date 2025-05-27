@@ -2,6 +2,7 @@ package com.example.servlets.Admin;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +16,6 @@ import com.example.dao.reservationDAO;
 import com.example.models.DonHang;
 import com.example.models.Product;
 import com.example.models.Table;
-import com.example.models.reservation;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -39,6 +39,19 @@ public class Request_food_booking extends HttpServlet {
         } else {
             list = OrderDAO.getAllOrders();
         }
+
+        for (DonHang dh : list) {
+            Date date = (Date) dh.getDate();
+            Time time = reservationDAO.getGioDatByOrderIdDateAndTable(date ,dh.getIdTable());
+            System.out.println("Date: " + date + ", Time: " + time);
+            if (time != null) {
+                dh.setTime(time);
+            } else {
+                dh.setTime(new Time(0, 0, 0)); 
+            }
+            System.out.println("Updated DonHang: " + dh.getTime());
+        }
+  
         req.setAttribute("listDH", list);
 
         Date today = Date.valueOf(LocalDate.now());
@@ -71,9 +84,12 @@ public class Request_food_booking extends HttpServlet {
 
         if (action != null && orderId != null) {
             if (action.equals("delete")) {
+                 Date date = OrderDAO.getDateOfOrderById(Integer.parseInt(orderId));
+                String idTable = OrderDAO.getIdTableByOrderId(orderId);
+                DatBanDAO.updateTableStatus(idTable, date, "DA_HUY");
                 boolean result = OrderDAO.deleteOrder(orderId);
-                Date date = reservationDAO.getDateByOrderId(orderId);
-                DatBanDAO.updateTableStatus(orderId, date, "DA_HUY");
+        
+
                 message = result ? "Xóa đơn hàng thành công!" : "Xóa đơn hàng thất bại.";
             } else if (action.equals("UpdateStatus")) {
                 if (status == "DA_HOAN_THANH"){

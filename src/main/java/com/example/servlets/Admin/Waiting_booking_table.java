@@ -63,6 +63,8 @@ case "confirm":
         try {
             String dateStr = reservation.getDate(); 
             Date ngayDat = Date.valueOf(dateStr);   
+            System.out.println ("Ngày đặt: " + ngayDat);
+   
 
             boolean isTableOccupied = TableDAO.isTableAvailableOnDate(tableId, ngayDat);
             if (!isTableOccupied) {
@@ -72,7 +74,7 @@ case "confirm":
             }
 
             List<ReservationItem> listReservationItem = reservationDAO.getReservationItemsById(reservationId);
-            boolean orderResult = OrderDAO.addOrderFromWaitingReservation(reservation, listReservationItem, tableId);
+            boolean orderResult = OrderDAO.addOrderFromWaitingReservation(reservation, listReservationItem, tableId , ngayDat);
 
             if (orderResult) {
                 boolean deleteWaitingRes = reservationDAO.deleteWaitingReservationById(reservationId);

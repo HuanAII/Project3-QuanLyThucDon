@@ -28,7 +28,7 @@ public class Edit_table_servlet extends HttpServlet {
         String idTable = request.getParameter("idTable");
         int tableNumber = Integer.parseInt(request.getParameter("tableNumber"));
         int seats = Integer.parseInt(request.getParameter("seats"));
-        Table newTable = new Table(idTable, tableNumber, seats);
+        Table newTable = new Table(idTable, seats, tableNumber);
         boolean result = TableDAO.updateTable(newTable);
 
         if (result) {

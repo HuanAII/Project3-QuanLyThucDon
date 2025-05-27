@@ -419,4 +419,36 @@ public static Date getDateByOrderId(String orderId) {
     return date;
 }
 
+
+    public static Time getGioDatByOrderIdDateAndTable( Date date, String idTable) {
+    Time gioDat = null;
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+
+    try {
+        conn = DBConnection.getConnection();
+        String sql = "SELECT gio_dat FROM dat_ban WHERE ngay_dat = ? AND id_table = ?";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setDate(1, date);
+        pstmt.setString(2, idTable);
+        rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            gioDat = rs.getTime("gio_dat");
+        }
+    } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    return gioDat;
+}
 }

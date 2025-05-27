@@ -1,5 +1,6 @@
 package com.example.servlets.Admin;
 
+import com.example.dao.DatBanDAO;
 import com.example.dao.OrderDAO;
 import com.example.dao.ReceiptDAO;
 import com.example.models.HoaDon;
@@ -34,10 +35,9 @@ public class PaymentServlet extends HttpServlet {
             total
         );
 
-        // Thêm hóa đơn vào database
         if (ReceiptDAO.addHoaDon(hoaDon)) {
-            // Cập nhật trạng thái đơn hàng thành "Đã hoàn thành"
             OrderDAO.updateOrderStatus(orderId, "DA_HOAN_THANH");
+            DatBanDAO.updateTableStatus(orderId, null, "DA_THANH_TOAN");
             response.sendRedirect(request.getContextPath() + "/admin/datmon");
         } else {
             request.setAttribute("error", "Không thể xử lý thanh toán. Vui lòng thử lại!");

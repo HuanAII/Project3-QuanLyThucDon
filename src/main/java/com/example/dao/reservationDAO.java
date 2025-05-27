@@ -386,4 +386,37 @@ public static List<String> getIDBookedTablesByDate(java.sql.Date ngayDat) {
 }
 
 
+public static Date getDateByOrderId(String orderId) {
+    Date date = null;
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+
+    try {
+        conn = DBConnection.getConnection(); 
+        String sql = "SELECT date FROM donhang WHERE idDonHang = ?";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, orderId);
+        rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            date = rs.getDate("date");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); 
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    return date;
+}
+
 }

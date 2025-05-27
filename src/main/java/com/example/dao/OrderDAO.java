@@ -51,7 +51,7 @@ public class OrderDAO {
 
 public static boolean addOrderFromWaitingReservation(reservation reservation, List<ReservationItem> listItems, String idban) {
     String sql = "INSERT INTO donhang (date, total, status, account_id, id_table, name, sdt, address) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)";
-    String status = "CHO_THANH_TOAN";
+    String status = "CHO_PHUC_VU";
     int account_id = reservation.getIdAccount();
     String id_table = idban;
     String name = reservation.getName();

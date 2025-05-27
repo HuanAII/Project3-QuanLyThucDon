@@ -6,12 +6,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.example.dao.DatBanDAO;
 import com.example.dao.OrderDAO;
 import com.example.dao.TableDAO;
 import com.example.dao.productsDAO;
+import com.example.dao.reservationDAO;
 import com.example.models.DonHang;
 import com.example.models.Product;
 import com.example.models.Table;
+import com.example.models.reservation;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -61,11 +65,15 @@ public class Request_food_booking extends HttpServlet {
         String orderId = req.getParameter("orderId");
         String action = req.getParameter("action");
         String status = req.getParameter("status");
+   
+
         String message = null;
 
         if (action != null && orderId != null) {
             if (action.equals("delete")) {
                 boolean result = OrderDAO.deleteOrder(orderId);
+                Date date = reservationDAO.getDateByOrderId(orderId);
+                DatBanDAO.updateTableStatus(orderId, date, "DA_HUY");
                 message = result ? "Xóa đơn hàng thành công!" : "Xóa đơn hàng thất bại.";
             } else if (action.equals("UpdateStatus")) {
                 if (status == "DA_HOAN_THANH"){

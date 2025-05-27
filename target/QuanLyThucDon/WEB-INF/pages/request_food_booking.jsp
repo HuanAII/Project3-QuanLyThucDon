@@ -153,7 +153,7 @@
                     <label for="sdt">Số điện thoại:</label>
                     <input type="text" id="sdt" name="sdt" class="form-control" required>
                 </div>
-
+                <label for="idTable">Bàn : </label>
                 <select id="idTable" name="idTable" class="form-control" required>
                     <c:if test="${not empty emptyTable}">
                         <c:forEach var="table" items="${emptyTable}">

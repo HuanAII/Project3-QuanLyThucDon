@@ -30,6 +30,7 @@ C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\model
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\User\FilterProductsServlet.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\User\bookingTableServlet.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\Admin\ReservationHistory.java
+C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\dao\DatBanDAO.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\models\Product.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\dao\productsDAO.java
 C:\Users\ASUS\Desktop\pbl\Project3-QuanLyThucDon\src\main\java\com\example\servlets\User\AddToCartServlet.java

@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.example.utils.DBConnection;
 import com.example.models.ReservationItem;
-import com.example.models.Table;
 import com.example.models.reservation;
 
 public class reservationDAO {

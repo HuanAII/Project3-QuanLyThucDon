@@ -18,10 +18,20 @@
     </div>
 
     <!-- ID danh mục -->
-    <div class="form-group">
-        <label for="idDanhMuc">ID danh mục:</label>
-        <input type="text" id="idDanhMuc" name="idDanhMuc" value="${product.idDanhMuc}" placeholder="Nhập ID danh mục" required>
-    </div>
+<!-- Danh mục -->
+<div class="form-group">
+    <label for="idDanhMuc">Danh mục:</label>
+    <select id="idDanhMuc" name="idDanhMuc" required>
+        <option value="" disabled>-- Chọn danh mục --</option>
+        <c:forEach var="category" items="${categories}">
+            <option value="${category.id_danhmuc}" 
+                ${category.id_danhmuc == product.idDanhMuc ? "selected" : ""}>
+                ${category.name_danhmuc}
+            </option>
+        </c:forEach>
+    </select>
+</div>
+
 
     <!-- Giá -->
     <div class="form-group">

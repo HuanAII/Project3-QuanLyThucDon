@@ -38,9 +38,10 @@ public class Request_food_booking extends HttpServlet {
         req.setAttribute("listDH", list);
 
         Date today = Date.valueOf(LocalDate.now());
+        System.out.println("Today date: " + today);
 
         try {
-            List<Table> emptyTables = TableDAO.getAllTablesByDate(today);
+            List<Table> emptyTables = TableDAO.getAvailableTablesByDate(today);
             System.out.println("Kich thuoc emptytable "+emptyTables.size());
             req.setAttribute("emptyTable", emptyTables);
         } catch (Exception e) {
@@ -82,11 +83,17 @@ public class Request_food_booking extends HttpServlet {
         Date today = Date.valueOf(LocalDate.now());
 
         try {
-            List<Table> emptyTables = TableDAO.getAllTablesByDate(today);
-            req.setAttribute("listTable", emptyTables);
+            
+            List<Table> emptyTables = TableDAO.getAvailableTablesByDate(today);
+            System.out.println("today date: " + today);
+            for ( Table table : emptyTables) {
+                System.out.println("Table ID: " + table.getIdTable() + ", Seats: " + table.getSeats() + ", Number: " + table.getTableNumber());
+            }
+
+            req.setAttribute("emptyTable", emptyTables);
         } catch (Exception e) {
             e.printStackTrace();
-            req.setAttribute("listTable", Collections.emptyList());
+            req.setAttribute("emptyTable", Collections.emptyList());
         }
         List<Product> listMon = productsDAO.getAllProducts();
          req.setAttribute("listMon", listMon);

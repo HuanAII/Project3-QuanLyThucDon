@@ -17,22 +17,6 @@ import java.util.List;
 
 @WebServlet("/BookingTableServlet")
 public class bookingTableServlet extends HttpServlet {
-
-    // @Override
-    // protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    //     req.setCharacterEncoding("UTF-8");
-    //     resp.setContentType("text/html;charset=UTF-8");
-    //     String action = req.getParameter("action");
-    //     if (action != null && action.equals("delete")) {
-    //         int id = Integer.parseInt(req.getParameter("id"));
-    //         try {
-    //             reservationDAO.deleteReservationById(id);
-    //         } catch (SQLException e) {
-    //             e.printStackTrace();
-    //         }
-    //     }
-    // }
    @Override
 protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {

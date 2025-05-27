@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+import com.example.models.Category;
 
+import com.example.dao.categoryDAO;
 import com.example.dao.productsDAO;
 import com.example.models.Product;
 
@@ -54,6 +57,8 @@ public class Edit_menu_servlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idMonStr = req.getParameter("id");
         Product product = productsDAO.getProductById(idMonStr);
+        List<Category> categories = categoryDAO.getAllCategory();
+        req.setAttribute("categories", categories);
         req.setAttribute("product", product);
         req.setAttribute("contentPage", "/WEB-INF/pages/edit_menu.jsp");
         req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);

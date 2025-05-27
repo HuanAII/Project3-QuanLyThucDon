@@ -16,7 +16,6 @@ import java.time.format.DateTimeParseException;
 import com.example.dao.TableDAO;
 import com.example.dao.reservationDAO;
 import com.example.models.Table;
-import com.example.models.reservation;
 
 @WebServlet("/Filter_Table_Servlet")
 public class Filter_Table_Servlet extends HttpServlet {

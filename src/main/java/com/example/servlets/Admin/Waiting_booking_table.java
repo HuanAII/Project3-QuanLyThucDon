@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 import com.example.dao.OrderDAO;
@@ -54,32 +55,45 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
                     message = deleteResult ? "Xóa yêu cầu thành công!" : "Xóa yêu cầu thất bại.";
                     break;
 
-                case "confirm":
-                    reservation reservation = reservationDAO.getWaitingReservationByIdS(reservationId);
-                    String tableId = request.getParameter("tableId");
+case "confirm":
+    reservation reservation = reservationDAO.getWaitingReservationByIdS(reservationId);
+    String tableId = request.getParameter("tableId");
 
-                    if (reservation != null && tableId != null && !tableId.isEmpty()) {
-                        List<ReservationItem> listReservationItem = reservationDAO.getReservationItemsById(reservationId);
+    if (reservation != null && tableId != null && !tableId.isEmpty()) {
+        try {
+            String dateStr = reservation.getDate(); 
+            Date ngayDat = Date.valueOf(dateStr);   
 
-                        boolean orderResult = OrderDAO.addOrderFromWaitingReservation(reservation, listReservationItem, tableId);
-                        if (orderResult) {
-                            boolean deleteWaitingRes = reservationDAO.deleteWaitingReservationById(reservationId);
-                            boolean saveReservation = reservationDAO.saveReservationFromWaitingReservation(reservation, tableId);
-                            System.out.println(saveReservation);
-                            message = deleteWaitingRes && saveReservation
-                                ? "Cập nhật và tạo đơn hàng thành công!" 
-                                : "Xác nhận không thành công !";
-                        } else {
-                            message = "Tạo đơn hàng thất bại.";
-                        }
-                    } else {
-                        message = "Không tìm thấy yêu cầu hoặc chưa chọn bàn.";
-                    }
-                    break;
+            boolean isTableOccupied = TableDAO.isTableAvailableOnDate(tableId, ngayDat);
+            if (!isTableOccupied) {
+                message = "Bàn đã được đặt vào ngày này. Vui lòng chọn bàn khác.";
+                System.out.println("Bàn đã được đặt vào ngày này. Vui lòng chọn bàn khác.");
+                break;
+            }
 
-                default:
-                    message = "Hành động không hợp lệ.";
-                    break;
+            List<ReservationItem> listReservationItem = reservationDAO.getReservationItemsById(reservationId);
+            boolean orderResult = OrderDAO.addOrderFromWaitingReservation(reservation, listReservationItem, tableId);
+
+            if (orderResult) {
+                boolean deleteWaitingRes = reservationDAO.deleteWaitingReservationById(reservationId);
+                boolean saveReservation = reservationDAO.saveReservationFromWaitingReservation(reservation, tableId);
+                System.out.println(saveReservation);
+
+                message = (deleteWaitingRes && saveReservation)
+                        ? "Cập nhật và tạo đơn hàng thành công!"
+                        : "Xác nhận không thành công!";
+            } else {
+                message = "Tạo đơn hàng thất bại.";
+            }
+        } catch (IllegalArgumentException e) {
+            message = "Định dạng ngày không hợp lệ.";
+            e.printStackTrace();
+        }
+    } else {
+        message = "Không tìm thấy yêu cầu hoặc chưa chọn bàn.";
+    }
+    break;
+
             }
         } else {
             message = "Thiếu hành động.";

@@ -2,13 +2,17 @@ package com.example.servlets.Admin;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.example.dao.DatBanDAO;
 import com.example.dao.OrderDAO;
 import com.example.dao.TableDAO;
 import com.example.dao.productsDAO;
+import com.example.dao.reservationDAO;
 import com.example.models.DonHang;
 import com.example.models.Product;
 import com.example.models.Table;
@@ -35,12 +39,26 @@ public class Request_food_booking extends HttpServlet {
         } else {
             list = OrderDAO.getAllOrders();
         }
+
+        for (DonHang dh : list) {
+            Date date = (Date) dh.getDate();
+            Time time = reservationDAO.getGioDatByOrderIdDateAndTable(date ,dh.getIdTable());
+            System.out.println("Date: " + date + ", Time: " + time);
+            if (time != null) {
+                dh.setTime(time);
+            } else {
+                dh.setTime(new Time(0, 0, 0)); 
+            }
+            System.out.println("Updated DonHang: " + dh.getTime());
+        }
+  
         req.setAttribute("listDH", list);
 
         Date today = Date.valueOf(LocalDate.now());
+        System.out.println("Today date: " + today);
 
         try {
-            List<Table> emptyTables = TableDAO.getAllTablesByDate(today);
+            List<Table> emptyTables = TableDAO.getAvailableTablesByDate(today);
             System.out.println("Kich thuoc emptytable "+emptyTables.size());
             req.setAttribute("emptyTable", emptyTables);
         } catch (Exception e) {
@@ -60,11 +78,18 @@ public class Request_food_booking extends HttpServlet {
         String orderId = req.getParameter("orderId");
         String action = req.getParameter("action");
         String status = req.getParameter("status");
+   
+
         String message = null;
 
         if (action != null && orderId != null) {
             if (action.equals("delete")) {
+                 Date date = OrderDAO.getDateOfOrderById(Integer.parseInt(orderId));
+                String idTable = OrderDAO.getIdTableByOrderId(orderId);
+                DatBanDAO.updateTableStatus(idTable, date, "DA_HUY");
                 boolean result = OrderDAO.deleteOrder(orderId);
+        
+
                 message = result ? "Xóa đơn hàng thành công!" : "Xóa đơn hàng thất bại.";
             } else if (action.equals("UpdateStatus")) {
                 if (status == "DA_HOAN_THANH"){
@@ -82,11 +107,17 @@ public class Request_food_booking extends HttpServlet {
         Date today = Date.valueOf(LocalDate.now());
 
         try {
-            List<Table> emptyTables = TableDAO.getAllTablesByDate(today);
-            req.setAttribute("listTable", emptyTables);
+            
+            List<Table> emptyTables = TableDAO.getAvailableTablesByDate(today);
+            System.out.println("today date: " + today);
+            for ( Table table : emptyTables) {
+                System.out.println("Table ID: " + table.getIdTable() + ", Seats: " + table.getSeats() + ", Number: " + table.getTableNumber());
+            }
+
+            req.setAttribute("emptyTable", emptyTables);
         } catch (Exception e) {
             e.printStackTrace();
-            req.setAttribute("listTable", Collections.emptyList());
+            req.setAttribute("emptyTable", Collections.emptyList());
         }
         List<Product> listMon = productsDAO.getAllProducts();
          req.setAttribute("listMon", listMon);

@@ -51,6 +51,8 @@
                     <div class="table-icon">🍽️</div>
                     <h3 class="table-number">Bàn số <%= table.getTableNumber() %></h3>
                     <p class="table-id">Mã bàn: <%= table.getIdTable() %></p>
+                    
+                    
                 </div>
                 <div class="table-details">
                     <div class="detail-item"><span class="detail-icon">👥</span> Sức chứa: <%= table.getSeats() %> người</div>

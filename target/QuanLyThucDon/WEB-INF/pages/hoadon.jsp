@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <head>
@@ -175,7 +176,9 @@
                         <td>#${hoaDon.idDonHang}</td>
                         <td><span class="payment-method">${hoaDon.tenPhuongThucThanhToan}</span></td>
                         <td>${hoaDon.ngayThanhToan}</td>
-                        <td class="amount">${hoaDon.soTien} VNĐ</td>
+                        <td class="amount">
+                        <fmt:formatNumber value="${hoaDon.soTien}" type="number" groupingUsed="true" />VNĐ
+                        </td>
                             <td>
                                 <form action="${pageContext.request.contextPath}/admin/list-hoadon" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này?')">
                                     <input type="hidden" name="action" value="delete">

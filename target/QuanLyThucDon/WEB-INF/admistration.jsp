@@ -220,7 +220,6 @@
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 25px;
             margin-bottom: 20px;
         }
         
@@ -283,7 +282,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/admin/thongke_doanhthu_theongay" class="submenu-item">
+                        <a href="${pageContext.request.contextPath}/admin/thongke_doanhthu" class="submenu-item">
                             Thống kê doanh thu
                         </a>
                     </li>
@@ -352,6 +351,14 @@
                     <span>Khách hàng</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/admin/list-khuyenmai" class="nav-link">
+                    <i class="fa-solid fa-ticket"></i>
+                    <span>Khuyến Mãi</span>
+                </a>
+            </li>
+
 
             <!-- Đăng xuất -->
             <li class="nav-item">

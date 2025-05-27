@@ -68,8 +68,8 @@
               style="font-size: 28px; color: #ff1236"
             ></i>
           </div>
-          <div class="overlay-title">HNK</div>
-          <h1 class="restaurant-name">Nhà hàng HNK</h1>
+          <div class="overlay-title">23T_Nhat2</div>
+          <h1 class="restaurant-name">Nhà hàng 23T_Nhat2</h1>
           <button class="about-btn"><a href="about.jsp"  style="text-decoration: none; color:white ">VỀ CHÚNG TÔI</a></button>
 
           <!-- Footer -->

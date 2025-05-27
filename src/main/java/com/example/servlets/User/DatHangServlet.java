@@ -76,7 +76,7 @@ public class DatHangServlet extends HttpServlet {
 
 
 
-        int idDonHang = OrderDAO.addOrder(account_id, total, "Cho xu ly", null, hoVaTen, soDienThoai, diaChi);
+        int idDonHang = OrderDAO.addOrder(account_id, total, "CHO_XU_LY", null, hoVaTen, soDienThoai, diaChi);
 
         if (idDonHang == -1) {
             request.setAttribute("error", "Không thể thêm đơn hàng. Vui lòng thử lại!");

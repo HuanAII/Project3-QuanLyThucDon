@@ -96,13 +96,14 @@ public class Admin_add_thucdon extends HttpServlet {
         boolean result = productsDAO.addProduct(product);
 
         if (result) {
-            req.setAttribute("success", "Thêm món ăn thành công!");
+            req.setAttribute("addedMsg", "Thêm món ăn thành công!");
+        
         } else {
             req.setAttribute("error", "Thêm món ăn thất bại!");
             req.setAttribute("product", product);
         }
 
-        req.setAttribute("contentPage", "/WEB-INF/pages/add_thucdon.jsp");
+        req.setAttribute("contentPage", "/WEB-INF/pages/mathang.jsp");
         req.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(req, resp);
     }
 

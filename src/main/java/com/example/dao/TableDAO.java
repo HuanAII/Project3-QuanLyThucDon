@@ -31,46 +31,45 @@ public class TableDAO {
 
         return tables;
     }
-    public static List<Table> getBookedTables() {
-        List<Table> bookedTables = new ArrayList<>();
-        String sql = "SELECT * FROM ban_an WHERE id_table IN (SELECT id_table FROM dat_ban)";
-
-        try (Connection conn = DBConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Table table = new Table(
-                    rs.getString("id_table"),
-                    rs.getInt("table_number"),
-                    rs.getInt("so_cho_ngoi")
-                );
-                bookedTables.add(table);
-            }
-            System.out.println("Tables booked (ban_an): " + bookedTables.size());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return bookedTables;
-    }
-
-
-public static List<Table> getAvailableTables() {
-    List<Table> tables = new ArrayList<>();
-    String sql = "SELECT * FROM ban_an WHERE id_table NOT IN (SELECT id_table FROM dat_ban)";
+public static List<Table> getBookedTables() {
+    List<Table> bookedTables = new ArrayList<>();
+    String sql = "SELECT * FROM ban_an WHERE id_table IN (SELECT DISTINCT id_table FROM dat_ban)";
 
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement stmt = conn.prepareStatement(sql);
          ResultSet rs = stmt.executeQuery()) {
 
         while (rs.next()) {
-            Table table = new Table();
-            table.setIdTable(rs.getString("id_table")); // hoặc "id_table" nếu cột tên như vậy
-            table.setTableNumber(rs.getInt("table_number")); // cột tên đúng là gì?
-            table.setSeats(rs.getInt("so_cho_ngoi")); // cột tên đúng là gì?
+            Table table = new Table(
+                rs.getString("id_table"),
+                rs.getInt("table_number"),
+                rs.getInt("so_cho_ngoi")
+            );
+            bookedTables.add(table);
+        }
+        System.out.println("Tables booked (ban_an): " + bookedTables.size());
 
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return bookedTables;
+}
+
+public static List<Table> getAvailableTables() {
+    List<Table> tables = new ArrayList<>();
+    String sql = "SELECT * FROM ban_an WHERE id_table NOT IN (SELECT DISTINCT id_table FROM dat_ban)";
+
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            Table table = new Table(
+                rs.getString("id_table"),
+                rs.getInt("table_number"),
+                rs.getInt("so_cho_ngoi")
+            );
             tables.add(table);
         }
     } catch (Exception e) {
@@ -79,31 +78,60 @@ public static List<Table> getAvailableTables() {
 
     return tables;
 }
-    public static List<Table> getBookedTablesByDate(java.sql.Date date) {
-        List<Table> bookedTables = new ArrayList<>();
-        String sql = "SELECT * FROM ban_an WHERE id_table IN (SELECT id_table FROM dat_ban WHERE ngay_dat = ?)";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+public static List<Table> getBookedTablesByDate(java.sql.Date date) {
+    List<Table> bookedTables = new ArrayList<>();
+    String sql = "SELECT * FROM ban_an WHERE id_table IN (SELECT id_table FROM dat_ban WHERE ngay_dat = ?)";
 
-            stmt.setDate(1, date);
-            ResultSet rs = stmt.executeQuery();
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            while (rs.next()) {
-                Table table = new Table(
-                    rs.getString("id_table"),
-                    rs.getInt("table_number"),
-                    rs.getInt("so_cho_ngoi")
-                );
-                bookedTables.add(table);
-            }
+        stmt.setDate(1, date);
+        ResultSet rs = stmt.executeQuery();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        while (rs.next()) {
+            Table table = new Table(
+                rs.getString("id_table"),
+                rs.getInt("table_number"),
+                rs.getInt("so_cho_ngoi")
+            );
+            bookedTables.add(table);
         }
 
-        return bookedTables;
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+    return bookedTables;
+}
+
+// Thêm hàm lấy bàn còn trống theo ngày
+public static List<Table> getAvailableTablesByDate(java.sql.Date date) {
+    List<Table> availableTables = new ArrayList<>();
+    String sql = "SELECT * FROM ban_an WHERE id_table NOT IN (SELECT id_table FROM dat_ban WHERE ngay_dat = ?)";
+
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setDate(1, date);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Table table = new Table(
+                rs.getString("id_table"),
+                rs.getInt("table_number"),
+                rs.getInt("so_cho_ngoi")
+            );
+            availableTables.add(table);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return availableTables;
+}
+
 
 
 

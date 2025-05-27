@@ -143,16 +143,16 @@
     <input type="text" id="tenMon" name="tenMon" value="${product.tenMon}" required>
 
     <label for="idDanhMuc">Danh mục</label>
-    <select id="idDanhMuc" name="idDanhMuc" required>
-        <option value="">-- Chọn danh mục --</option>
-        <% for (Category danhMuc : listDanhMuc) { 
-               boolean isSelected = product != null && danhMuc.getId_danhmuc() == product.getIdDanhMuc();
-        %>
-            <option value="<%= danhMuc.getId_danhmuc() %>" <%= isSelected ? "selected" : "" %>>
-                <%= danhMuc.getName_danhmuc() %>
-            </option>
-        <% } %>
-    </select>
+        <select id="idDanhMuc" name="idDanhMuc" required>
+            <option value="">-- Chọn danh mục --</option>
+            <% for (Category danhMuc : listDanhMuc) { 
+                boolean isSelected = product != null && danhMuc.getId_danhmuc() == product.getIdDanhMuc();
+            %>
+                <option value="<%= danhMuc.getId_danhmuc() %>" <%= isSelected ? "selected" : "" %>>
+                    <%= danhMuc.getName_danhmuc() %>
+                </option>
+            <% } %>
+        </select>
 
     <label for="gia">Giá</label>
     <input type="number" id="gia" name="gia" value="${product.gia}" required>

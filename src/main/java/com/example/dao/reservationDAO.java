@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.utils.DBConnection;
 import com.example.models.ReservationItem;
+import com.example.models.Table;
 import com.example.models.reservation;
 
 public class reservationDAO {
@@ -354,4 +355,36 @@ public static boolean saveReservationFromWaitingReservation(reservation res, Str
         closeResources(stmt, conn);
     }
 }
+
+
+public static List<String> getIDBookedTablesByDate(java.sql.Date ngayDat) {
+    List<String> bookedTableIds = new ArrayList<>();
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+        conn = DBConnection.getConnection();
+        String sql = "SELECT DISTINCT id_table FROM dat_ban WHERE ngay_dat = ? AND id_table IS NOT NULL";
+        stmt = conn.prepareStatement(sql);
+        stmt.setDate(1, ngayDat);
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String tableId = rs.getString("id_table");
+            if (tableId != null && !tableId.trim().isEmpty()) {
+                bookedTableIds.add(tableId);
+            }
+        }
+    } catch (Exception e) {
+        System.err.println("Lỗi khi lấy danh sách ID bàn đã được đặt: " + e.getMessage());
+        e.printStackTrace();
+    } finally {
+        closeResources(rs, stmt, conn);
+    }
+
+    return bookedTableIds;
+}
+
+
 }

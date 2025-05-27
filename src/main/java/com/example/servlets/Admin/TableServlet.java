@@ -45,14 +45,13 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
     }
 
     String message = null;
-
     try {
         switch (action) {
             case "add": {
                 String idTable = req.getParameter("idTable");
                 Table checkSame = TableDAO.getTableById(idTable);
                 if (checkSame != null) {
-                    message = "ID bàn ăn đã tồn tại!";
+                   message = "ID bàn ăn đã tồn tại!";
                     break;
                 }
 
@@ -79,7 +78,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
                 int tableNumber = Integer.parseInt(req.getParameter("tableNumber"));
                 int seats = Integer.parseInt(req.getParameter("seats"));
 
-                boolean updated = TableDAO.updateTable(new Table(idTable, seats, tableNumber));
+                boolean updated = TableDAO.updateTable(new Table(idTable, tableNumber, seats));
                 message = updated ? "Cập nhật bàn thành công!" : "Cập nhật bàn thất bại!";
                 break;
             }

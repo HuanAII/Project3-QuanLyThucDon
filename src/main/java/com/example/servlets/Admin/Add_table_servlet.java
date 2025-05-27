@@ -24,9 +24,9 @@ public class Add_table_servlet extends HttpServlet {
         Table newTable = new Table(idTable, tableNumber, seats);
         boolean result = TableDAO.addTable(newTable);
         if (result) {
-            request.setAttribute("success", "Thêm bàn thành công!");
+            request.setAttribute("addedMsg", "Thêm bàn thành công!");
         } else {
-            request.setAttribute("error", "Thêm bàn thất bại!");
+            request.setAttribute("addedMsg", "Thêm bàn thất bại!");
         }
         request.setAttribute("contentPage", "/WEB-INF/pages/tables.jsp");
         request.getRequestDispatcher("/WEB-INF/admistration.jsp").forward(request, response);

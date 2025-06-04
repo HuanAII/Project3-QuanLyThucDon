@@ -15,7 +15,7 @@ body {
   width: 100%;
   background-color: #111;
   position: relative;
-  height: calc(100vh - 130px);
+  height: calc(100vh - 60px);
   overflow: hidden;
 }
 
@@ -28,7 +28,9 @@ body {
 
 /* Individual slides */
 .slide {
+  background-size: cover; 
   position: absolute;
+  background-position: center;
   top: 0;
   left: 0;
   width: 100%;

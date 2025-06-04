@@ -350,7 +350,7 @@
                             </td>
                             <td>
                                 <c:choose>
-                                    <c:when test="${item.idAccount != null}">
+                                    <c:when test="${item.idAccount !=-1}">
                                         <span class="badge badge-primary">${item.idAccount}</span>
                                     </c:when>
                                     <c:otherwise>

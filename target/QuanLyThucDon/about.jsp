@@ -26,16 +26,16 @@
       <div class="about-content">
         <div class="about-text">
           <p>
-            <span class="bold">Ant Bistro</span> là một sản phẩm trực thuộc Ant
+            <span class="bold">23T_Nhat2</span> là một sản phẩm trực thuộc Ant
             Group – doanh nghiệp đi đầu trong lĩnh vực thương mại điện tử Việt
             Nam.
           </p>
 
           <p>
             Được thành lập vào cuối năm 2010, cho tới nay
-            <span class="highlight">Ant Bistro</span> đã có
+            <span class="highlight">23T_Nhat2</span> đã có
             <span class="highlight">500</span> nhân viên làm việc tại
-            <span class="highlight">02</span> thành phố lớn là Hà nội và Tp. Hồ
+            <span class="highlight">02</span> thành phố lớn là Đà Nẵng và Tp. Hồ
             Chí Minh phục vụ trên <span class="highlight">01 triệu</span> khách
             hàng trên toàn quốc.
           </p>
@@ -71,7 +71,7 @@
           <div class="contact-box">
             <i class="fas fa-map-marker-alt fa-2x"></i>
             <h3>ĐỊA CHỈ</h3>
-            <p>70 Lu Gia, Ward 15, District 11, Ho Chi Minh City</p>
+            <p>30 Đ. 2 Tháng 9, Bình Hiên, Hải Châu, Đà Nẵng 550000</p>
           </div>
 
           <div class="contact-box">

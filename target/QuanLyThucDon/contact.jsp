@@ -33,7 +33,7 @@
           ></iframe>
 
           <div class="map-info">
-            <h3>Ant Bistro - Đà Nẵng</h3>
+            <h3>Nhà hàng 23T_Nhat2 - Đà Nẵng</h3>
             <p>30 Đ. 2 Tháng 9, Bình Hiên, Hải Châu, Đà Nẵng 550000</p>
             <a href="#">Xem bản đồ lớn hơn</a>
           </div>

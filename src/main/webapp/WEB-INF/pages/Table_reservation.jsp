@@ -351,7 +351,8 @@
                             <td>
                                 <c:choose>
                                     <c:when test="${item.idAccount !=-1}">
-                                        <span class="badge badge-primary">${item.idAccount}</span>
+                                    <%-- ${item.idAccount} --%>
+                                        <span class="badge badge-primary">Khách thành viên</span>
                                     </c:when>
                                     <c:otherwise>
                                         <span class="badge badge-secondary">Khách vãng lai</span>

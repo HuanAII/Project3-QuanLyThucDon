@@ -1,13 +1,13 @@
-    package com.example.servlets.User;
+package com.example.servlets.User;
 
-    import java.io.IOException;
-    import java.util.ArrayList;
-    import java.util.List;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.dao.CartDAO;
 import com.example.dao.productsDAO;
-    import com.example.models.CartItem;
-    import com.example.models.Product;
+import com.example.models.CartItem;
+import com.example.models.Product;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

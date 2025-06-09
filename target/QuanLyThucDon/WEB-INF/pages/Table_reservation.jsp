@@ -324,7 +324,7 @@
                         <th>Giờ Đặt</th>
                         <th>Món Ăn Kèm</th>
                         <th>Ghi Chú</th>
-                        <th>Tài Khoản</th>
+                        <th>Nhóm khách</th>
                         <th>Thao Tác</th>
                     </tr>
                 </thead>

@@ -44,9 +44,9 @@
                         <input type="checkbox" id="remember" name="remember">
                         <label for="remember">Ghi nhớ đăng nhập</label>
                     </div>
-                    <div class="forgot">
+                    <%-- <div class="forgot">
                         <a href="forgotPassword">Quên mật khẩu?</a>
-                    </div>
+                    </div> --%>
                 </div>
                 <button type="submit" class="btn">Đăng nhập</button>
                 <div class="register">

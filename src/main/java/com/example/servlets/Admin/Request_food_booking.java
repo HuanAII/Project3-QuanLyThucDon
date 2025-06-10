@@ -92,9 +92,6 @@ public class Request_food_booking extends HttpServlet {
 
                 message = result ? "Xóa đơn hàng thành công!" : "Xóa đơn hàng thất bại.";
             } else if (action.equals("UpdateStatus")) {
-                if (status == "DA_HOAN_THANH"){
-  
-                }
                 boolean result = OrderDAO.updateOrderStatus(orderId, status);
                 message = result ? "Cập nhật trạng thái thành công!" : "Cập nhật trạng thái thất bại.";
             } 

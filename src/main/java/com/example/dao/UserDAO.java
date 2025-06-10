@@ -559,4 +559,24 @@ public class UserDAO {
         return user;
     }
 
-}
+
+    public static int getUserIdByPhone(String username) {
+        int userId = -1;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DBConnection.getConnection();
+            String sql = "SELECT id FROM user_account WHERE sdt = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                userId = resultSet.getInt("id");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+                }
+        return userId;        
+     }
+    }

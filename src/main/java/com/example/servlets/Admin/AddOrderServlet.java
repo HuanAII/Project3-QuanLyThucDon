@@ -1,6 +1,7 @@
 package com.example.servlets.Admin;
 
 import com.example.dao.OrderDAO;
+import com.example.dao.UserDAO;
 import com.example.dao.productsDAO;
 import com.example.dao.DetailOrderDAO;
 import com.example.dao.DatBanDAO; 
@@ -47,8 +48,12 @@ public class AddOrderServlet extends HttpServlet {
             }
         }
 
-        // Tạo đơn hàng
-        int idDonHang = OrderDAO.addOrder(null, total, status, idTable, tenKH, sdt, diaChi);
+        int idAccount = UserDAO.getUserIdByPhone(sdt);
+        int idDonHang;
+        if (idAccount == -1) {
+            idDonHang = OrderDAO.addOrder(null, total, status, idTable, tenKH, sdt, diaChi);
+        }
+        else idDonHang = OrderDAO.addOrder(idAccount, total, status, idTable, tenKH, sdt, diaChi);
 
         if (idDonHang != -1) {
             // Thêm chi tiết đơn hàng

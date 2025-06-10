@@ -67,7 +67,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
                     break;
                 }
 
-                boolean saveTable = TableDAO.addTable(new Table(idTable, seats, numberTable));
+                boolean saveTable = TableDAO.addTable(new Table(idTable, numberTable,seats));
                 message = saveTable ? "Lưu bàn thành công" : "Lưu bàn thất bại";
                 break;
             }

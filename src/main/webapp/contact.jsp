@@ -75,7 +75,7 @@
           </div>
         </div>
 
-        <!-- Contact Form -->
+        <%-- <!-- Contact Form -->
         <div class="contact-form">
           <div class="form-group">
             <label class="form-label">Họ và tên</label>
@@ -114,7 +114,7 @@
 
           <button type="submit" class="submit-btn">GỬI TIN NHẮN</button>
         </div>
-      </div>
+      </div> --%>
 
     </main>
 

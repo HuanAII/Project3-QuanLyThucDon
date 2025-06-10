@@ -17,11 +17,6 @@
 
 <body>
     <header class="header">
-        <%-- <div class="logo-container">
-            <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="Ant Bistro Logo" class="logo">
-            <div class="logo-text">ANT BISTRO</div>
-        </div> --%>
-
         <a href="CartServlet" class="notification-icon">
             <i class="fa-solid fa-cart-shopping"></i>
         </a>    
@@ -51,7 +46,7 @@
 
             <div class="user-actions">
                 <% if (user != null) { %>
-                   <a href="${pageContext.request.contextPath}/profile"> <span class="welcome-text"><%= user %></span></a>
+                   <a href="${pageContext.request.contextPath}/profile"> <span class="welcome-text nav-item"><%= user %></span></a>
                     <a href="${pageContext.request.contextPath}/LogoutServlet" class="nav-item">Đăng xuất</a>
                 <% } else { %>
                     <a href="${pageContext.request.contextPath}/login.jsp" class="nav-item">Đăng nhập</a>

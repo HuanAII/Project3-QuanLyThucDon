@@ -82,32 +82,25 @@
     </main>
       <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Biến lưu các slide
+    
     const slides = document.querySelectorAll('.slide');
     
-    // Hàm chuyển sang slide tiếp theo
     function nextSlide() {
-      // Tìm slide đang hiển thị
       const activeSlide = document.querySelector('.slide.active');
-      // Xóa class active
-      activeSlide.classList.remove('active');
       
-      // Tìm slide tiếp theo (hoặc quay lại slide đầu tiên)
+      activeSlide.classList.remove('active');
       let nextSlide;
       if (activeSlide.nextElementSibling && activeSlide.nextElementSibling.classList.contains('slide')) {
         nextSlide = activeSlide.nextElementSibling;
       } else {
         nextSlide = slides[0];
       }
-      
-      // Kích hoạt slide tiếp theo
       nextSlide.classList.add('active');
       
-      // Cập nhật dots
+      
       updateDots(Array.from(slides).indexOf(nextSlide));
     }
     
-    // Hàm cập nhật chỉ báo dots
     function updateDots(index) {
       const dots = document.querySelectorAll('.slide-dot');
       dots.forEach(dot => dot.classList.remove('active'));

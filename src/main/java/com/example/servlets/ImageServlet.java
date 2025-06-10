@@ -28,10 +28,10 @@ public class ImageServlet extends HttpServlet {
         // Kiểm tra nếu file tồn tại
         if (imageFile.exists()) {
             String mimeType = getServletContext().getMimeType(imageFile.getName());
-            response.setContentType(mimeType != null ? mimeType : "application/octet-stream"); // Đặt loại MIME phù hợp
-            Files.copy(imageFile.toPath(), response.getOutputStream());  // Gửi file đến client
+            response.setContentType(mimeType != null ? mimeType : "application/octet-stream");
+            Files.copy(imageFile.toPath(), response.getOutputStream());  
         } else {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);  // Trả lỗi nếu không tìm thấy file
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);  
         }
     }
 }

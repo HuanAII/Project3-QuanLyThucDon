@@ -42,7 +42,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
                         .append("), ");
         }
         if (foodsBuilder.length() > 2) {
-            foodsBuilder.setLength(foodsBuilder.length() - 2); // Xóa dấu phẩy cuối
+            foodsBuilder.setLength(foodsBuilder.length() - 2); 
         }
         foods = foodsBuilder.toString();
     }
@@ -74,7 +74,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
                     );
                     reservation_item_DAO.save(reservation_item);
                 }
-                request.getSession().removeAttribute("cart"); // Xóa giỏ sau khi đặt
+                request.getSession().removeAttribute("cart"); 
             }
             resultMessage = "Đặt bàn thành công! Chúng tôi sẽ liên hệ với bạn.";
         } else {

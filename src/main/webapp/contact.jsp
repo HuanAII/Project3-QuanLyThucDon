@@ -118,21 +118,6 @@
 
     </main>
 
-    <!-- Bottom Navigation -->
-    <!-- <nav class="bottom-navbar">
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-user"></i></div>
-            <div>Tài khoản</div>
-        </a>
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-search"></i></div>
-            <div>Tìm kiếm</div>
-        </a>
-        <a href="#" class="bottom-nav-item">
-            <div class="bottom-nav-icon"><i class="fas fa-shopping-cart"></i></div>
-            <div>Giỏ hàng</div>
-        </a>
-    </nav> -->
     <script src="./assets/js/contact.js"></script>
   </body>
 </html>

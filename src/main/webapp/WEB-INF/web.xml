@@ -13,6 +13,101 @@
         <servlet-name>ProductsServlet</servlet-name>
         <url-pattern>/ProductsServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+    <servlet-name>staticFiles</servlet-name>
+    <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+    <init-param>
+        <param-name>debug</param-name>
+        <param-value>0</param-value>
+    </init-param>
+    <init-param>
+        <param-name>listings</param-name>
+        <param-value>false</param-value>
+    </init-param>
+    <init-param>
+        <param-name>docBase</param-name>
+        <param-value>D:/PBL3/IMG/uploads</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>staticFiles</servlet-name>
+    <url-pattern>/uploads/*</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>ThongKeServlet</servlet-name>
+    <servlet-class>com.example.servlets.Admin.ThongKeServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>ThongKeServlet</servlet-name>
+    <url-pattern>/thongke</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>ThongKeServlet</servlet-name>
+    <servlet-class>com.example.servlets.Admin.ThongKeServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>ThongKeServlet</servlet-name>
+    <url-pattern>/admin/thongke</url-pattern>
+</servlet-mapping>
+
+<filter>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>com.example.filters.AuthenticationFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+</filter-mapping>
+
+<filter>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>com.example.filters.AuthenticationFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+</filter-mapping>
+
+<filter>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>com.example.filters.AuthenticationFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+    <url-pattern>/admin/thucdon/*</url-pattern>
+    <url-pattern>/admin/list-*</url-pattern>
+    <url-pattern>/admin/Waiting_*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+</filter-mapping>
+
+<error-page>
+    <error-code>403</error-code>
+    <location>/accessDenied.jsp</location>
+</error-page>
+
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>Admin Area</web-resource-name>
+        <url-pattern>/admin/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+        <role-name>admin</role-name>
+    </auth-constraint>
+</security-constraint>
+
 </web-app>
 
     

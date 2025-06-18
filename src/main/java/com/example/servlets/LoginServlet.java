@@ -46,15 +46,19 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             // Đăng nhập thành công, tạo session
             HttpSession session = request.getSession();
-            session.setAttribute("user", user);
+            String username = user.getUsername().toString();
+            String userId = user.getId().toString();
+            session.setAttribute("user", username);
+            session.setAttribute("account_id", userId);
+            session.setAttribute("role", user.getRole());
 
             // Nếu "Ghi nhớ đăng nhập" được chọn, tạo cookie
             if (rememberMe != null) {
                 Cookie userCookie = new Cookie("userLogin", usernameOrEmail);
-                userCookie.setMaxAge(24 * 60 * 60); // 1 ngày
+                userCookie.setMaxAge(24 * 60 * 60); 
                 response.addCookie(userCookie);
             } else {
-                // Xóa cookie nếu có
+            
                 Cookie[] cookies = request.getCookies();
                 if (cookies != null) {
                     for (Cookie cookie : cookies) {
@@ -68,13 +72,11 @@ public class LoginServlet extends HttpServlet {
             }
 
             // Chuyển hướng dựa trên vai trò của người dùng
-            if ("admin".equals(user.getRole())) {
-                response.sendRedirect("admin/dashboard.jsp");
-            } else if ("manager".equals(user.getRole())) {
-                response.sendRedirect("manager/dashboard.jsp");
+            if ("Quản lý".equals(user.getRole())) {
+                response.sendRedirect(request.getContextPath() + "/admin/thongke_thucdon");
             } else {
                 // Người dùng thông thường
-                response.sendRedirect("home.jsp");
+                response.sendRedirect("index.jsp");
             }
         } else {
             // Đăng nhập thất bại, quay lại trang đăng nhập với thông báo lỗi

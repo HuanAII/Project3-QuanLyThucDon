@@ -12,27 +12,27 @@ body {
   overflow-x: hidden;
 }
 
-/* Header and Horizontal Navigation (giữ nguyên từ trang chính) */
-.header {
-  background-color: #000;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  height: 80px;
-  position: relative;
-  z-index: 100;
-}
-
+/* Logo */
 .logo-container {
   display: flex;
   align-items: center;
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
+  padding: 0px;
+  visibility: hidden;
+}
+
+.logoM {
+  width: 80px;
+  height: 55px;
+  padding: 0px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  border-radius: 999px;
 }
 
 .logo-text {
@@ -41,31 +41,61 @@ body {
   font-size: 18px;
 }
 
+/* Thanh điều hướng */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
 .horizontal-nav {
   display: flex;
   justify-content: center;
   background-color: #111;
-  padding: 15px 0;
+  padding: 7px 0;
   border-top: 1px solid #333;
   border-bottom: 1px solid #333;
   overflow-x: auto;
   white-space: nowrap;
   position: relative;
   z-index: 100;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin-left: 20px;
+  margin-top: 10px;
+  padding: 0;
 }
 
 .nav-item {
-  padding: 0 20px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: color 0.2s;
-  color: white;
-  position: relative;
+  text-decoration: none;
+  color: #f0f0f0;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px 5px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
 }
 
-.nav-item:hover,
+.nav-item:hover {
+  background-color: #333;
+  color: #fff;
+  transform: scale(1.05);
+}
+
 .nav-item.active {
-  color: #ff1236;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .nav-item.expandable {
@@ -79,16 +109,17 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
+/* Dropdown Menu */
 
 /* Notification Icon */
 .notification-icon {
   position: fixed;
-  top: 20px;
+  bottom: 30px;
   right: 70px;
   background-color: #ff1236;
   color: white;
-  width: 40px;
-  height: 40px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -104,42 +135,36 @@ body {
   cursor: pointer;
   font-size: 24px;
 }
-/* Responsive */
-@media (max-width: 992px) {
-  .horizontal-nav {
-    padding: 10px 0;
-    overflow-x: auto;
-  }
 
-  .nav-item {
-    padding: 0 15px;
-    font-size: 14px;
-  }
+nav a {
+  text-decoration: none;
+  color: white;
 }
 
-@media (max-width: 768px) {
-  .mobile-menu-toggle {
-    display: block;
-  }
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+  margin-right: 20px;
+}
 
-  .horizontal-nav {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background-color: #111;
-    z-index: 101;
-  }
+.user-actions .nav-item {
+  color: #f0f0f0;
+  font-size: 14px;
+  padding: 8px 15px;
+  border: 1px solid #f0f0f0;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
 
-  .horizontal-nav.active {
-    display: flex;
-  }
+.user-actions .nav-item:hover {
+  background-color: #f0f0f0;
+  color: #1a1a1a;
+}
 
-  .nav-item {
-    padding: 15px 20px;
-    text-align: center;
-    border-bottom: 1px solid #333;
-  }
+.welcome-text {
+  color: #f0f0f0;
+  font-weight: bold;
+  margin-right: 10px;
 }

@@ -4,133 +4,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Quản Trị</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f7fc;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        h1 {
-            font-size: 2em;
-            text-align: center;
-            color: #1a73e8;
-            padding: 20px;
-            background-color: #fff;
-            border-bottom: 2px solid #ddd;
-            margin-bottom: 20px;
-        }
-        .container {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px;
-        }
-        .menu {
-            width: 25%;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .menu ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        .menu li {
-            margin: 10px 0;
-        }
-        .menu a {
-            color: #007bff;
-            text-decoration: none;
-            font-size: 1.1em;
-            display: block;
-            padding: 8px 16px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .menu a:hover {
-            background-color: #007bff;
-            color: white;
-        }
-
-        /* Submenu style */
-        .submenu {
-            display: none;
-            background-color: #f0f4ff;
-            border-left: 3px solid #007bff;
-            margin-left: 10px;
-            padding-left: 15px;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            border-radius: 4px;
-            font-size: 0.95em;
-        }
-
-        .submenu li {
-            margin: 6px 0;
-        }
-
-        .submenu a {
-            font-size: 1em;
-            padding: 6px 12px;
-            color: #333;
-            background-color: transparent;
-        }
-
-        .submenu a:hover {
-            background-color: #e6f0ff;
-            color: #007bff;
-        }
-
-        .content {
-            width: 70%;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-    <script>
-        function toggleSubMenu() {
-            const sub = document.getElementById("thucdon-submenu");
-            sub.style.display = sub.style.display === "block" ? "none" : "block";
-        }
-    </script>
+    <title>Quản Trị Nhà Hàng</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/administration.css">
 </head>
 <body>
-<h1>Quản Trị Nhà Hàng</h1>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>Nhà Hàng</span>
+            </div>
+        </div>
 
-<div class="container">
-    <!-- Menu -->
-    <div class="menu">
-        <ul>
-            <li><a href="${pageContext.request.contextPath}/admin/thongke">Thống kê</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/datban">Đặt bàn</a></li>
-
-            <li>
-                <a href="javascript:void(0);" onclick="toggleSubMenu()">Thực đơn ▾</a>
-                <ul id="thucdon-submenu" class="submenu">
-                    <li><a href="${pageContext.request.contextPath}/admin/thucdon/mathang">Danh sách thực đơn</a></li>
-                    <li><a href="${pageContext.request.contextPath}/admin/thucdon/danhmuc">Danh mục</a></li>
+        <ul class="nav-menu">
+            <!-- Thống kê -->
+            <li class="nav-item">
+                <div class="nav-link toggle-submenu" id="thongke-toggle">
+                    <div class="menu-item">
+                        <i class="fas fa-book-open"></i>
+                        <span>Thống kê</span>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="submenu" id="thongke-submenu">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/thongke_account" class="submenu-item">
+                            Thống kê tài khoản
+                        </a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/thongke_thucdon" class="submenu-item">
+                            Thống kê thực đơn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/thongke_doanhthu" class="submenu-item">
+                            Thống kê doanh thu
+                        </a>
+                    </li>
                 </ul>
             </li>
 
-            <li><a href="${pageContext.request.contextPath}/admin/hoadon">Hóa đơn</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/nhanvien">Nhân viên</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/khachhang">Khách hàng</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/hethong">Hệ thống</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/thietlap">Thiết lập nhà hàng</a></li>
+            <!-- Yêu cầu đặt món -->
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/admin/datmon" class="nav-link">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Yêu cầu đặt món</span>
+                </a>
+            </li>
+
+            <!-- Yêu cầu đặt bàn -->
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/admin/Waiting_booking_table" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Yêu cầu đặt bàn</span>
+                </a>
+            </li>
+
+            <!-- Hóa đơn -->
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/admin/list-hoadon" class="nav-link">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Hóa đơn</span>
+                </a>
+            </li>
+
+            <!-- Thực đơn -->
+            <li class="nav-item">
+                <div class="nav-link toggle-submenu" id="thucdon-toggle">
+                    <div>
+                        <i class="fas fa-book-open"></i>
+                        <span>Thực đơn</span>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="submenu" id="thucdon-submenu">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/thucdon/mathang" class="submenu-item">
+                            Danh sách thực đơn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/thucdon/danhmuc" class="submenu-item">
+                            Danh mục
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Bàn ăn -->
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/admin/tables" class="nav-link">
+                    <i class="fas fa-chair"></i>
+                    <span>Bàn ăn</span>
+                </a>
+            </li>
+
+            <!-- Khách hàng -->
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/admin/customers" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Khách hàng</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/admin/list-khuyenmai" class="nav-link">
+                    <i class="fa-solid fa-ticket"></i>
+                    <span>Khuyến Mãi</span>
+                </a>
+            </li>
+
+
+            <!-- Đăng xuất -->
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/LogoutServlet" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng xuất</span>
+                </a>
+            </li>
         </ul>
     </div>
 
-    <!-- Content -->
-    <div class="content">
-        <jsp:include page="${contentPage}" />
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <div class="content-container">
+            <jsp:include page="${contentPage}" />
+        </div>
     </div>
-</div>
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle từng submenu
+        document.getElementById('thongke-toggle').addEventListener('click', function () {
+            this.classList.toggle('active');
+            document.getElementById('thongke-submenu').classList.toggle('active');
+        });
+
+        document.getElementById('thucdon-toggle').addEventListener('click', function () {
+            this.classList.toggle('active');
+            document.getElementById('thucdon-submenu').classList.toggle('active');
+        });
+
+        // Toggle sidebar
+        document.getElementById('toggle-sidebar').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Active menu highlight
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link a, .submenu-item');
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && currentPath.includes(href)) {
+                    link.classList.add('active');
+
+                    const submenu = link.closest('.submenu');
+                    if (submenu) {
+                        submenu.classList.add('active');
+                        const toggle = submenu.previousElementSibling;
+                        if (toggle) toggle.classList.add('active');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
-</html>

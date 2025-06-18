@@ -110,10 +110,12 @@ textarea {
 
 .btn-order {
   margin-top: 20px;
+  padding: 5px;
   width: 100%;
-  background: #e53935;
+  background: #ff2420;
   font-weight: bold;
   font-size: 18px;
+  border-radius: 15px;
 }
 
 .payment-method {

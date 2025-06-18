@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
   <head>
@@ -13,12 +14,20 @@
     <jsp:include page="menu.jsp" />
 
     <main>
-      <%-- Danh sách sản phẩm trong giỏ hàng --%>
+      <%-- THONG BAO --%>
+    <% String thongBao = (String) request.getAttribute("thongBao"); %>
+    <% if (thongBao != null) { %>
+        <div class="thong-bao" style="color: red; font-weight: bold;"><%= thongBao %></div>
+    <%  
+    session.removeAttribute("thongBao"); 
+    } 
+    %>
+
       <div class="cart-container">
 
           <c:forEach items="${cart}" var="o">
             <div class="cart-item">
-              <img src="${o.hinhAnh}" alt="ảnh món ăn" />
+              <img src="http://localhost:8080/QuanLyThucDon/uploads/${o.hinhAnh}" alt="ảnh món ăn" />
               
               <div class="info">
                 <h3>${o.tenMon}</h3>
@@ -30,7 +39,10 @@
                 </span>
               </div>
 
-              <div class="price">${o.gia}</div>
+                <div class="price">
+                    <fmt:formatNumber value="${o.gia}" type="number" groupingUsed="true" /> VND
+                </div>
+
 
               <div class="quantity">
                 <form action="UpdateCartServlet" method="get" style="display:flex; align-items:center;">
@@ -48,10 +60,10 @@
 
       <%-- Tóm tắt giỏ hàng --%>
       <div class="summary">
-        <a href="ProductsServlet" class="continue">← Tiếp tục mua hàng</a>
+        <a href="products.jsp" class="continue">← Tiếp tục mua hàng</a>
         <div class="total">
-          <p>Tạm tính: <strong>${tongTien} VND</strong></p>
-          <p>Thành tiền: <strong class="highlight">${tongTien} VND</strong></p>
+          <p>Tạm tính: <strong><fmt:formatNumber value="${tongTien}" type="number" groupingUsed="true" /> VNĐ</strong></p>
+          <p>Thành tiền: <strong class="highlight"><fmt:formatNumber value="${tongTien}" type="number" groupingUsed="true" /> VND</strong></p>
           <form action="ThanhToanServlet" method="post">
           <input type="hidden" name="thanhtoan" />
           <button class="checkout">THANH TOÁN NGAY</button>
